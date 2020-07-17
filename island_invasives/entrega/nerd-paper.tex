@@ -1,38 +1,4 @@
-\documentclass[12pt,letterpaper,onecolumn]{article} % Declara tipo de documento
-%% Declara paquetes usados en el documento
-\usepackage{amsfonts,amsmath,amssymb,amsthm,dsfont} % Escribir símbolos matemáticos
-\usepackage[utf8]{inputenc} % Incluir acentos en UTF-8
-\usepackage{graphicx} % Incluir figuras
-\usepackage{subcaption} % Escribe pies en subfiguras
-\usepackage{parskip} % Incluir saltos de líneas entre párrafos (mismo efecto que \\)
-\usepackage[nottoc]{tocbibind} % Agrega sección de referencias a la tabla de contenido
-\usepackage{fancyhdr,lastpage} % Encabezados y pies de página
-
-\setlength{\parindent}{20pt} % Aumenta la sangría al inicio del párrafo
-%% Declara estilo de encabezados y pies de páginas
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\footnotesize{Numerical Estimation of Rodenticide Dispersal}} % lado izquierdo del encabezado de página
-\rhead{\footnotesize{GECI}} % lado derecho del encabezado de página
-\rfoot{\scriptsize{\thepage\ de \pageref{LastPage}}} % pie de página
-%% Encabezado del artículo
-\title{Improving the efficiency of aerial rodent eradications: The \textit{ad hoc} development of NERD, an original mathematically founded implementation}
-\author{Evaristo Rojas-Mayoral, Federico A. M\'endez-S\'anchez, \\
-Araceli Samaniego-Herrera, Ana G. C\'ardenas-Tapia, \\
-Braulio Rojas-Mayoral, Alfonso Aguirre-Mu\~noz}
-%% Inicia documento con encabezado e índice
-\begin{document}
-\maketitle
-\tableofcontents
-\clearpage
-%% Llama secciones del documento que se encuentran en archivos TEX separados
-\input{abstract}
-\input{introduction}
 \input{formulation}
 \input{calibration}
 \input{application}
 \input{discussion}
-%% Genera seción de referencias
-\bibliographystyle{unsrt}
-\bibliography{references}
-\end{document}
