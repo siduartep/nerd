@@ -35,4 +35,8 @@ def normal(distance: float, width: float, parameter: float) -> float:
     :return:
     """
     standard_deviation = width / 4
-    return parameter / np.sqrt(2 * np.pi * standard_deviation ** 2) * np.exp(-distance ** 2 / (2 * standard_deviation ** 2))
+    return (
+        parameter
+        / np.sqrt(2 * np.pi * standard_deviation ** 2)
+        * np.exp(-(distance ** 2) / (2 * standard_deviation ** 2))
+    )

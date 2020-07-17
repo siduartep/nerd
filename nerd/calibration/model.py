@@ -3,9 +3,13 @@ import numpy as np
 from .. import solver
 
 
-def model(aperture_diameter: np.array, helicopter_speed: np.array,
-          swath_width: float, density_function: Callable,
-          flow_rate_function: Callable) -> np.array:
+def model(
+    aperture_diameter: np.array,
+    helicopter_speed: np.array,
+    swath_width: float,
+    density_function: Callable,
+    flow_rate_function: Callable,
+) -> np.array:
     """
     Calculate the density matrix directly below the helicopter (nadir) as a
         function of the aperture diameter and the helicopter speed
@@ -22,10 +26,12 @@ def model(aperture_diameter: np.array, helicopter_speed: np.array,
         of aperture_diameter and helicopter_speed
     """
     distance = 0
+    assert distance == 0
     densidad = np.zeros([len(helicopter_speed), len(aperture_diameter)])
     for i_diametro, diametro in enumerate(aperture_diameter):
         for i_rapidez, rapidez in enumerate(helicopter_speed):
-            get_density = solver(diametro, rapidez, swath_width,
-                                 density_function, flow_rate_function)
+            get_density = solver(
+                diametro, rapidez, swath_width, density_function, flow_rate_function
+            )
             densidad[i_rapidez][i_diametro] = get_density(distance)
     return np.array(densidad)

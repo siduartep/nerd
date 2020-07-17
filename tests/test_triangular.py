@@ -2,6 +2,7 @@ import numpy as np
 from unittest import TestCase
 from nerd.density_functions import triangular
 
+
 class TestTriangular(TestCase):
     def setUp(self) -> None:
         self.w = 60
@@ -15,5 +16,5 @@ class TestTriangular(TestCase):
 
     def test_triangular_vector(self):
         density = triangular(np.array([-self.w, 0, self.w / 3, self.w]), self.w, self.p)
-        expected = np.array([0, self.p, self.p/3, 0])
+        expected = np.array([0, self.p, self.p / 3, 0])
         self.assertTrue(np.allclose(density, expected))

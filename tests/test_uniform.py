@@ -2,6 +2,7 @@ import numpy as np
 from unittest import TestCase
 from nerd.density_functions import uniform
 
+
 class TestUniform(TestCase):
     def setUp(self) -> None:
         self.w = 60

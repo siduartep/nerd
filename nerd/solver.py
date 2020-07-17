@@ -3,7 +3,13 @@ from scipy.integrate import quad
 from scipy.optimize import fsolve
 
 
-def solver(aperture_diameter: float, helicopter_speed: float, swath_width: float, density_function: Callable, flow_rate_function: Callable) -> Callable:
+def solver(
+    aperture_diameter: float,
+    helicopter_speed: float,
+    swath_width: float,
+    density_function: Callable,
+    flow_rate_function: Callable,
+) -> Callable:
     """
     Fit model for bait density as a function of perpendicular distance in meters
         (m) from flight path
@@ -19,10 +25,13 @@ def solver(aperture_diameter: float, helicopter_speed: float, swath_width: float
     :return: Function for bait density (kg/m^2) profile with respect to
         perpendicular distance (m) from flight path
     """
+
     def mass_conservation(parametro_libre):
-        def sigma(distance): return density_function(
-            distance, swath_width, parametro_libre)
+        def sigma(distance):
+            return density_function(distance, swath_width, parametro_libre)
+
         integral = quad(sigma, -swath_width / 2, swath_width / 2)[0]
         return integral - flow_rate_function(aperture_diameter) / helicopter_speed
+
     parametro_ajustado = fsolve(mass_conservation, 1)[0]
     return lambda x: density_function(x, swath_width, parametro_ajustado)

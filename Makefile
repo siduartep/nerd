@@ -1,34 +1,40 @@
-all: install tests
+all: mutants
 
-.PHONY: \
-    all \
-    build \
-    build_demo \
-    clean \
-    install \
-    lint \
-    run_demo \
-    tests \
+repo = nerd
+codecov_token = 84e068b0-5f49-4a9e-b08a-b90e880fbc6a
 
-build:
-	docker build --tag=islasgeci/nerd .
+.PHONY: all clean format install lint mutants tests
+
+clean:
+	rm --force .mutmut-cache
+	rm --recursive --force ${repo}.egg-info
+	rm --recursive --force ${repo}/__pycache__
+	rm --recursive --force test/__pycache__
+
+format:
+	black --check --line-length 100 ${repo}
+	black --check --line-length 100 tests
 
 install:
 	pip install --editable .
 
 lint:
-	pylint nerd
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+	pylint \
+        --disable=bad-continuation \
+        --disable=missing-function-docstring \
+        --disable=missing-module-docstring \
+        ${repo}
+	pylint \
+        --disable=bad-continuation \
+        --disable=missing-function-docstring \
+        --disable=missing-module-docstring \
+        tests
 
-tests:
-	pytest --cov=nerd --cov-report=term --verbose
+mutants:
+	mutmut run --paths-to-mutate ${repo}
 
-clean:
-	rm --force --recursive .pytest_cache
-	rm --force --recursive $(find . -name '__pycache__')
-
-#Demonstration
-build_demo:
-	docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo .
-
-run_demo:
-	docker run --publish 8080:8888 --rm islasgeci/nerd_demo
+tests: install
+	pytest --cov=${repo} --cov-report=xml --verbose && \
+	codecov --token=${codecov_token}
