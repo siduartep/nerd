@@ -52,11 +52,11 @@ The effects of invasive rodent species on island ecosystems are incredibly delet
 on islands that present high levels of endemism and islands that have evolved in the absence of
 predators occupying similar niches to the invasive rodent species or higher order predators
 [@Meyers2000]. Under these circumstances, the presence of invasive rodents on islands can lead to
-the rapid decline and extinction of native plant and animal species [@Medina2011 and @Towns2006].
-The resultant losses are reflected in reduced biodiversity on the affected islands and in many
-cases, the emergence of the invasive rodent as the dominant species. In severe cases of rodent
-invasion, key island ecosystem services are lost (e.g. [@Towns2006]. As such, the first step in
-island restoration and biodiversity recovery is the eradication of invasive rodent species.
+the rapid decline and extinction of native plant and animal species [@Medina2011; @Towns2006]. The
+resultant losses are reflected in reduced biodiversity on the affected islands and in many cases,
+the emergence of the invasive rodent as the dominant species. In severe cases of rodent invasion,
+key island ecosystem services are lost [@Towns2006]. As such, the first step in island restoration
+and biodiversity recovery is the eradication of invasive rodent species.
 
 Of the various means of rodent eradication on islands, the aerial broadcast of rodenticide bait is
 one of the preferred methods given the obvious advantages. The aerial dispersal of rodenticide can
