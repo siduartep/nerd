@@ -1,0 +1,11 @@
+numpy
+scipy
+utm
+# Modulos para desarrollo:
+autopep8
+codecov
+pandas
+pylint
+pytest-cov
+pytest==5.0.1
+rope
