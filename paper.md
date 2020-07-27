@@ -85,7 +85,7 @@ flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath widt
 
 ![Schematic of a helicopter’s flight path over a swath with three dispersal cells; $w$ is the swath
 width; $\delta y$ is the distance between two GPS points; and $A_{\mbox{cell}}$ is the area of a
-dispersal cell. \label{fig:esquemaHelicoptero}](figures/helicopter-flight-path.svg)
+dispersal cell. \label{fig:esquemaHelicoptero}](figures/helicopter-flight-path.png)
 
 We set the origin of a Cartesian coordinate system on the middle point of the inferior side of a
 rectangle with base $w$ and height $\delta y$. This way, the inferior side is found at $y=0$, the
@@ -100,10 +100,10 @@ etiquetarla \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0
 \sigma(x,y)dydx. \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
 
 ![Constant bait density along each swath.
-\label{fig:densidadConstante}](figures/constant-bait-density.svg)
+\label{fig:densidadConstante}](figures/constant-bait-density.png)
 
 ![Variable bait density along each swath.
-\label{fig:densidadVariable}](figures/variable-bait-density.svg)
+\label{fig:densidadVariable}](figures/variable-bait-density.png)
 
 Hypothetical island with bait swaths. Each green band represents one bait swath. The intensity of
 the bait swath color corresponds to its density, with darker colors indicating greater densities.
