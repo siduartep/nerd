@@ -198,3 +198,14 @@ below the lower limit of the target bait density or of gaps on the ground withou
 
 To account for the effect of the wind on the bait density profile, an asymmetric and fully variable
 bait density distribution within each swath is allowed (Figure \ref{fig:densidadAsimetrica}).
+
+# Discussion
+
+NERD: Numerical Estimation of Rodenticide Dispersal provides provides a mathematical model, based on
+past calibration experiments in which the mass flow of bait through a bait bucket is measured, that
+describes bait density as a function of the aperture diameter, the helicopter speed, and the wind
+speed. NERD can assist in the planning of the aerial operations as well as during the eradication,
+giving near real-time feedback allowing for on-the-spot corrections during the operation. The final
+product of NERD is a bait density map generated in a matter of seconds, which permits better
+planning and the automatization of an otherwise difficult and slow processes, while allowing for the
+instant identification of bait gaps and the efficient use of resources.
