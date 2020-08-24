@@ -147,3 +147,7 @@ def test_get_rmse(
     )
     print(rmse_obtained)
     np.testing.assert_almost_equal(rmse_obtained, rmse_expected)
+
+
+def test_mass_conservation():
+    assert 1 == 2
