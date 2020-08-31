@@ -29,8 +29,8 @@ def solver(
     def mass_conservation(parametro_libre):
         def sigma(distance):
             return density_function(distance, swath_width, parametro_libre)
-
-        integral = quad(sigma, -swath_width / 2, swath_width / 2)[0]
+        integrations_limits = swath_width / 2
+        integral = quad(sigma, -integrations_limits, integrations_limits)[0]
         return integral - flow_rate_function(aperture_diameter) / helicopter_speed
 
     parametro_ajustado = fsolve(mass_conservation, 1)[0]
