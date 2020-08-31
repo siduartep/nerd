@@ -149,5 +149,10 @@ def test_get_rmse(
     np.testing.assert_almost_equal(rmse_obtained, rmse_expected)
 
 
-def test_mass_conservation():
+def test_solver(aperture_diameter, helicopter_speed, swath_width, funcion_densidad, flow_rate_function):
+    fitted_function = nerd.solver(aperture_diameter, helicopter_speed, swath_width, funcion_densidad, flow_rate_function)
+    distance = 0
+    evaluated_function_expected = 0.00075833
+    evaluated_function_obtained = fitted_function(distance)
+    np.testing.assert_almost_equal(evaluated_function_obtained, evaluated_function_expected)
     assert 1 == 2
