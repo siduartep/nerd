@@ -151,7 +151,9 @@ def test_get_rmse(
 
 def test_solver(aperture_diameter, helicopter_speed, swath_width, flow_rate_function):
     funcion_densidad = nerd.density_functions.normal
-    fitted_function = nerd.solver(aperture_diameter, helicopter_speed, swath_width, funcion_densidad, flow_rate_function)
+    fitted_function = nerd.solver(
+        aperture_diameter, helicopter_speed, swath_width, funcion_densidad, flow_rate_function
+    )
     distance = 0
     evaluated_function_expected = 0.0012678106357132415
     evaluated_function_obtained = fitted_function(distance)
