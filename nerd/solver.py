@@ -1,6 +1,7 @@
 from typing import Callable
 from scipy.integrate import quad
 from scipy.optimize import fsolve
+import numpy as np
 
 
 def solver(
@@ -34,5 +35,6 @@ def solver(
         integral = quad(sigma, -integrations_limits, integrations_limits)[0]
         return integral - flow_rate_function(aperture_diameter) / helicopter_speed
 
-    parametro_ajustado = fsolve(mass_conservation, 1)[0]
+    starting_root = np.random.rand()
+    parametro_ajustado = fsolve(mass_conservation, starting_root)[0]
     return lambda x: density_function(x, swath_width, parametro_ajustado)
