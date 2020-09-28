@@ -12,7 +12,7 @@ define lint
         ${1}
 endef
 
-.PHONY: all check clean format install lint mutants tests
+.PHONY: all check clean format install linter mutants tests
 
 check:
 	black --check --line-length 100 ${module}
