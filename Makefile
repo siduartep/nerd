@@ -1,40 +1,45 @@
 all: mutants
 
-repo = nerd
+module = nerd
 codecov_token = 84e068b0-5f49-4a9e-b08a-b90e880fbc6a
 
-.PHONY: all clean format install lint mutants tests
+define lint
+	pylint \
+        --disable=bad-continuation \
+        --disable=missing-class-docstring \
+        --disable=missing-function-docstring \
+        --disable=missing-module-docstring \
+        ${1}
+endef
+
+.PHONY: all check clean format install lint mutants tests
+
+check:
+	black --check --line-length 100 ${module}
+	black --check --line-length 100 tests
+	flake8 --max-line-length 100 ${module}
+	flake8 --max-line-length 100 test
 
 clean:
 	rm --force .mutmut-cache
-	rm --recursive --force ${repo}.egg-info
-	rm --recursive --force ${repo}/__pycache__
+	rm --recursive --force ${module}.egg-info
+	rm --recursive --force ${module}/__pycache__
 	rm --recursive --force test/__pycache__
 
 format:
-	black --check --line-length 100 ${repo}
-	black --check --line-length 100 tests
+	black --line-length 100 ${module}
+	black --line-length 100 tests
 
 install:
 	pip install --editable .
 
-lint:
-	flake8 --max-line-length 100 ${repo}
-	flake8 --max-line-length 100 tests
-	pylint \
-        --disable=bad-continuation \
-        --disable=missing-function-docstring \
-        --disable=missing-module-docstring \
-        ${repo}
-	pylint \
-        --disable=bad-continuation \
-        --disable=missing-function-docstring \
-        --disable=missing-module-docstring \
-        tests
+linter:
+	$(call lint, ${module})
+	$(call lint, tests)
 
 mutants:
-	mutmut run --paths-to-mutate ${repo}
+	mutmut run --paths-to-mutate ${module}
 
 tests: install
-	pytest --cov=${repo} --cov-report=xml --verbose && \
+	pytest --cov=${module} --cov-report=xml --verbose && \
 	codecov --token=${codecov_token}
