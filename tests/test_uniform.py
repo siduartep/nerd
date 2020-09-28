@@ -6,7 +6,7 @@ from nerd.density_functions import uniform
 class TestUniform(TestCase):
     def setUp(self) -> None:
         self.w = 60
-        self.p = 1
+        self.p = 2
 
     def test_uniform_scalar_inside(self):
         self.assertAlmostEqual(uniform(0, self.w, self.p), self.p)
