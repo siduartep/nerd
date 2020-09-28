@@ -18,7 +18,7 @@ check:
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 tests
 	flake8 --max-line-length 100 ${module}
-	flake8 --max-line-length 100 test
+	flake8 --max-line-length 100 tests
 
 clean:
 	rm --force .mutmut-cache
