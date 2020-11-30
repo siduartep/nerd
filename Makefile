@@ -12,7 +12,7 @@ define lint
         ${1}
 endef
 
-.PHONY: all check clean format install linter mutants tests
+.PHONY: all check clean coverage format install linter mutants tests
 
 check:
 	black --check --line-length 100 ${module}
@@ -25,6 +25,10 @@ clean:
 	rm --recursive --force ${module}.egg-info
 	rm --recursive --force ${module}/__pycache__
 	rm --recursive --force test/__pycache__
+
+coverage: install
+	pytest --cov=${module} --cov-report=xml --verbose && \
+	codecov --token=${codecov_token}
 
 format:
 	black --line-length 100 ${module}
@@ -41,5 +45,4 @@ mutants:
 	mutmut run --paths-to-mutate ${module}
 
 tests: install
-	pytest --cov=${module} --cov-report=xml --verbose && \
-	codecov --token=${codecov_token}
+	pytest --verbose
