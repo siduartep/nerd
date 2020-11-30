@@ -22,7 +22,7 @@ def triangular(distance: float, width: float, parameter: float) -> float:
     :return:
     """
     slope = -2 * parameter / width
-    es_dentro = np.abs(distance) < width / 2
+    es_dentro = np.abs(distance) < width / 2 # pragma: no mutate
     return np.double(es_dentro) * (slope * np.abs(distance) + parameter)
 
 
