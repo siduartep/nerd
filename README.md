@@ -15,6 +15,16 @@ pip install git+https://github.com/IslasGECI/nerd
 - [IslasGECI](http://islasgeci.org:8080)
 - [GitHub](https://github.com/IslasGECI/nerd/blob/develop/examples/calibration-demo.ipynb)
 
+### Docker
+
+```Makefile
+build_demo:
+	docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo .
+
+run_demo:
+	docker run --publish 8080:8888 --rm islasgeci/nerd_demo
+```
+
 ## References
 
 - [Veitch, C.R., Clout, M.N., Martin, A.R., Russell, J.C. and West, C.J. (eds.) (2019). Island invasives: scaling up to meet the challenge. Occasional Paper SSC no. 62. Gland, Switzerland: IUCN. xiv + 734pp.](http://www.issg.org/pdf/publications/2019_Island_Invasives/PrintFiles/Rojas-Mayoral.pdf)

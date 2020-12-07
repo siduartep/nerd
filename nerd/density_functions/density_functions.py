@@ -22,7 +22,7 @@ def triangular(distance: float, width: float, parameter: float) -> float:
     :return:
     """
     slope = -2 * parameter / width
-    es_dentro = np.abs(distance) < width / 2
+    es_dentro = np.abs(distance) < width / 2  # pragma: no mutate
     return np.double(es_dentro) * (slope * np.abs(distance) + parameter)
 
 
@@ -35,4 +35,8 @@ def normal(distance: float, width: float, parameter: float) -> float:
     :return:
     """
     standard_deviation = width / 4
-    return parameter / np.sqrt(2 * np.pi * standard_deviation ** 2) * np.exp(-distance ** 2 / (2 * standard_deviation ** 2))
+    return (
+        parameter
+        / np.sqrt(2 * np.pi * standard_deviation ** 2)
+        * np.exp(-(distance ** 2) / (2 * standard_deviation ** 2))
+    )

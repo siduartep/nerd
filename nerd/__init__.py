@@ -1,1 +1,1 @@
-from .solver import solver
+from .solver import solver  # noqa

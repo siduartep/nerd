@@ -1,34 +1,48 @@
-all: install tests
+all: mutants
 
-.PHONY: \
-    all \
-    build \
-    build_demo \
-    clean \
-    install \
-    lint \
-    run_demo \
-    tests \
+module = nerd
+codecov_token = 84e068b0-5f49-4a9e-b08a-b90e880fbc6a
 
-build:
-	docker build --tag=islasgeci/nerd .
+define lint
+	pylint \
+        --disable=bad-continuation \
+        --disable=missing-class-docstring \
+        --disable=missing-function-docstring \
+        --disable=missing-module-docstring \
+        ${1}
+endef
+
+.PHONY: all check clean coverage format install linter mutants tests
+
+check:
+	black --check --line-length 100 ${module}
+	black --check --line-length 100 tests
+	flake8 --max-line-length 100 ${module}
+	flake8 --max-line-length 100 tests
+
+clean:
+	rm --force .mutmut-cache
+	rm --recursive --force ${module}.egg-info
+	rm --recursive --force ${module}/__pycache__
+	rm --recursive --force test/__pycache__
+
+coverage: install
+	pytest --cov=${module} --cov-report=xml --verbose && \
+	codecov --token=${codecov_token}
+
+format:
+	black --line-length 100 ${module}
+	black --line-length 100 tests
 
 install:
 	pip install --editable .
 
-lint:
-	pylint nerd
+linter:
+	$(call lint, ${module})
+	$(call lint, tests)
 
-tests:
-	pytest --cov=nerd --cov-report=term --verbose
+mutants:
+	mutmut run --paths-to-mutate ${module}
 
-clean:
-	rm --force --recursive .pytest_cache
-	rm --force --recursive $(find . -name '__pycache__')
-
-#Demonstration
-build_demo:
-	docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo .
-
-run_demo:
-	docker run --publish 8080:8888 --rm islasgeci/nerd_demo
+tests: install
+	pytest --verbose
