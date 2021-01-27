@@ -11,7 +11,7 @@ def orthogonal_slope(slope):
 
 def safe_divition(x, y):
     if y == 0:
-        return float("-inf")
+        return float("inf")
     return x / y
 
 
