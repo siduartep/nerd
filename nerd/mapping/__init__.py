@@ -1,1 +1,1 @@
-from .tiling import *
+from .tiling import safe_divition  # noqa
