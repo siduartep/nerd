@@ -57,18 +57,4 @@ def generate_tile_from_coordinates(X, Y, node, stripe_width, spatial_resolution)
     return X_rect, Y_rect
 
 
-# ejemplo:
 
-X = np.linspace(0, 1000, 100)
-Y = np.linspace(0, 1000, 100)
-node = 50
-stripe_width = 60
-spatial_resolution = 5
-r = stripe_width / 2
-
-start_orthogonal_slope, end_orthogonal_slope = slopes_from_coordinates(X, Y ** 2, node)
-X_tile, Y_tile = generate_tile_from_coordinates(X, Y ** 2, node, stripe_width, spatial_resolution)
-
-print(start_orthogonal_slope, end_orthogonal_slope)
-print(X_tile)
-print(Y_tile)
