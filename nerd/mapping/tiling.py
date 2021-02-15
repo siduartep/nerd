@@ -55,6 +55,3 @@ def generate_tile_from_coordinates(X, Y, node, stripe_width, spatial_resolution)
     X_rect = tile_x_coordinates(r, start_orthogonal_slope, end_orthogonal_slope, X, node)
     Y_rect = tile_y_coordinates(start_orthogonal_slope, end_orthogonal_slope, X_rect, X, Y, node)
     return X_rect, Y_rect
-
-
-

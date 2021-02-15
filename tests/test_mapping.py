@@ -3,7 +3,7 @@ from nerd.mapping import (
     slope_between_two_points,
     orthogonal_slope,
     slopes_from_coordinates,
-    generate_tile_from_coordinates
+    generate_tile_from_coordinates,
 )
 from unittest import TestCase
 import numpy as np
@@ -46,8 +46,22 @@ class TestMapping(TestCase):
         assert expected == obtained
 
     def test_generate_tile_from_coordinates(self):
-        expected_x_tile = [23.213203435596423, -19.213203435596423, -23.832815729997474, 29.832815729997474, 23.213203435596423]
-        expected_y_tile = [25.213203435596423, 29.832815729997474, -7.416407864998737, -4.1066017177982115, 25.213203435596423]
-        obtained_x_tile, obtained_y_tile  = generate_tile_from_coordinates(self.x, self.y, self.node, self.stripe_width, self.spatial_resolution)
+        expected_x_tile = [
+            23.213203435596423,
+            -19.213203435596423,
+            -23.832815729997474,
+            29.832815729997474,
+            23.213203435596423,
+        ]
+        expected_y_tile = [
+            25.213203435596423,
+            29.832815729997474,
+            -7.416407864998737,
+            -4.1066017177982115,
+            25.213203435596423,
+        ]
+        obtained_x_tile, obtained_y_tile = generate_tile_from_coordinates(
+            self.x, self.y, self.node, self.stripe_width, self.spatial_resolution
+        )
         assert expected_x_tile == obtained_x_tile
         assert expected_y_tile == obtained_y_tile
