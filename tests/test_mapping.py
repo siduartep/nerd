@@ -54,11 +54,11 @@ class TestMapping(TestCase):
             23.213203435596423,
         ]
         expected_y_tile = [
+            -17.213203435596423,
             25.213203435596423,
-            29.832815729997474,
+            19.41640786499874,
             -7.416407864998737,
-            -4.1066017177982115,
-            25.213203435596423,
+            -17.213203435596423,
         ]
         obtained_x_tile, obtained_y_tile = generate_tile_from_coordinates(
             self.x, self.y, self.node, self.stripe_width, self.spatial_resolution
