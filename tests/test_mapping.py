@@ -14,8 +14,8 @@ class TestMapping(TestCase):
         self.a = 60
         self.b = 2
         self.c = 0
-        self.x = [-1, 2, 3, 4]
-        self.y = [2, 4, 6, 8]
+        self.x = [-1, 2, 3, 4, 5, 6]
+        self.y = [2, 4, 6, 8, 10, 12]
         self.node = 1
         self.stripe_width = 60
         self.spatial_resolution = 5
