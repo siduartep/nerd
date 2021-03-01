@@ -2,8 +2,8 @@ from nerd.mapping import (
     safe_divition,
     slope_between_two_points,
     orthogonal_slope,
-    slopes_from_coordinates,
-    generate_tile_from_coordinates,
+    cell_edges_slopes,
+    generate_cell_from_coordinates,
 )
 from unittest import TestCase
 import numpy as np
@@ -42,7 +42,7 @@ class TestMapping(TestCase):
 
     def test_slopes_from_coordinates(self):
         expected = (-1, -0.5)
-        obtained = slopes_from_coordinates(self.x, self.y, self.node)
+        obtained = cell_edges_slopes(self.x, self.y, self.node)
         assert expected == obtained
 
     def test_generate_tile_from_coordinates(self):
@@ -60,7 +60,7 @@ class TestMapping(TestCase):
             -7.416407864998737,
             -17.213203435596423,
         ]
-        obtained_x_tile, obtained_y_tile = generate_tile_from_coordinates(
+        obtained_x_tile, obtained_y_tile = generate_cell_from_coordinates(
             self.x, self.y, self.node, self.stripe_width, self.spatial_resolution
         )
         assert expected_x_tile == obtained_x_tile
