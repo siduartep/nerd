@@ -6,4 +6,6 @@ from .tiling import (  # noqa
     generate_cell_from_coordinates,
     cell_x_coordinates,
     calculate_cell_y_limits,
+    density_in_tile,
+    is_inside_tile,
 )
