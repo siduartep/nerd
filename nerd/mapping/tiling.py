@@ -62,34 +62,42 @@ def generate_cell_from_coordinates(x, y, node, stripe_width, spatial_resolution)
     return x_rect, y_rect
 
 
-def density_in_tile(x_rect,y_rect, density_profile, n_point):
-    startX=np.linspace(x_rect[0],x_rect[1],n_point)
-    startY=np.linspace(y_rect[0],y_rect[1],n_point)
-    endX=np.linspace(x_rect[3],x_rect[2],n_point)
-    endY=np.linspace(y_rect[3],y_rect[2],n_point)
-    xx=np.append(startX,endX)
-    yy=np.append(startY,endY)
+def density_in_tile(x_rect, y_rect, density_profile, n_point):
+    startX = np.linspace(x_rect[0], x_rect[1], n_point)
+    startY = np.linspace(y_rect[0], y_rect[1], n_point)
+    endX = np.linspace(x_rect[3], x_rect[2], n_point)
+    endY = np.linspace(y_rect[3], y_rect[2], n_point)
+    xx = np.append(startX, endX)
+    yy = np.append(startY, endY)
     mean_xx = np.mean(xx)
     mean_yy = np.mean(yy)
-    return lambda xq, yq: griddata(np.array([xx-mean_xx, yy-mean_yy]).T,np.repeat(density_profile,2),(xq-mean_xx, yq-mean_yy))
+    return lambda xq, yq: griddata(
+        np.array([xx - mean_xx, yy - mean_yy]).T,
+        np.repeat(density_profile, 2),
+        (xq - mean_xx, yq - mean_yy),
+    )
+
 
 def is_inside_tile(x_rect, y_rect, points):
-    polygon_tile = [[x_rect[i],y_rect[i]] for i in range(4)]
+    polygon_tile = [[x_rect[i], y_rect[i]] for i in range(4)]
     poly = path.Path(polygon_tile)
     return poly.contains_points(points)
 
+
 def calculate_directions(x, y, i, x_rect, y_rect):
-    u = np.array([x_rect[1]-x_rect[0], y_rect[1]-y_rect[0]])
-    u2 = np.array([x_rect[2]-x_rect[3], y_rect[2]-y_rect[3]])
-    v = np.array([x.iloc[i+1]-x.iloc[i], y.iloc[i+1]-y.iloc[i]])
-    theta1 = sign_of_direction(u,v)
-    theta2 = sign_of_direction(u2,v)
+    u = np.array([x_rect[1] - x_rect[0], y_rect[1] - y_rect[0]])
+    u2 = np.array([x_rect[2] - x_rect[3], y_rect[2] - y_rect[3]])
+    v = np.array([x.iloc[i + 1] - x.iloc[i], y.iloc[i + 1] - y.iloc[i]])
+    theta1 = sign_of_direction(u, v)
+    theta2 = sign_of_direction(u2, v)
     return theta1, theta2
 
-def sign_of_direction(u,v):
-    cosTheta = np.arccos(np.dot(u,v)/np.linalg.norm(u)*np.linalg.norm(v))
-    uxv = np.matmul([u,0], [v,0])
+
+def sign_of_direction(u, v):
+    cosTheta = np.arccos(np.dot(u, v) / np.linalg.norm(u) * np.linalg.norm(v))
+    uxv = np.matmul([u, 0], [v, 0])
     return np.sign(uxv[-1])
+
 
 def reorder_start_tile(x_rect, y_rect):
     tempx1 = x_rect[0]
@@ -100,6 +108,7 @@ def reorder_start_tile(x_rect, y_rect):
     y_rect[1] = tempy1
     return x_rect, y_rect
 
+
 def reorder_end_tile(x_rect, y_rect):
     tempx1 = x_rect[3]
     x_rect[3] = x_rect[2]
@@ -109,6 +118,7 @@ def reorder_end_tile(x_rect, y_rect):
     y_rect[2] = tempy1
     return x_rect, y_rect
 
+
 def check_directions(x, y, i, x_rect, y_rect):
     startangle, endangle = calculate_directions(x, y, i, x_rect, y_rect)
     if startangle == -1:
@@ -116,4 +126,3 @@ def check_directions(x, y, i, x_rect, y_rect):
     elif endangle == -1:
         x_rect, y_rect = reorder_end_tile(x_rect, y_rect)
     return x_rect, y_rect
-
