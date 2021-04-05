@@ -4,7 +4,7 @@ from nerd.mapping import (
     orthogonal_slope,
     cell_edges_slopes,
     generate_cell_from_coordinates,
-    density_in_tile
+    density_in_tile,
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
@@ -21,20 +21,22 @@ class TestMapping(TestCase):
         self.y = [2, 4, 6, 8, 10, 12]
         self.node = 1
         self.spatial_resolution = 5
-        self.half_stripe_width = int(self.stripe_width/2)
-        self.density_domain = np.linspace(- self.half_stripe_width, self.half_stripe_width, self.spatial_resolution)
+        self.half_stripe_width = int(self.stripe_width / 2)
+        self.density_domain = np.linspace(
+            -self.half_stripe_width, self.half_stripe_width, self.spatial_resolution
+        )
         self.uniform_density = uniform(self.density_domain, self.stripe_width, 10)
         self.x_tile_coordinates = [
             23.213203435596423,
-            -19.213203435596423,
             -23.832815729997474,
+            -19.213203435596423,
             29.832815729997474,
             23.213203435596423,
         ]
         self.y_tile_coordinates = [
             -17.213203435596423,
-            25.213203435596423,
             19.41640786499874,
+            25.213203435596423,
             -7.416407864998737,
             -17.213203435596423,
         ]
@@ -72,7 +74,13 @@ class TestMapping(TestCase):
         assert self.y_tile_coordinates == obtained_y_tile
 
     def test_density_in_tile(self):
-        obtained_lambda_density_function = density_in_tile(self.x_tile_coordinates, self.y_tile_coordinates, self.uniform_density, self.spatial_resolution)
+        obtained_lambda_density_function = density_in_tile(
+            self.x_tile_coordinates,
+            self.y_tile_coordinates,
+            self.uniform_density,
+            self.spatial_resolution,
+        )
         assert isinstance(obtained_lambda_density_function, types.FunctionType)
-
-
+        obtained_density = obtained_lambda_density_function(0,10)
+        expected_density = np.array(6.63536373)
+        np.testing.assert_array_almost_equal(expected_density,obtained_density)
