@@ -19,7 +19,7 @@ class TestMapping(TestCase):
         self.c = 0
         self.x = [-1, 2, 3, 4, 5, 6]
         self.y = [2, 4, 6, 8, 10, 12]
-        self.node = 1
+        self.node = 2
         self.spatial_resolution = 5
         self.half_stripe_width = int(self.stripe_width / 2)
         self.density_domain = np.linspace(
@@ -27,18 +27,19 @@ class TestMapping(TestCase):
         )
         self.uniform_density = uniform(self.density_domain, self.stripe_width, 10)
         self.x_tile_coordinates = [
-            23.213203435596423,
-            -23.832815729997474,
-            -19.213203435596423,
             29.832815729997474,
-            23.213203435596423,
+            -23.832815729997474,
+            -22.832815729997474,
+            30.832815729997474,
+            29.832815729997474,
         ]
+
         self.y_tile_coordinates = [
-            -17.213203435596423,
-            19.41640786499874,
-            25.213203435596423,
             -7.416407864998737,
-            -17.213203435596423,
+            19.41640786499874,
+            21.41640786499874,
+            -5.416407864998737,
+            -7.416407864998737,
         ]
 
     def test_safe_divition(self):
@@ -62,7 +63,7 @@ class TestMapping(TestCase):
         assert expected == obtained
 
     def test_slopes_from_coordinates(self):
-        expected = (-1, -0.5)
+        expected = (-0.5, -0.5)
         obtained = cell_edges_slopes(self.x, self.y, self.node)
         assert expected == obtained
 
@@ -81,6 +82,6 @@ class TestMapping(TestCase):
             self.spatial_resolution,
         )
         assert isinstance(obtained_lambda_density_function, types.FunctionType)
-        obtained_density = obtained_lambda_density_function(0,10)
-        expected_density = np.array(6.63536373)
-        np.testing.assert_array_almost_equal(expected_density,obtained_density)
+        obtained_density = obtained_lambda_density_function(0, 10)
+        expected_density = np.array(7.018576)
+        np.testing.assert_array_almost_equal(expected_density, obtained_density)
