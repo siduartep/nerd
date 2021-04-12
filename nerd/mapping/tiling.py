@@ -63,13 +63,18 @@ def generate_cell_from_coordinates(x, y, node, stripe_width, spatial_resolution)
     return x_rect, y_rect
 
 
-def density_in_tile(x_rect, y_rect, density_profile, n_point):
+def calculate_cell_density_in_border(x_rect, y_rect, n_point):
     startX = np.linspace(x_rect[0], x_rect[1], n_point)
     startY = np.linspace(y_rect[0], y_rect[1], n_point)
     endX = np.linspace(x_rect[3], x_rect[2], n_point)
     endY = np.linspace(y_rect[3], y_rect[2], n_point)
     xx = np.append(startX, endX)
     yy = np.append(startY, endY)
+    return xx, yy
+
+
+def density_in_tile(x_rect, y_rect, density_profile, n_point):
+    xx, yy = calculate_cell_density_in_border(x_rect, y_rect, n_point)
     mean_xx = np.mean(xx)
     mean_yy = np.mean(yy)
     return lambda xq, yq: griddata(
@@ -80,16 +85,21 @@ def density_in_tile(x_rect, y_rect, density_profile, n_point):
 
 
 def is_inside_tile(x_rect, y_rect, points):
-    polygon_tile = [[x_rect[i], y_rect[i]] for i in range(4)]
+    polygon_tile = [[x_rect[i], y_rect[i]] for i in range(len(x_rect))]
     poly = path.Path(polygon_tile)
     return poly.contains_points(points)
 
 
 def calculate_directions(x_rect, y_rect):
-    u = np.array([x_rect[1] - x_rect[0], y_rect[1] - y_rect[0]])
-    u2 = np.array([x_rect[2] - x_rect[3], y_rect[2] - y_rect[3]])
-    theta1 = sign_of_direction(u, u2)
+    u, v = generate_tile_direction_arrays(x_rect, y_rect)
+    theta1 = sign_of_direction(u, v)
     return theta1
+
+
+def generate_tile_direction_arrays(x_rect, y_rect):
+    u = np.array([x_rect[1] - x_rect[0], y_rect[1] - y_rect[0]])
+    v = np.array([x_rect[2] - x_rect[3], y_rect[2] - y_rect[3]])
+    return u, v
 
 
 def sign_of_direction(u, v):
