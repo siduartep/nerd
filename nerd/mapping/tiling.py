@@ -59,6 +59,7 @@ def generate_cell_from_coordinates(x, y, node, stripe_width, spatial_resolution)
     start_orthogonal_slope, end_orthogonal_slope = cell_edges_slopes(x, y, node)
     x_rect = cell_x_coordinates(r, start_orthogonal_slope, end_orthogonal_slope, x, node)
     y_rect = cell_y_coordinates(start_orthogonal_slope, end_orthogonal_slope, x_rect, x, y, node)
+    x_rect, y_rect = check_directions(x_rect, y_rect)
     return x_rect, y_rect
 
 
@@ -84,29 +85,17 @@ def is_inside_tile(x_rect, y_rect, points):
     return poly.contains_points(points)
 
 
-def calculate_directions(x, y, i, x_rect, y_rect):
+def calculate_directions(x_rect, y_rect):
     u = np.array([x_rect[1] - x_rect[0], y_rect[1] - y_rect[0]])
     u2 = np.array([x_rect[2] - x_rect[3], y_rect[2] - y_rect[3]])
-    v = np.array([x.iloc[i + 1] - x.iloc[i], y.iloc[i + 1] - y.iloc[i]])
-    theta1 = sign_of_direction(u, v)
-    theta2 = sign_of_direction(u2, v)
-    return theta1, theta2
+    theta1 = sign_of_direction(u, u2)
+    return theta1
 
 
 def sign_of_direction(u, v):
-    cosTheta = np.arccos(np.dot(u, v) / np.linalg.norm(u) * np.linalg.norm(v))
-    uxv = np.matmul([u, 0], [v, 0])
-    return np.sign(uxv[-1])
-
-
-def reorder_start_tile(x_rect, y_rect):
-    tempx1 = x_rect[0]
-    x_rect[0] = x_rect[1]
-    x_rect[1] = tempx1
-    tempy1 = y_rect[0]
-    y_rect[0] = y_rect[1]
-    y_rect[1] = tempy1
-    return x_rect, y_rect
+    inner = np.inner(u, v)
+    norms = np.linalg.norm(u) * np.linalg.norm(v)
+    return np.arccos(np.clip(inner / norms, -1.0, 1.0))
 
 
 def reorder_end_tile(x_rect, y_rect):
@@ -119,10 +108,8 @@ def reorder_end_tile(x_rect, y_rect):
     return x_rect, y_rect
 
 
-def check_directions(x, y, i, x_rect, y_rect):
-    startangle, endangle = calculate_directions(x, y, i, x_rect, y_rect)
-    if startangle == -1:
-        x_rect, y_rect = reorder_start_tile(x_rect, y_rect)
-    elif endangle == -1:
+def check_directions(x_rect, y_rect):
+    startangle = calculate_directions(x_rect, y_rect)
+    if startangle > np.pi / 2:
         x_rect, y_rect = reorder_end_tile(x_rect, y_rect)
     return x_rect, y_rect

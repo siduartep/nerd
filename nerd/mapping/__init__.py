@@ -8,4 +8,5 @@ from .tiling import (  # noqa
     calculate_cell_y_limits,
     density_in_tile,
     is_inside_tile,
+    calculate_directions,
 )
