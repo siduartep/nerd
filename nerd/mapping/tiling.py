@@ -1,13 +1,12 @@
+from descartes.patch import PolygonPatch
 from matplotlib import path, cm
 from scipy.interpolate import griddata
-
-import numpy as np
-
-
 from shapely import geometry
-from descartes.patch import PolygonPatch
+
 import fiona
 import json
+import matplotlib.pytplot as plt
+import numpy as np
 
 
 
@@ -131,28 +130,34 @@ def check_directions(x_rect, y_rect):
         x_rect, y_rect = reorder_end_tile(x_rect, y_rect)
     return x_rect, y_rect
 
-contour = plt.contourf(x_grid, y_grid, total_density_reshaped, 20)
-lvl_lookup = dict(zip(contour.collections, contour.levels))
 
-PolyList=[]
-for col in contour.collections:
-    print(col)
-    z=lvl_lookup[col] # the value of this level
-    for contour_path in col.get_paths():
-        # create the polygon for this level
-        for ncp,cp in enumerate(contour_path.to_polygons()):
-            lons = cp[:,0]
-            lats = cp[:,1]
-            new_shape = geometry.Polygon([(i[0], i[1]) for i in zip(lons,lats)])
-            if ncp == 0:                
-                poly = new_shape # first shape
-            else:
-                poly = poly.difference(new_shape) # Remove the holes
-            
-            PolyList.append({'poly':poly,'props':{'z': z}})
+def generate_contours(x_grid, y_grid, total_density, n_contours = 20)
+    contour = plt.contourf(x_grid, y_grid, total_density, n_contours)
+    return contour, dict(zip(contour.collections, contour.levels))
 
-schema = {'geometry': 'Polygon','properties': {'z': 'float'}}
-with fiona.collection('example_poly.shp', "w", "ESRI Shapefile", schema) as output:
-    for p in PolyList:
-        output.write({'properties': p['props'],
-            'geometry': geometry.mapping(p['poly'])})
+contour, contour_dict = generate_contours(x_grid, y_grid, total_density, n_contours = 20)
+
+def export_contour_as_shapefile(contour, contour_dict, output_path):
+    #Original code in https://github.com/chrishavlin/learning_shapefiles/blob/master/src/contourf_to_shp.py
+    PolyList=[]
+    for col in contour.collections:
+        print(col)
+        z=contour_dict[col] # the value of this level
+        for contour_path in col.get_paths():
+            # create the polygon for this level
+            for ncp,cp in enumerate(contour_path.to_polygons()):
+                lons = cp[:,0]
+                lats = cp[:,1]
+                new_shape = geometry.Polygon([(i[0], i[1]) for i in zip(lons,lats)])
+                if ncp == 0:                
+                    poly = new_shape # first shape
+                else:
+                    poly = poly.difference(new_shape) # Remove the holes
+                
+                PolyList.append({'poly':poly,'props':{'z': z}})
+
+    schema = {'geometry': 'Polygon','properties': {'z': 'float'}}
+    with fiona.collection(output_path, "w", "ESRI Shapefile", schema) as output:
+        for p in PolyList:
+            output.write({'properties': p['props'],
+                'geometry': geometry.mapping(p['poly'])})
