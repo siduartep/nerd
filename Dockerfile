@@ -8,7 +8,6 @@ RUN pip install \
     descartes \
     fiona \
     flake8 \
-    json \
     mutmut \
     osmnx \
     pandas \
