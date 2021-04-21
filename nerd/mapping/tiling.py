@@ -5,7 +5,7 @@ from shapely import geometry
 
 import fiona
 import json
-import matplotlib.pytplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -42,7 +42,7 @@ def calculate_cell_y_limits(slope, limit_x, x_coord, y_coord):
 
 def cell_y_coordinates(start_orthogonal_slope, end_orthogonal_slope, x_rect, x, y, node):
     start_y1 = calculate_cell_y_limits(start_orthogonal_slope, x_rect[0], x[node], y[node])
-    start_y2 = calculate_cell_y_limits(start_orthogonal_slope, x_rect[1], x[node], y[node])
+    start_y2 = None
     end_y2 = calculate_cell_y_limits(end_orthogonal_slope, x_rect[2], x[node + 1], y[node + 1])
     end_y1 = calculate_cell_y_limits(end_orthogonal_slope, x_rect[3], x[node + 1], y[node + 1])
     return [start_y1, start_y2, end_y2, end_y1, start_y1]
@@ -131,11 +131,11 @@ def check_directions(x_rect, y_rect):
     return x_rect, y_rect
 
 
-def generate_contours(x_grid, y_grid, total_density, n_contours = 20)
+def generate_contours(x_grid, y_grid, total_density, n_contours = 20):
     contour = plt.contourf(x_grid, y_grid, total_density, n_contours)
     return contour, dict(zip(contour.collections, contour.levels))
 
-contour, contour_dict = generate_contours(x_grid, y_grid, total_density, n_contours = 20)
+#contour, contour_dict = generate_contours(x_grid, y_grid, total_density, n_contours = 20)
 
 def export_contour_as_shapefile(contour, contour_dict, output_path):
     #Original code in https://github.com/chrishavlin/learning_shapefiles/blob/master/src/contourf_to_shp.py
