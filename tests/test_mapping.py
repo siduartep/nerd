@@ -12,9 +12,12 @@ from nerd.mapping import (
     sign_of_direction,
     slope_between_two_points,
     is_inside_tile,
+    generate_contours
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
+
+import matplotlib as mpl
 import numpy as np
 import types
 
@@ -33,6 +36,7 @@ class TestMapping(TestCase):
             -self.half_stripe_width, self.half_stripe_width, self.spatial_resolution
         )
         self.uniform_density = uniform(self.density_domain, self.stripe_width, 10)
+        self.n_contours = 2
         self.x_tile_coordinates = [
             29.832815729997474,
             -23.832815729997474,
@@ -207,3 +211,16 @@ class TestMapping(TestCase):
         )
         assert obtained_boolean_mask[0]
         assert ~obtained_boolean_mask[1]
+
+    def test_generate_contours(self):
+        x_coordinates=np.arange(0, 100, 2)
+        y_coordinates=np.arange(0, 100, 2)
+        total_density_reshaped = np.eye(50,50) 
+        x_grid, y_grid = np.meshgrid(x_coordinates,y_coordinates)
+        expected_density_values = [0.0, 0.4, 0.8]
+        contour, contour_dict = generate_contours(x_grid, y_grid, total_density_reshaped, n_contours = self.n_contours)
+        for key in contour_dict.keys():
+            assert isinstance(key, mpl.collections.PathCollection)
+        assert list(contour_dict.values()) == expected_density_values
+        assert isinstance(contour, mpl.contour.QuadContourSet)
+
