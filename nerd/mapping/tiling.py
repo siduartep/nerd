@@ -151,8 +151,11 @@ def create_contour_polygon_list(contour, contour_dict):
                 PolyList.append({"poly": poly, "props": {"z": z}})
     return PolyList
 
+
 def export_contour_list_as_shapefile(PolyList, output_path):
     schema = {"geometry": "Polygon", "properties": {"z": "float"}}
     with fiona.collection(output_path, "w", "ESRI Shapefile", schema) as output:
         for poly_list in PolyList:
-            output.write({"properties": poly_list["props"], "geometry": geometry.mapping(poly_list["poly"])})
+            output.write(
+                {"properties": poly_list["props"], "geometry": geometry.mapping(poly_list["poly"])}
+            )

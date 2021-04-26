@@ -12,7 +12,7 @@ from nerd.mapping import (
     sign_of_direction,
     slope_between_two_points,
     is_inside_tile,
-    generate_contours
+    generate_contours,
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
@@ -213,14 +213,15 @@ class TestMapping(TestCase):
         assert ~obtained_boolean_mask[1]
 
     def test_generate_contours(self):
-        x_coordinates=np.arange(0, 100, 2)
-        y_coordinates=np.arange(0, 100, 2)
-        total_density_reshaped = np.eye(50,50) 
-        x_grid, y_grid = np.meshgrid(x_coordinates,y_coordinates)
+        x_coordinates = np.arange(0, 100, 2)
+        y_coordinates = np.arange(0, 100, 2)
+        total_density_reshaped = np.eye(50, 50)
+        x_grid, y_grid = np.meshgrid(x_coordinates, y_coordinates)
         expected_density_values = [0.0, 0.4, 0.8]
-        contour, contour_dict = generate_contours(x_grid, y_grid, total_density_reshaped, n_contours = self.n_contours)
+        contour, contour_dict = generate_contours(
+            x_grid, y_grid, total_density_reshaped, n_contours=self.n_contours
+        )
         for key in contour_dict.keys():
             assert isinstance(key, mpl.collections.PathCollection)
         assert list(contour_dict.values()) == expected_density_values
         assert isinstance(contour, mpl.contour.QuadContourSet)
-
