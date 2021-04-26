@@ -133,7 +133,7 @@ def generate_contours(x_grid, y_grid, total_density, n_contours=20):
     return contour, dict(zip(contour.collections, contour.levels))
 
 
-def export_contour_as_shapefile(contour, contour_dict, output_path):
+def create_contour_polygon_list(contour, contour_dict):
     # Original code in https://github.com/chrishavlin/learning_shapefiles/blob/master/src/contourf_to_shp.py
     PolyList = []
     for col in contour.collections:
@@ -149,7 +149,9 @@ def export_contour_as_shapefile(contour, contour_dict, output_path):
                     poly = poly.difference(new_shape)
 
                 PolyList.append({"poly": poly, "props": {"z": z}})
+    return PolyList
 
+def export_contour_list_as_shapefile(PolyList, output_path):
     schema = {"geometry": "Polygon", "properties": {"z": "float"}}
     with fiona.collection(output_path, "w", "ESRI Shapefile", schema) as output:
         for poly_list in PolyList:
