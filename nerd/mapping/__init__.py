@@ -15,4 +15,6 @@ from .tiling import (  # noqa
     sign_of_direction,
     slope_between_two_points,
     is_inside_tile,
+    generate_contours,
+    export_contour_as_shapefile,
 )

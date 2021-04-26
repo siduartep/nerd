@@ -1,13 +1,10 @@
-from descartes.patch import PolygonPatch
-from matplotlib import path, cm
+from matplotlib import path
 from scipy.interpolate import griddata
 from shapely import geometry
 
 import fiona
-import json
 import matplotlib.pyplot as plt
 import numpy as np
-
 
 
 def slope_between_two_points(y2, y1, x2, x1):
@@ -42,7 +39,7 @@ def calculate_cell_y_limits(slope, limit_x, x_coord, y_coord):
 
 def cell_y_coordinates(start_orthogonal_slope, end_orthogonal_slope, x_rect, x, y, node):
     start_y1 = calculate_cell_y_limits(start_orthogonal_slope, x_rect[0], x[node], y[node])
-    start_y2 = None
+    start_y2 = calculate_cell_y_limits(start_orthogonal_slope, x_rect[1], x[node], y[node])
     end_y2 = calculate_cell_y_limits(end_orthogonal_slope, x_rect[2], x[node + 1], y[node + 1])
     end_y1 = calculate_cell_y_limits(end_orthogonal_slope, x_rect[3], x[node + 1], y[node + 1])
     return [start_y1, start_y2, end_y2, end_y1, start_y1]
@@ -131,33 +128,29 @@ def check_directions(x_rect, y_rect):
     return x_rect, y_rect
 
 
-def generate_contours(x_grid, y_grid, total_density, n_contours = 20):
+def generate_contours(x_grid, y_grid, total_density, n_contours=20):
     contour = plt.contourf(x_grid, y_grid, total_density, n_contours)
     return contour, dict(zip(contour.collections, contour.levels))
 
-#contour, contour_dict = generate_contours(x_grid, y_grid, total_density, n_contours = 20)
 
 def export_contour_as_shapefile(contour, contour_dict, output_path):
-    #Original code in https://github.com/chrishavlin/learning_shapefiles/blob/master/src/contourf_to_shp.py
-    PolyList=[]
+    # Original code in https://github.com/chrishavlin/learning_shapefiles/blob/master/src/contourf_to_shp.py
+    PolyList = []
     for col in contour.collections:
-        print(col)
-        z=contour_dict[col] # the value of this level
+        z = contour_dict[col]
         for contour_path in col.get_paths():
-            # create the polygon for this level
-            for ncp,cp in enumerate(contour_path.to_polygons()):
-                lons = cp[:,0]
-                lats = cp[:,1]
-                new_shape = geometry.Polygon([(i[0], i[1]) for i in zip(lons,lats)])
-                if ncp == 0:                
-                    poly = new_shape # first shape
+            for ncp, cp in enumerate(contour_path.to_polygons()):
+                lons = cp[:, 0]
+                lats = cp[:, 1]
+                new_shape = geometry.Polygon([(i[0], i[1]) for i in zip(lons, lats)])
+                if ncp == 0:
+                    poly = new_shape
                 else:
-                    poly = poly.difference(new_shape) # Remove the holes
-                
-                PolyList.append({'poly':poly,'props':{'z': z}})
+                    poly = poly.difference(new_shape)
 
-    schema = {'geometry': 'Polygon','properties': {'z': 'float'}}
+                PolyList.append({"poly": poly, "props": {"z": z}})
+
+    schema = {"geometry": "Polygon", "properties": {"z": "float"}}
     with fiona.collection(output_path, "w", "ESRI Shapefile", schema) as output:
-        for p in PolyList:
-            output.write({'properties': p['props'],
-                'geometry': geometry.mapping(p['poly'])})
+        for poly_list in PolyList:
+            output.write({"properties": poly_list["props"], "geometry": geometry.mapping(poly_list["poly"])})
