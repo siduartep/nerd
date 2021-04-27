@@ -225,3 +225,5 @@ class TestMapping(TestCase):
             assert isinstance(key, mpl.collections.PathCollection)
         assert list(contour_dict.values()) == expected_density_values
         assert isinstance(contour, mpl.contour.QuadContourSet)
+        contour, contour_dict = generate_contours(x_grid, y_grid, total_density_reshaped)
+
