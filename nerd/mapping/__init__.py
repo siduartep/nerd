@@ -17,4 +17,5 @@ from .tiling import (  # noqa
     is_inside_tile,
     generate_contours,
     create_contour_polygon_list,
+    export_contour_list_as_shapefile,
 )
