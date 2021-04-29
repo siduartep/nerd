@@ -239,16 +239,15 @@ class TestMapping(TestCase):
             self.x_grid, self.y_grid, self.total_density_reshaped, n_contours=self.n_contours
         )
         obtained_polygon_list = create_contour_polygon_list(contour, contour_dict)
-        expected_poligon_list_element_keys = ['poly', 'props']
-        obtained_poligon_list_element_keys =  list(obtained_polygon_list[0].keys())
-        expected_props_dict_keys = ['z']
-        obtained_props_dict_keys = list(obtained_polygon_list[0]['props'].keys())
+        expected_poligon_list_element_keys = ["poly", "props"]
+        obtained_poligon_list_element_keys = list(obtained_polygon_list[0].keys())
+        expected_props_dict_keys = ["z"]
+        obtained_props_dict_keys = list(obtained_polygon_list[0]["props"].keys())
         assert isinstance(obtained_polygon_list, list)
         for polygon_dict in obtained_polygon_list:
             assert isinstance(polygon_dict, dict)
-            assert isinstance(polygon_dict['poly'], geometry.polygon.Polygon)
-            assert isinstance(polygon_dict['props'], dict)
-            assert isinstance(polygon_dict['props']['z'], float)
+            assert isinstance(polygon_dict["poly"], geometry.polygon.Polygon)
+            assert isinstance(polygon_dict["props"], dict)
+            assert isinstance(polygon_dict["props"]["z"], float)
         assert obtained_poligon_list_element_keys == expected_poligon_list_element_keys
         assert obtained_props_dict_keys == expected_props_dict_keys
-
