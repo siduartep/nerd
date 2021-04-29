@@ -14,11 +14,13 @@ from nerd.mapping import (
     is_inside_tile,
     generate_contours,
     create_contour_polygon_list,
+    export_contour_list_as_shapefile,
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
-
 from shapely import geometry
+
+import hashlib
 import matplotlib as mpl
 import numpy as np
 import types
@@ -251,3 +253,18 @@ class TestMapping(TestCase):
             assert isinstance(polygon_dict["props"]["z"], float)
         assert obtained_poligon_list_element_keys == expected_poligon_list_element_keys
         assert obtained_props_dict_keys == expected_props_dict_keys
+
+    def test_export_contour_list_as_shapefile(self):
+        contour, contour_dict = generate_contours(
+            self.x_grid, self.y_grid, self.total_density_reshaped, n_contours=self.n_contours
+        )
+        obtained_polygon_list = create_contour_polygon_list(contour, contour_dict)
+        output_path = "tests/test_shapefile.shp"
+        export_contour_list_as_shapefile(obtained_polygon_list, output_path)
+        md5_hash = hashlib.md5()
+        a_file = open(output_path, "rb")
+        content = a_file.read()
+        md5_hash.update(content)
+        obtained_hash = md5_hash.hexdigest()
+        expected_hash = "30e405e870cda15ea85eb185402e22ae"
+        assert obtained_hash == expected_hash
