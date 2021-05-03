@@ -223,22 +223,16 @@ class TestMapping(TestCase):
     def test_generate_contours(self):
         expected_density_values = [0.0, 0.4, 0.8]
         contour, contour_dict = generate_contours(
-            self.x_grid, self.y_grid, self.total_density_reshaped, n_contours=self.n_contours
+            self.x_grid, self.y_grid, self.total_density_reshaped, self.n_contours
         )
         for key in contour_dict.keys():
             assert isinstance(key, mpl.collections.PathCollection)
         assert list(contour_dict.values()) == expected_density_values
         assert isinstance(contour, mpl.contour.QuadContourSet)
-        contour, contour_dict = generate_contours(
-            self.x_grid, self.y_grid, self.total_density_reshaped
-        )
-        obtained_number_of_contours = len(list(contour_dict.keys()))
-        expected_number_of_contours = 20
-        assert obtained_number_of_contours == expected_number_of_contours
 
     def test_create_contour_polygon_list(self):
         contour, contour_dict = generate_contours(
-            self.x_grid, self.y_grid, self.total_density_reshaped, n_contours=self.n_contours
+            self.x_grid, self.y_grid, self.total_density_reshaped, self.n_contours
         )
         obtained_polygon_list = create_contour_polygon_list(contour, contour_dict)
         expected_poligon_list_element_keys = ["poly", "props"]
@@ -256,7 +250,7 @@ class TestMapping(TestCase):
 
     def test_export_contour_list_as_shapefile(self):
         contour, contour_dict = generate_contours(
-            self.x_grid, self.y_grid, self.total_density_reshaped, n_contours=self.n_contours
+            self.x_grid, self.y_grid, self.total_density_reshaped, self.n_contours
         )
         obtained_polygon_list = create_contour_polygon_list(contour, contour_dict)
         output_path = "tests/test_shapefile.shp"
