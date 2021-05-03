@@ -1,6 +1,9 @@
 from matplotlib import path
 from scipy.interpolate import griddata
+from shapely import geometry
 
+import fiona
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -123,3 +126,36 @@ def check_directions(x_rect, y_rect):
     if startangle > np.pi / 2:
         x_rect, y_rect = reorder_end_tile(x_rect, y_rect)
     return x_rect, y_rect
+
+
+def generate_contours(x_grid, y_grid, total_density, *args):
+    contour = plt.contourf(x_grid, y_grid, total_density, *args)
+    return contour, dict(zip(contour.collections, contour.levels))
+
+
+def create_contour_polygon_list(contour, contour_dict):
+    # Original code in https://github.com/chrishavlin/learning_shapefiles/blob/master/src/contourf_to_shp.py
+    PolyList = []
+    for col in contour.collections:
+        z = contour_dict[col]
+        for contour_path in col.get_paths():
+            for ncp, cp in enumerate(contour_path.to_polygons()):
+                lons = cp[:, 0]
+                lats = cp[:, 1]
+                new_shape = geometry.Polygon([(i[0], i[1]) for i in zip(lons, lats)])
+                if ncp == 0:
+                    poly = new_shape
+                else:
+                    poly = poly.difference(new_shape)
+
+                PolyList.append({"poly": poly, "props": {"z": z}})
+    return PolyList
+
+
+def export_contour_list_as_shapefile(PolyList, output_path):
+    schema = {"geometry": "Polygon", "properties": {"z": "float"}}
+    with fiona.collection(output_path, "w", "ESRI Shapefile", schema) as output:
+        for poly_list in PolyList:
+            output.write(
+                {"properties": poly_list["props"], "geometry": geometry.mapping(poly_list["poly"])}
+            )

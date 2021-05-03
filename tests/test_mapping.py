@@ -12,9 +12,16 @@ from nerd.mapping import (
     sign_of_direction,
     slope_between_two_points,
     is_inside_tile,
+    generate_contours,
+    create_contour_polygon_list,
+    export_contour_list_as_shapefile,
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
+from shapely import geometry
+
+import hashlib
+import matplotlib as mpl
 import numpy as np
 import types
 
@@ -33,6 +40,11 @@ class TestMapping(TestCase):
             -self.half_stripe_width, self.half_stripe_width, self.spatial_resolution
         )
         self.uniform_density = uniform(self.density_domain, self.stripe_width, 10)
+        self.n_contours = 2
+        self.x_coordinates = np.arange(0, 100, 2)
+        self.y_coordinates = np.arange(0, 100, 2)
+        self.total_density_reshaped = np.eye(50, 50)
+        self.x_grid, self.y_grid = np.meshgrid(self.x_coordinates, self.y_coordinates)
         self.x_tile_coordinates = [
             29.832815729997474,
             -23.832815729997474,
@@ -207,3 +219,46 @@ class TestMapping(TestCase):
         )
         assert obtained_boolean_mask[0]
         assert ~obtained_boolean_mask[1]
+
+    def test_generate_contours(self):
+        expected_density_values = [0.0, 0.4, 0.8]
+        contour, contour_dict = generate_contours(
+            self.x_grid, self.y_grid, self.total_density_reshaped, self.n_contours
+        )
+        for key in contour_dict.keys():
+            assert isinstance(key, mpl.collections.PathCollection)
+        assert list(contour_dict.values()) == expected_density_values
+        assert isinstance(contour, mpl.contour.QuadContourSet)
+
+    def test_create_contour_polygon_list(self):
+        contour, contour_dict = generate_contours(
+            self.x_grid, self.y_grid, self.total_density_reshaped, self.n_contours
+        )
+        obtained_polygon_list = create_contour_polygon_list(contour, contour_dict)
+        expected_poligon_list_element_keys = ["poly", "props"]
+        obtained_poligon_list_element_keys = list(obtained_polygon_list[0].keys())
+        expected_props_dict_keys = ["z"]
+        obtained_props_dict_keys = list(obtained_polygon_list[0]["props"].keys())
+        assert isinstance(obtained_polygon_list, list)
+        for polygon_dict in obtained_polygon_list:
+            assert isinstance(polygon_dict, dict)
+            assert isinstance(polygon_dict["poly"], geometry.polygon.Polygon)
+            assert isinstance(polygon_dict["props"], dict)
+            assert isinstance(polygon_dict["props"]["z"], float)
+        assert obtained_poligon_list_element_keys == expected_poligon_list_element_keys
+        assert obtained_props_dict_keys == expected_props_dict_keys
+
+    def test_export_contour_list_as_shapefile(self):
+        contour, contour_dict = generate_contours(
+            self.x_grid, self.y_grid, self.total_density_reshaped, self.n_contours
+        )
+        obtained_polygon_list = create_contour_polygon_list(contour, contour_dict)
+        output_path = "tests/test_shapefile.shp"
+        export_contour_list_as_shapefile(obtained_polygon_list, output_path)
+        md5_hash = hashlib.md5()
+        a_file = open(output_path, "rb")
+        content = a_file.read()
+        md5_hash.update(content)
+        obtained_hash = md5_hash.hexdigest()
+        expected_hash = "30e405e870cda15ea85eb185402e22ae"
+        assert obtained_hash == expected_hash
