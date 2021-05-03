@@ -9,6 +9,7 @@ setup(
         "fiona",
         "matplotlib",
         "numpy",
+        "pandas",
         "scipy",
         "shapely",
         "utm",
