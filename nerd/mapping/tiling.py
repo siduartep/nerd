@@ -1,6 +1,7 @@
 from matplotlib import path
 from scipy.interpolate import griddata
 from shapely import geometry
+from nerd.density_functions import normal, uniform
 
 import fiona
 import matplotlib.pyplot as plt
@@ -17,7 +18,7 @@ def orthogonal_slope(slope):
 
 def safe_divition(numerator, denominator):
     if denominator == 0:
-        return float("inf")
+        return np.inf
     return numerator / denominator
 
 
@@ -159,3 +160,40 @@ def export_contour_list_as_shapefile(PolyList, output_path):
             output.write(
                 {"properties": poly_list["props"], "geometry": geometry.mapping(poly_list["poly"])}
             )
+
+
+def generate_grid_density(x_coordinates, y_coordinates, spatial_resolution):
+    x = np.arange(min(x_coordinates), max(x_coordinates), spatial_resolution)
+    y = np.arange(min(y_coordinates), max(y_coordinates), spatial_resolution)
+    x_grid, y_grid = np.meshgrid(x, y)
+    return x_grid, y_grid
+
+
+def calculate_total_density(
+    x_coordinates, y_coordinates, bucket_logger, stripe_width, spatial_resolution
+):
+    x_grid, y_grid = generate_grid_density(x_coordinates, y_coordinates, spatial_resolution)
+    x_grid_ravel = np.ravel(x_grid)
+    y_grid_ravel = np.ravel(y_grid)
+    total_density = np.zeros_like(x_grid_ravel)
+    points = np.array([x_grid_ravel, y_grid_ravel]).T
+    r = int(stripe_width / 2)
+    n = int(np.floor(stripe_width / spatial_resolution))
+    rr = np.linspace(-r, r, n)
+    normal_density_array = uniform(rr, stripe_width, 10)
+    for i in range(len(x_coordinates) - 2):
+        if bucket_logger[i] == 0:
+            continue
+        else:
+            x_rect, y_rect = generate_cell_from_coordinates(
+                x_coordinates, y_coordinates, i, stripe_width, spatial_resolution
+            )
+            inside_mask = is_inside_tile(x_rect, y_rect, points)
+            sub_grid_x = x_grid_ravel[inside_mask]
+            sub_grid_y = y_grid_ravel[inside_mask]
+            cell_density = density_in_tile(x_rect, y_rect, normal_density_array, n)(
+                sub_grid_x, sub_grid_y
+            )
+            total_density[inside_mask] = total_density[inside_mask] + cell_density
+    total_density_grid = np.reshape(total_density, x_grid.shape)
+    return x_grid, y_grid, total_density_grid
