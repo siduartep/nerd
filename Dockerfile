@@ -12,6 +12,4 @@ RUN pip install \
     pytest-cov \
     pytest \
     rope
-
-RUN pip install --requirement requirements.txt
 CMD make
