@@ -128,8 +128,8 @@ def check_directions(x_rect, y_rect):
     return x_rect, y_rect
 
 
-def generate_contours(x_grid, y_grid, total_density, n_contours=20):
-    contour = plt.contourf(x_grid, y_grid, total_density, n_contours)
+def generate_contours(x_grid, y_grid, total_density, *args):
+    contour = plt.contourf(x_grid, y_grid, total_density, *args)
     return contour, dict(zip(contour.collections, contour.levels))
 
 
