@@ -23,13 +23,14 @@ check:
 	flake8 --max-line-length 100 tests
 
 clean:
+	rm --force --recursive ${module}.egg-info
+	rm --force --recursive ${module}/__pycache__
+	rm --force --recursive ${module}/calibration/__pycache__
+	rm --force --recursive ${module}/density_functions/__pycache__
+	rm --force --recursive ${module}/mapping/__pycache__
+	rm --force --recursive tests/__pycache__
 	rm --force .mutmut-cache
-	rm --recursive --force ${module}.egg-info
-	rm --recursive --force ${module}/__pycache__
-	rm --recursive --force ${module}/calibration/__pycache__
-	rm --recursive --force ${module}/density_functions/__pycache__
-	rm --recursive --force ${module}/mapping/__pycache__
-	rm --recursive --force tests/__pycache__
+	rm --force tests/test_shapefile.*
 
 coverage: install
 	pytest --cov=${module} --cov-report=xml --verbose && \
