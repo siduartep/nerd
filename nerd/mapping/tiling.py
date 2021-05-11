@@ -197,3 +197,9 @@ def calculate_total_density(
             total_density[inside_mask] = total_density[inside_mask] + cell_density
     total_density_grid = np.reshape(total_density, x_grid.shape)
     return x_grid, y_grid, total_density_grid
+
+
+def density_contours_intervals(density_value, total_density):
+    mask_zeros = total_density != 0
+    total_density_masked = total_density[mask_zeros]
+    return np.unique([total_density_masked.min()/2 ,density_value/2, density_value*0.95, density_value*1.05, np.min([2*density_value, np.max(total_density)]), np.max([2*density_value, np.max(total_density)])])
