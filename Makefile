@@ -48,7 +48,7 @@ linter:
 	$(call lint, ${module})
 	$(call lint, tests)
 
-mutants:
+mutants: install
 	mutmut run --paths-to-mutate ${module}
 
 tests: install
