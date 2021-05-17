@@ -19,4 +19,6 @@ from .tiling import (  # noqa
     create_contour_polygon_list,
     export_contour_list_as_shapefile,
     calculate_total_density,
+    generate_grid_density,
+    density_contours_intervals,
 )

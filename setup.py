@@ -13,5 +13,5 @@ setup(
         "scipy",
         "shapely",
         "utm",
-    ]
+    ],
 )
