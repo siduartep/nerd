@@ -1,7 +1,7 @@
 from matplotlib import path
 from scipy.interpolate import griddata
 from shapely import geometry
-from nerd.density_functions import normal, uniform
+from nerd.density_functions import uniform
 
 import fiona
 import matplotlib.pyplot as plt
@@ -202,4 +202,13 @@ def calculate_total_density(
 def density_contours_intervals(density_value, total_density):
     mask_zeros = total_density != 0
     total_density_masked = total_density[mask_zeros]
-    return np.unique([total_density_masked.min()/2 ,density_value/2, density_value*0.95, density_value*1.05, np.min([2*density_value, np.max(total_density)]), np.max([2*density_value, np.max(total_density)])])
+    return np.unique(
+        [
+            total_density_masked.min() / 2,
+            density_value / 2,
+            density_value * 0.95,
+            density_value * 1.05,
+            np.min([2 * density_value, np.max(total_density)]),
+            np.max([2 * density_value, np.max(total_density)]),
+        ]
+    )
