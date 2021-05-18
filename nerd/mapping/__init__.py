@@ -21,4 +21,5 @@ from .tiling import (  # noqa
     calculate_total_density,
     generate_grid_density,
     density_contours_intervals,
+    generate_uniform_density_array,
 )
