@@ -170,17 +170,21 @@ def generate_grid_density(x_coordinates, y_coordinates, spatial_resolution):
 
 
 def calculate_total_density(
-    x_coordinates, y_coordinates, bucket_logger, stripe_width, spatial_resolution
+    x_coordinates,
+    y_coordinates,
+    bucket_logger,
+    stripe_width,
+    spatial_resolution,
+    uniform_density_value,
 ):
     x_grid, y_grid = generate_grid_density(x_coordinates, y_coordinates, spatial_resolution)
     x_grid_ravel = np.ravel(x_grid)
     y_grid_ravel = np.ravel(y_grid)
     total_density = np.zeros_like(x_grid_ravel)
     points = np.array([x_grid_ravel, y_grid_ravel]).T
-    r = int(stripe_width / 2)
-    n = int(np.floor(stripe_width / spatial_resolution))
-    rr = np.linspace(-r, r, n)
-    normal_density_array = uniform(rr, stripe_width, 10)
+    normal_density_array, n = generate_uniform_density_array(
+        uniform_density_value, stripe_width, spatial_resolution
+    )
     for i in range(len(x_coordinates) - 2):
         if bucket_logger[i] == 0:
             continue
@@ -197,6 +201,14 @@ def calculate_total_density(
             total_density[inside_mask] = total_density[inside_mask] + cell_density
     total_density_grid = np.reshape(total_density, x_grid.shape)
     return x_grid, y_grid, total_density_grid
+
+
+def generate_uniform_density_array(density_value, stripe_width, spatial_resolution):
+    r = int(stripe_width / 2)
+    n = int(np.floor(stripe_width / spatial_resolution))
+    rr = np.linspace(-r, r, n)
+    normal_density_array = uniform(rr, stripe_width, density_value)
+    return normal_density_array, n
 
 
 def density_contours_intervals(density_value, total_density):
