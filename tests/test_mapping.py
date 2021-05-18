@@ -46,7 +46,7 @@ class TestMapping(TestCase):
         self.n_contours = 2
         self.x_coordinates = np.arange(0, 100, 2)
         self.y_coordinates = np.arange(0, 100, 2)
-        self.bucket_logger = np.ones(100)
+        self.bucket_logger = np.array([1, 1, 1, 1, 0, 0, 0, 1, 1, 1])
         self.total_density_reshaped = np.eye(50, 50)
         self.x_grid, self.y_grid = np.meshgrid(self.x_coordinates, self.y_coordinates)
         self.x_tile_coordinates = [
@@ -269,27 +269,29 @@ class TestMapping(TestCase):
 
     def test_calculate_total_density(self):
         x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
-            self.x_coordinates[:5],
-            self.y_coordinates[:5],
-            self.bucket_logger[:5],
+            self.x_coordinates[:10],
+            self.y_coordinates[:10],
+            self.bucket_logger[:10],
             self.stripe_width,
             self.spatial_resolution,
         )
-        total_density_expected = np.array([[0, 10], [10, 10]])
-        x_grid_expected = np.array([[0, 5], [0, 5]])
-        y_grid_expected = np.array([[0, 0], [5, 5]])
-        np.testing.assert_array_equal(total_density_grid_obtained, total_density_expected)
+        total_density_expected = np.array(
+            [[0, 10, 10, 10], [10, 10, 10, 0], [10, 10, 0, 0], [10, 0, 0, 10]]
+        )
+        x_grid_expected = np.array([[0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15]])
+        y_grid_expected = np.array([[0, 0, 0, 0], [5, 5, 5, 5], [10, 10, 10, 10], [15, 15, 15, 15]])
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
+        np.testing.assert_array_equal(total_density_grid_obtained, total_density_expected)
 
     def test_generate_grid_density(self):
         x_grid_obtained, y_grid_obtained = generate_grid_density(
-            self.x_coordinates[:5],
-            self.y_coordinates[:5],
+            self.x_coordinates[:10],
+            self.y_coordinates[:10],
             self.spatial_resolution,
         )
-        x_grid_expected = np.array([[0, 5], [0, 5]])
-        y_grid_expected = np.array([[0, 0], [5, 5]])
+        x_grid_expected = np.array([[0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15]])
+        y_grid_expected = np.array([[0, 0, 0, 0], [5, 5, 5, 5], [10, 10, 10, 10], [15, 15, 15, 15]])
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
 
