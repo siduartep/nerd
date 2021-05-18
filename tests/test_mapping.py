@@ -29,6 +29,8 @@ import matplotlib as mpl
 import numpy as np
 import types
 
+random_state = np.random.RandomState(1)
+
 
 class TestMapping(TestCase):
     def setUp(self) -> None:
@@ -50,6 +52,7 @@ class TestMapping(TestCase):
         self.y_coordinates = np.arange(0, 100, 2)
         self.bucket_logger = np.array([1, 1, 1, 1, 0, 0, 0, 1, 1, 1])
         self.total_density_reshaped = np.eye(50, 50)
+        self.total_density_random = random_state.rand(5, 5) * 10
         self.x_grid, self.y_grid = np.meshgrid(self.x_coordinates, self.y_coordinates)
         self.x_tile_coordinates = [
             29.832815729997474,
@@ -302,6 +305,11 @@ class TestMapping(TestCase):
         contours_array_obtained = density_contours_intervals(1, self.total_density_reshaped)
         contours_array_expected = np.array([0.5, 0.95, 1.0, 1.05, 2.0])
         np.testing.assert_array_equal(contours_array_obtained, contours_array_expected)
+
+    def test_density_contours_intervals_2(self):
+        contours_array_obtained = density_contours_intervals(5, self.total_density_random)
+        contours_array_expected = np.array([0.075095, 2.5, 4.75, 5.25, 9.632625, 10.0])
+        np.testing.assert_array_almost_equal(contours_array_obtained, contours_array_expected)
 
     def test_generate_uniform_density_array(self):
         uniform_density_obtained, n_obtained = generate_uniform_density_array(
