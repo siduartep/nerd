@@ -18,6 +18,7 @@ from nerd.mapping import (
     calculate_total_density,
     generate_grid_density,
     density_contours_intervals,
+    generate_uniform_density_array,
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
@@ -38,6 +39,7 @@ class TestMapping(TestCase):
         self.y = [2, 4, 6, 8, 10, 12]
         self.node = 2
         self.spatial_resolution = 5
+        self.uniform_density_value = 10
         self.half_stripe_width = int(self.stripe_width / 2)
         self.density_domain = np.linspace(
             -self.half_stripe_width, self.half_stripe_width, self.spatial_resolution
@@ -274,6 +276,7 @@ class TestMapping(TestCase):
             self.bucket_logger[:10],
             self.stripe_width,
             self.spatial_resolution,
+            self.uniform_density_value,
         )
         total_density_expected = np.array(
             [[0, 10, 10, 10], [10, 10, 10, 0], [10, 10, 0, 0], [10, 0, 0, 10]]
@@ -299,3 +302,14 @@ class TestMapping(TestCase):
         contours_array_obtained = density_contours_intervals(1, self.total_density_reshaped)
         contours_array_expected = np.array([0.5, 0.95, 1.0, 1.05, 2.0])
         np.testing.assert_array_equal(contours_array_obtained, contours_array_expected)
+
+    def test_generate_uniform_density_array(self):
+        uniform_density_obtained, n_obtained = generate_uniform_density_array(
+            self.uniform_density_value, self.stripe_width, self.spatial_resolution
+        )
+        uniform_density_expected = np.array(
+            [0.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 0.0]
+        )
+        n_expected = 12
+        np.testing.assert_array_equal(uniform_density_obtained, uniform_density_expected)
+        assert n_obtained == n_expected
