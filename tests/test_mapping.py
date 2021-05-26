@@ -301,14 +301,14 @@ class TestMapping(TestCase):
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
 
-    def test_density_contours_intervals(self):
+    def test_density_contours_intervals_1(self):
         contours_array_obtained = density_contours_intervals(1, self.total_density_reshaped)
-        contours_array_expected = np.array([0.5, 0.95, 1.0, 1.05, 2.0])
+        contours_array_expected = np.array([0.5, 0.95, 1.0, 1.05])
         np.testing.assert_array_equal(contours_array_obtained, contours_array_expected)
 
     def test_density_contours_intervals_2(self):
-        contours_array_obtained = density_contours_intervals(5, self.total_density_random)
-        contours_array_expected = np.array([0.375475, 2.5, 4.75, 5.25, 10.0, 48.163126])
+        contours_array_obtained = density_contours_intervals(20, self.total_density_random)
+        contours_array_expected = np.array([0.375475, 10.0, 19.0, 21.0, 40.0, 48.163126])
         np.testing.assert_array_almost_equal(contours_array_obtained, contours_array_expected)
 
     def test_generate_uniform_density_array(self):

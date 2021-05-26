@@ -222,6 +222,6 @@ def density_contours_intervals(density_value, total_density):
             density_value * 0.95,
             density_value * 1.05,
             np.min([2 * density_value, np.max(total_density)]),
-            np.max([2 * density_value, np.max(total_density)]),
+            np.max(total_density),
         ]
     )
