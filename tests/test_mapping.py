@@ -308,7 +308,7 @@ class TestMapping(TestCase):
 
     def test_density_contours_intervals_2(self):
         contours_array_obtained = density_contours_intervals(5, self.total_density_random)
-        contours_array_expected = np.array([0.375475,2.5,4.75,5.25, 10.0, 48.163126])
+        contours_array_expected = np.array([0.375475, 2.5, 4.75, 5.25, 10.0, 48.163126])
         np.testing.assert_array_almost_equal(contours_array_obtained, contours_array_expected)
 
     def test_generate_uniform_density_array(self):
