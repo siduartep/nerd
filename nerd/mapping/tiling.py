@@ -1,7 +1,8 @@
 from matplotlib import path
+from nerd.density_functions import uniform
 from scipy.interpolate import griddata
 from shapely import geometry
-from nerd.density_functions import uniform
+from tqdm import tqdm
 
 import fiona
 import matplotlib.pyplot as plt
@@ -185,7 +186,7 @@ def calculate_total_density(
     normal_density_array, n = generate_uniform_density_array(
         uniform_density_value, stripe_width, spatial_resolution
     )
-    for i in range(len(x_coordinates) - 2):
+    for i in tqdm(range(len(x_coordinates) - 2)):
         if bucket_logger[i] == 0:
             continue
         else:

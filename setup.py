@@ -13,5 +13,6 @@ setup(
         "scipy",
         "shapely",
         "utm",
+        "tqdm",
     ],
 )
