@@ -15,6 +15,10 @@ from nerd.mapping import (
     generate_contours,
     create_contour_polygon_list,
     export_contour_list_as_shapefile,
+    calculate_total_density,
+    generate_grid_density,
+    density_contours_intervals,
+    generate_uniform_density_array,
 )
 from nerd.density_functions import uniform
 from unittest import TestCase
@@ -24,6 +28,8 @@ import hashlib
 import matplotlib as mpl
 import numpy as np
 import types
+
+random_state = np.random.RandomState(1)
 
 
 class TestMapping(TestCase):
@@ -35,6 +41,7 @@ class TestMapping(TestCase):
         self.y = [2, 4, 6, 8, 10, 12]
         self.node = 2
         self.spatial_resolution = 5
+        self.uniform_density_value = 10
         self.half_stripe_width = int(self.stripe_width / 2)
         self.density_domain = np.linspace(
             -self.half_stripe_width, self.half_stripe_width, self.spatial_resolution
@@ -43,7 +50,9 @@ class TestMapping(TestCase):
         self.n_contours = 2
         self.x_coordinates = np.arange(0, 100, 2)
         self.y_coordinates = np.arange(0, 100, 2)
+        self.bucket_logger = np.array([1, 1, 1, 1, 0, 0, 0, 1, 1, 1])
         self.total_density_reshaped = np.eye(50, 50)
+        self.total_density_random = random_state.rand(5, 5) * 50
         self.x_grid, self.y_grid = np.meshgrid(self.x_coordinates, self.y_coordinates)
         self.x_tile_coordinates = [
             29.832815729997474,
@@ -262,3 +271,53 @@ class TestMapping(TestCase):
         obtained_hash = md5_hash.hexdigest()
         expected_hash = "30e405e870cda15ea85eb185402e22ae"
         assert obtained_hash == expected_hash
+
+    def test_calculate_total_density(self):
+        x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
+            self.x_coordinates[:10],
+            self.y_coordinates[:10],
+            self.bucket_logger[:10],
+            self.stripe_width,
+            self.spatial_resolution,
+            self.uniform_density_value,
+        )
+        total_density_expected = np.array(
+            [[0, 10, 10, 10], [10, 10, 10, 0], [10, 10, 0, 0], [10, 0, 0, 10]]
+        )
+        x_grid_expected = np.array([[0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15]])
+        y_grid_expected = np.array([[0, 0, 0, 0], [5, 5, 5, 5], [10, 10, 10, 10], [15, 15, 15, 15]])
+        np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
+        np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
+        np.testing.assert_array_equal(total_density_grid_obtained, total_density_expected)
+
+    def test_generate_grid_density(self):
+        x_grid_obtained, y_grid_obtained = generate_grid_density(
+            self.x_coordinates[:10],
+            self.y_coordinates[:10],
+            self.spatial_resolution,
+        )
+        x_grid_expected = np.array([[0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15]])
+        y_grid_expected = np.array([[0, 0, 0, 0], [5, 5, 5, 5], [10, 10, 10, 10], [15, 15, 15, 15]])
+        np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
+        np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
+
+    def test_density_contours_intervals_1(self):
+        contours_array_obtained = density_contours_intervals(1, self.total_density_reshaped)
+        contours_array_expected = np.array([0.5, 0.95, 1.0, 1.05])
+        np.testing.assert_array_equal(contours_array_obtained, contours_array_expected)
+
+    def test_density_contours_intervals_2(self):
+        contours_array_obtained = density_contours_intervals(20, self.total_density_random)
+        contours_array_expected = np.array([0.375475, 10.0, 19.0, 21.0, 40.0, 48.163126])
+        np.testing.assert_array_almost_equal(contours_array_obtained, contours_array_expected)
+
+    def test_generate_uniform_density_array(self):
+        uniform_density_obtained, n_obtained = generate_uniform_density_array(
+            self.uniform_density_value, self.stripe_width, self.spatial_resolution
+        )
+        uniform_density_expected = np.array(
+            [0.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 0.0]
+        )
+        n_expected = 12
+        np.testing.assert_array_equal(uniform_density_obtained, uniform_density_expected)
+        assert n_obtained == n_expected
