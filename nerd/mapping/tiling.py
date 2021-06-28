@@ -195,7 +195,11 @@ def calculate_total_density(
             continue
         else:
             density_function_lambda = solver(
-                aperture_diameter, helicopter_speed[i], stripe_width, density_function, flow_rate_function
+                aperture_diameter,
+                helicopter_speed[i],
+                stripe_width,
+                density_function,
+                flow_rate_function,
             )
             density_array = density_function_lambda(array_for_density)
             x_rect, y_rect = generate_cell_from_coordinates(
