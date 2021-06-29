@@ -277,22 +277,46 @@ class TestMapping(TestCase):
         assert obtained_hash == expected_hash
 
     def test_calculate_total_density(self):
+        spatial_resolution = 2
+        swath_width = 5
         x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
-            self.x_coordinates[:10],
-            self.y_coordinates[:10],
-            self.bucket_logger[:10],
-            self.stripe_width,
-            self.spatial_resolution,
+            self.x_coordinates,
+            self.y_coordinates,
+            self.bucket_logger,
+            swath_width,
+            spatial_resolution,
             self.helicopter_speed,
             self.aperture_diameter,
             self.density_function,
             self.flow_rate_function,
         )
         total_density_expected = np.array(
-            [[0.0, 0.00242137], [0.00242137, 0.0]],
+            [
+                [0.0, 0.00407266, 0.0, 0.0, 0.0],
+                [0.00407266, 0.00387872, 0.00407266, 0.0, 0.0],
+                [0.0, 0.00407266, 0.00452517, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0, 0.00543021],
+            ],
         )
-        x_grid_expected = np.array([[0.0, 5.0], [0.0, 5.0]])
-        y_grid_expected = np.array([[0.0, 0.0], [5.0, 5.0]])
+        x_grid_expected = np.array(
+            [
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+            ]
+        )
+        y_grid_expected = np.array(
+            [
+                [0.0, 0.0, 0.0, 0.0, 0.0],
+                [2.0, 2.0, 2.0, 2.0, 2.0],
+                [4.0, 4.0, 4.0, 4.0, 4.0],
+                [6.0, 6.0, 6.0, 6.0, 6.0],
+                [8.0, 8.0, 8.0, 8.0, 8.0],
+            ]
+        )
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
         np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
