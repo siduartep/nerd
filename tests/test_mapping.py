@@ -321,6 +321,23 @@ class TestMapping(TestCase):
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
         np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
 
+    def test_calculate_total_density_2(self):
+        x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
+            self.x_coordinates[:10],
+            self.y_coordinates[:10],
+            self.bucket_logger[:10],
+            self.stripe_width,
+            self.spatial_resolution,
+            self.helicopter_speed,
+            self.aperture_diameter,
+            self.density_function,
+            self.flow_rate_function,
+        )
+        total_density_expected = np.array(
+            [[0.0, 0.00242137], [0.00242137, 0.0]],
+        )
+        np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
+
     def test_generate_grid_density(self):
         x_grid_obtained, y_grid_obtained = generate_grid_density(
             self.x_coordinates[:10],
@@ -339,7 +356,7 @@ class TestMapping(TestCase):
 
     def test_density_contours_intervals_2(self):
         contours_array_obtained = density_contours_intervals(20, self.total_density_random)
-        contours_array_expected = np.array([0.375475, 10.0, 19.0, 21.0, 40.0, 48.163126])
+        contours_array_expected = np.array([0.388332, 10.0, 19.0, 21.0, 40.0, 47.005374])
         np.testing.assert_array_almost_equal(contours_array_obtained, contours_array_expected)
 
     def test_generate_uniform_density_array(self):
