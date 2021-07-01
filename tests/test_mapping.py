@@ -20,7 +20,7 @@ from nerd.mapping import (
     density_contours_intervals,
     generate_uniform_density_array,
 )
-from nerd.density_functions import uniform
+from nerd.density_functions import uniform, normal
 from unittest import TestCase
 from shapely import geometry
 
@@ -48,10 +48,14 @@ class TestMapping(TestCase):
         )
         self.uniform_density = uniform(self.density_domain, self.stripe_width, 10)
         self.n_contours = 2
-        self.x_coordinates = np.arange(0, 100, 2)
-        self.y_coordinates = np.arange(0, 100, 2)
+        self.x_coordinates = np.linspace(0, 10, 10)
+        self.y_coordinates = np.linspace(0, 10, 10)
+        self.helicopter_speed = [20, 21, 20, 18, 17, 15, 15, 15, 15, 15, 10, 5]
         self.bucket_logger = np.array([1, 1, 1, 1, 0, 0, 0, 1, 1, 1])
-        self.total_density_reshaped = np.eye(50, 50)
+        self.total_density_reshaped = np.eye(10, 10)
+        self.aperture_diameter = 90
+        self.density_function = normal
+        self.flow_rate_function = lambda x: x / 50
         self.total_density_random = random_state.rand(5, 5) * 50
         self.x_grid, self.y_grid = np.meshgrid(self.x_coordinates, self.y_coordinates)
         self.x_tile_coordinates = [
@@ -269,26 +273,70 @@ class TestMapping(TestCase):
         content = a_file.read()
         md5_hash.update(content)
         obtained_hash = md5_hash.hexdigest()
-        expected_hash = "30e405e870cda15ea85eb185402e22ae"
+        expected_hash = "ac856b1b13778ce8ccc89c20b65dea0c"
         assert obtained_hash == expected_hash
 
     def test_calculate_total_density(self):
+        spatial_resolution = 2
+        swath_width = 5
+        x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
+            self.x_coordinates,
+            self.y_coordinates,
+            self.bucket_logger,
+            swath_width,
+            spatial_resolution,
+            self.helicopter_speed,
+            self.aperture_diameter,
+            self.density_function,
+            self.flow_rate_function,
+        )
+        total_density_expected = np.array(
+            [
+                [0.0, 0.00407266, 0.0, 0.0, 0.0],
+                [0.00407266, 0.00387872, 0.00407266, 0.0, 0.0],
+                [0.0, 0.00407266, 0.00452517, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0, 0.00543021],
+            ],
+        )
+        x_grid_expected = np.array(
+            [
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+                [0.0, 2.0, 4.0, 6.0, 8.0],
+            ]
+        )
+        y_grid_expected = np.array(
+            [
+                [0.0, 0.0, 0.0, 0.0, 0.0],
+                [2.0, 2.0, 2.0, 2.0, 2.0],
+                [4.0, 4.0, 4.0, 4.0, 4.0],
+                [6.0, 6.0, 6.0, 6.0, 6.0],
+                [8.0, 8.0, 8.0, 8.0, 8.0],
+            ]
+        )
+        np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
+        np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
+        np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
+
+    def test_calculate_total_density_2(self):
         x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
             self.x_coordinates[:10],
             self.y_coordinates[:10],
             self.bucket_logger[:10],
             self.stripe_width,
             self.spatial_resolution,
-            self.uniform_density_value,
+            self.helicopter_speed,
+            self.aperture_diameter,
+            self.density_function,
+            self.flow_rate_function,
         )
         total_density_expected = np.array(
-            [[0, 10, 10, 10], [10, 10, 10, 0], [10, 10, 0, 0], [10, 0, 0, 10]]
+            [[0.0, 0.00242137], [0.00242137, 0.0]],
         )
-        x_grid_expected = np.array([[0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15]])
-        y_grid_expected = np.array([[0, 0, 0, 0], [5, 5, 5, 5], [10, 10, 10, 10], [15, 15, 15, 15]])
-        np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
-        np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
-        np.testing.assert_array_equal(total_density_grid_obtained, total_density_expected)
+        np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
 
     def test_generate_grid_density(self):
         x_grid_obtained, y_grid_obtained = generate_grid_density(
@@ -296,8 +344,8 @@ class TestMapping(TestCase):
             self.y_coordinates[:10],
             self.spatial_resolution,
         )
-        x_grid_expected = np.array([[0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15], [0, 5, 10, 15]])
-        y_grid_expected = np.array([[0, 0, 0, 0], [5, 5, 5, 5], [10, 10, 10, 10], [15, 15, 15, 15]])
+        x_grid_expected = np.array([[0.0, 5.0], [0.0, 5.0]])
+        y_grid_expected = np.array([[0.0, 0.0], [5.0, 5.0]])
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
 
@@ -308,7 +356,7 @@ class TestMapping(TestCase):
 
     def test_density_contours_intervals_2(self):
         contours_array_obtained = density_contours_intervals(20, self.total_density_random)
-        contours_array_expected = np.array([0.375475, 10.0, 19.0, 21.0, 40.0, 48.163126])
+        contours_array_expected = np.array([0.388332, 10.0, 19.0, 21.0, 40.0, 47.005374])
         np.testing.assert_array_almost_equal(contours_array_obtained, contours_array_expected)
 
     def test_generate_uniform_density_array(self):

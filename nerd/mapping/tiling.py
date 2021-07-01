@@ -1,4 +1,5 @@
 from matplotlib import path
+from nerd import solver
 from nerd.density_functions import uniform
 from scipy.interpolate import griddata
 from shapely import geometry
@@ -84,7 +85,7 @@ def density_in_tile(x_rect, y_rect, density_profile, n_point):
     mean_yy = np.mean(yy)
     return lambda xq, yq: griddata(
         np.array([xx - mean_xx, yy - mean_yy]).T,
-        np.repeat(density_profile, 2),
+        np.tile(density_profile, 2),
         (xq - mean_xx, yq - mean_yy),
     )
 
@@ -176,29 +177,38 @@ def calculate_total_density(
     bucket_logger,
     stripe_width,
     spatial_resolution,
-    uniform_density_value,
+    helicopter_speed,
+    aperture_diameter,
+    density_function,
+    flow_rate_function,
 ):
     x_grid, y_grid = generate_grid_density(x_coordinates, y_coordinates, spatial_resolution)
     x_grid_ravel = np.ravel(x_grid)
     y_grid_ravel = np.ravel(y_grid)
     total_density = np.zeros_like(x_grid_ravel)
     points = np.array([x_grid_ravel, y_grid_ravel]).T
-    normal_density_array, n = generate_uniform_density_array(
-        uniform_density_value, stripe_width, spatial_resolution
-    )
+    n = int(np.floor(stripe_width / spatial_resolution))
+    array_for_density = np.linspace(-stripe_width / 2, stripe_width / 2, n)
+
     for i in tqdm(range(len(x_coordinates) - 2)):
         if bucket_logger[i] == 0:
             continue
         else:
+            density_function_lambda = solver(
+                aperture_diameter,
+                helicopter_speed[i],
+                stripe_width,
+                density_function,
+                flow_rate_function,
+            )
+            density_array = density_function_lambda(array_for_density)
             x_rect, y_rect = generate_cell_from_coordinates(
                 x_coordinates, y_coordinates, i, stripe_width, spatial_resolution
             )
             inside_mask = is_inside_tile(x_rect, y_rect, points)
             sub_grid_x = x_grid_ravel[inside_mask]
             sub_grid_y = y_grid_ravel[inside_mask]
-            cell_density = density_in_tile(x_rect, y_rect, normal_density_array, n)(
-                sub_grid_x, sub_grid_y
-            )
+            cell_density = density_in_tile(x_rect, y_rect, density_array, n)(sub_grid_x, sub_grid_y)
             total_density[inside_mask] = total_density[inside_mask] + cell_density
     total_density_grid = np.reshape(total_density, x_grid.shape)
     return x_grid, y_grid, total_density_grid
