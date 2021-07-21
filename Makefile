@@ -51,5 +51,5 @@ linter:
 mutants: install
 	mutmut run --paths-to-mutate ${module}
 
-tests: install
+tests:
 	pytest --verbose
