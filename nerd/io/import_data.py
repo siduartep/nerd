@@ -1,4 +1,3 @@
-import collections
 import pandas as pd
 
 column_names = ["date", "time", "Lat", "Lon", "Speed", "heading", "Logging_on", "altitude"]
