@@ -12,7 +12,16 @@ define lint
         ${1}
 endef
 
-.PHONY: all check clean coverage format install linter mutants tests
+.PHONY: \
+		all \
+		check \
+		clean \
+		coverage \
+		format \
+		linter \
+		mutants \
+		setup \
+		tests
 
 check:
 	black --check --line-length 100 ${module}
@@ -33,7 +42,7 @@ clean:
 	rm --force tests/data/imported_data.csv
 	rm --force tests/test_shapefile.*
 
-coverage: install
+coverage: setup
 	pytest --cov=${module} --cov-report=xml --verbose && \
 	codecov --token=${codecov_token}
 
@@ -42,14 +51,14 @@ format:
 	black --line-length 100 setup.py
 	black --line-length 100 tests
 
-install:
+setup:
 	pip install --editable .
 
 linter:
 	$(call lint, ${module})
 	$(call lint, tests)
 
-mutants: install
+mutants: setup
 	mutmut run --paths-to-mutate ${module}
 
 tests:
