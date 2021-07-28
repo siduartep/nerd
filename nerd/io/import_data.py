@@ -10,6 +10,7 @@ def tracmap2csv(tracmap_filename, csv_filename):
     )
     tracmap_data.to_csv(csv_filename, index=False)
 
+
 def import_tracmap(tracmap_filename):
     csv_filename = "input_data.csv"
     tracmap2csv(tracmap_filename, csv_filename)
