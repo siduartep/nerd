@@ -4,9 +4,9 @@
     "profile": "tabular-data-package",
     "resources": [
         {
-            "path": "280320-06-95mm.csv",
+            "path": "expected_input_data.csv",
             "profile": "tabular-data-resource",
-            "name": "280320-06-95mm",
+            "name": "expected_input_data",
             "format": "csv",
             "mediatype": "text/csv",
             "encoding": "utf-8",
