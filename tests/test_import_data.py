@@ -20,9 +20,13 @@ def test_import_tracmap_without_csvfilename():
     assert_frame_equal(expected_utm_data, obtained_utm_data)
     os.remove("input_data.csv")
 
+
 def test_import_tracmap_with_csvfilename():
     test_csv_filename = "test_csv_filename.csv"
     expected_utm_data = pd.read_csv("tests/data/expected_utm_data.csv")
-    obtained_utm_data = import_tracmap(tracmap_filename="tests/data/tracmap_sample_data.txt", csv_filename=test_csv_filename)
-    os.path.isfile(test_csv_filename)
+    obtained_utm_data = import_tracmap(
+        tracmap_filename="tests/data/tracmap_sample_data.txt", csv_filename=test_csv_filename
+    )
+    assert os.path.isfile(test_csv_filename)
+    assert_frame_equal(expected_utm_data, obtained_utm_data)
     os.remove(test_csv_filename)
