@@ -41,6 +41,7 @@ clean:
 	rm --force .mutmut-cache
 	rm --force tests/data/imported_data.csv
 	rm --force tests/test_shapefile.*
+	rm --force XXinput_data.csvXX
 
 coverage: setup
 	pytest --cov=${module} --cov-report=xml --verbose && \
