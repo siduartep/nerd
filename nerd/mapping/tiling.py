@@ -172,16 +172,17 @@ def generate_grid_density(x_coordinates, y_coordinates, spatial_resolution):
 
 
 def calculate_total_density(
-    x_coordinates,
-    y_coordinates,
-    bucket_logger,
+    track_data,
     stripe_width,
     spatial_resolution,
-    helicopter_speed,
     aperture_diameter,
     density_function,
     flow_rate_function,
 ):
+    x_coordinates = track_data["easting"].to_numpy()
+    y_coordinates = track_data["northing"].to_numpy()
+    bucket_logger = track_data["Logging_on"].to_numpy()
+    helicopter_speed = track_data["Speed"].to_numpy()
     x_grid, y_grid = generate_grid_density(x_coordinates, y_coordinates, spatial_resolution)
     x_grid_ravel = np.ravel(x_grid)
     y_grid_ravel = np.ravel(y_grid)
