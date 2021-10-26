@@ -187,7 +187,6 @@ def calculate_total_density(
     x_grid_ravel = np.ravel(x_grid)
     y_grid_ravel = np.ravel(y_grid)
     total_density = np.zeros_like(x_grid_ravel)
-    points = np.array([x_grid_ravel, y_grid_ravel]).T
     n = int(np.floor(stripe_width / spatial_resolution))
     array_for_density = np.linspace(-stripe_width / 2, stripe_width / 2, n)
 
@@ -206,7 +205,7 @@ def calculate_total_density(
             x_rect, y_rect = generate_cell_from_coordinates(
                 x_coordinates, y_coordinates, i, stripe_width, spatial_resolution
             )
-            inside_mask = is_inside_tile(x_rect, y_rect, points)
+            inside_mask = is_inside_tile(x_rect, y_rect, np.array([x_grid_ravel, y_grid_ravel]).T)
             sub_grid_x = x_grid_ravel[inside_mask]
             sub_grid_y = y_grid_ravel[inside_mask]
             cell_density = density_in_tile(x_rect, y_rect, density_array, n)(sub_grid_x, sub_grid_y)
