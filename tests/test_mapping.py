@@ -282,7 +282,7 @@ class TestMapping(TestCase):
         content = a_file.read()
         md5_hash.update(content)
         obtained_hash = md5_hash.hexdigest()
-        expected_hash = "ac856b1b13778ce8ccc89c20b65dea0c"
+        expected_hash = "1124067914ab62d8c5cc0d3cc70742b7"
         assert obtained_hash == expected_hash
 
     def test_calculate_total_density(self):
