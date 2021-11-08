@@ -37,6 +37,7 @@ clean:
 	rm --force --recursive ${module}/calibration/__pycache__
 	rm --force --recursive ${module}/density_functions/__pycache__
 	rm --force --recursive ${module}/mapping/__pycache__
+	rm --force --recursive ${module}/io/__pycache__
 	rm --force --recursive tests/__pycache__
 	rm --force .mutmut-cache
 	rm --force tests/data/imported_data.csv
