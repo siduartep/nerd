@@ -1,5 +1,5 @@
 from nerd.io.geo2utm import geo2utm
-from nerd.io.fit_calibration_model import fit_calibration_model
+from nerd.calibration.fit_flow_rate import fit_flow_rate
 import pandas as pd
 
 column_names = ["date", "time", "Lat", "Lon", "Speed", "heading", "Logging_on", "altitude"]
@@ -26,4 +26,4 @@ def import_calibration_data(flux_filename):
         names=flux_calibation_colums,
         usecols=[i for i in range(0, 2)],
     )
-    return fit_calibration_model(flux_data)
+    return fit_flow_rate(flux_data["aperture_diameter"].to_numpy(), flux_data["flux"].to_numpy())
