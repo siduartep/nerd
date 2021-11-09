@@ -170,26 +170,30 @@ def generate_grid_density(x_coordinates, y_coordinates, spatial_resolution):
     x_grid, y_grid = np.meshgrid(x, y)
     return x_grid, y_grid
 
-class Tracks():
+
+class Tracks:
     def __init__(self, track_data):
         self.track_data = track_data
 
     @property
     def x_coordinates(self):
         return self.track_data["easting"].to_numpy()
+
     @property
     def y_coordinates(self):
         return self.track_data["northing"].to_numpy()
+
     @property
     def bucket_logger(self):
         return self.track_data["Logging_on"].to_numpy()
+
     @property
     def helicopter_speed(self):
         return self.track_data["Speed"].to_numpy()
+
     @property
     def n_data(self):
         return len(self.track_data)
-
 
 
 def calculate_total_density(
@@ -201,7 +205,9 @@ def calculate_total_density(
     flow_rate_function,
 ):
     tracks = Tracks(track_data)
-    x_grid, y_grid = generate_grid_density(tracks.x_coordinates, tracks.y_coordinates, spatial_resolution)
+    x_grid, y_grid = generate_grid_density(
+        tracks.x_coordinates, tracks.y_coordinates, spatial_resolution
+    )
     x_grid_ravel = np.ravel(x_grid)
     y_grid_ravel = np.ravel(y_grid)
     total_density = np.zeros_like(x_grid_ravel)
