@@ -1,1 +1,0 @@
-function rapidezNudos=calculateSpeed(ancho,diametro,densidad)

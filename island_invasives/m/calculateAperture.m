@@ -1,1 +1,0 @@
-function diametro=calculateAperture(ancho,rapidezNudos,densidad)
