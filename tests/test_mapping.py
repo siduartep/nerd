@@ -21,6 +21,7 @@ from nerd.mapping import (
     generate_uniform_density_array,
 )
 from nerd.density_functions import uniform, normal
+from nerd.io import Nerd
 from unittest import TestCase
 from shapely import geometry
 
@@ -29,6 +30,7 @@ import matplotlib as mpl
 import numpy as np
 import pandas as pd
 import types
+import os
 
 random_state = np.random.RandomState(1)
 
@@ -97,6 +99,8 @@ class TestMapping(TestCase):
                 "Speed": self.helicopter_speed[:10],
             }
         )
+        self.input_data_path = "examples/data/280320-06-95mm.txt"
+        self.input_calibration_data = "tests/data/expected_calibration_data.csv"
 
     def test_safe_divition(self):
         expected = 60 / 2
@@ -372,3 +376,19 @@ class TestMapping(TestCase):
         n_expected = 12
         np.testing.assert_array_equal(uniform_density_obtained, uniform_density_expected)
         assert n_obtained == n_expected
+
+    def test_hola(self):
+        dict_parameters = dict(
+            spatial_resolution=self.spatial_resolution,
+            width=self.stripe_width,
+            aperture_diameter=self.aperture_diameter,
+            density_function=self.density_function,
+            input_data_path=self.input_data_path,
+            input_calibration_data=self.input_calibration_data,
+        )
+        nerd_model = Nerd(dict_parameters)
+        nerd_model.calculate_total_density()
+        nerd_model.export_results_geojson(target_density=0.002)
+        test_csv_filename = "nerd_geojson.json"
+        assert os.path.isfile(test_csv_filename)
+        os.remove(test_csv_filename)
