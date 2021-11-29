@@ -17,7 +17,7 @@ class Nerd:
         self.input_data_path = dict_parameters["input_data_path"]
         self.input_calibration_data = dict_parameters["input_calibration_data"]
         self.tracmap_data = import_tracmap(self.input_data_path, self.input_data_path[:-3] + "csv")
-        self.flow_rate_function = import_calibration_data(dict_parameters["input_calibration_data"])
+        self.flow_rate_function = import_calibration_data(self.input_calibration_data)
 
     def calculate_total_density(self):
         self.x_grid, self.y_grid, self.total_density = calculate_total_density(
