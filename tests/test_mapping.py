@@ -382,13 +382,14 @@ class TestMapping(TestCase):
             input_calibration_data=self.input_calibration_data,
         )
         nerd_model = Nerd(dict_parameters)
+
         nerd_model.calculate_total_density()
         nerd_model.export_results_geojson(target_density=0.002)
         test_csv_filename = "nerd_geojson.json"
         assert os.path.isfile(test_csv_filename)
         expected_hash = "ce1556e3907eaa3ef65be9c47395544b"
         assess_hash(test_csv_filename, expected_hash)
-        imported_csv = "tests/data/imported_data.csv"
+        imported_csv = "examples/data/280320-06-95mm.csv"
         assert os.path.isfile(imported_csv)
         os.remove(test_csv_filename)
         os.remove(imported_csv)
