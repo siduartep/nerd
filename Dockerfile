@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.8
 WORKDIR /workdir
 COPY . .
 RUN pip install \
@@ -6,6 +6,7 @@ RUN pip install \
     black \
     codecov \
     flake8 \
+    geojsoncontour \
     ipykernel \
     mutmut \
     pylint \

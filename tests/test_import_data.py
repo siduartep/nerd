@@ -1,7 +1,9 @@
 import os
 import pandas as pd
-from nerd.io import import_tracmap, tracmap2csv
+from nerd.io import import_tracmap, tracmap2csv, import_calibration_data
 from pandas._testing import assert_frame_equal
+import numpy as np
+from numpy.testing import assert_array_almost_equal
 
 
 def test_tracmap2csv():
@@ -30,3 +32,11 @@ def test_import_tracmap_with_csvfilename():
     assert os.path.isfile(test_csv_filename)
     assert_frame_equal(expected_utm_data, obtained_utm_data)
     os.remove(test_csv_filename)
+
+
+def test_import_calibration_data():
+    expected_utm_data = "tests/data/expected_calibration_data.csv"
+    obtained_utm_data = import_calibration_data(expected_utm_data)
+    assert_array_almost_equal(
+        obtained_utm_data, np.array([6.86905404e-04, -6.19897620e-02, 1.72530268e00])
+    )

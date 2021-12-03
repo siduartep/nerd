@@ -171,41 +171,65 @@ def generate_grid_density(x_coordinates, y_coordinates, spatial_resolution):
     return x_grid, y_grid
 
 
+class Tracks:
+    def __init__(self, track_data):
+        self.track_data = track_data
+
+    @property
+    def x_coordinates(self):
+        return self.track_data["easting"].to_numpy()
+
+    @property
+    def y_coordinates(self):
+        return self.track_data["northing"].to_numpy()
+
+    @property
+    def bucket_logger(self):
+        return self.track_data["Logging_on"].to_numpy()
+
+    @property
+    def helicopter_speed(self):
+        return self.track_data["Speed"].to_numpy()
+
+    @property
+    def n_data(self):
+        return len(self.track_data)
+
+
 def calculate_total_density(
-    x_coordinates,
-    y_coordinates,
-    bucket_logger,
+    track_data,
     stripe_width,
     spatial_resolution,
-    helicopter_speed,
     aperture_diameter,
     density_function,
     flow_rate_function,
 ):
-    x_grid, y_grid = generate_grid_density(x_coordinates, y_coordinates, spatial_resolution)
+    tracks = Tracks(track_data)
+    x_grid, y_grid = generate_grid_density(
+        tracks.x_coordinates, tracks.y_coordinates, spatial_resolution
+    )
     x_grid_ravel = np.ravel(x_grid)
     y_grid_ravel = np.ravel(y_grid)
     total_density = np.zeros_like(x_grid_ravel)
-    points = np.array([x_grid_ravel, y_grid_ravel]).T
     n = int(np.floor(stripe_width / spatial_resolution))
     array_for_density = np.linspace(-stripe_width / 2, stripe_width / 2, n)
 
-    for i in tqdm(range(len(x_coordinates) - 2)):
-        if bucket_logger[i] == 0:
+    for i in tqdm(range(tracks.n_data - 2)):
+        if tracks.bucket_logger[i] == 0:
             continue
         else:
             density_function_lambda = solver(
                 aperture_diameter,
-                helicopter_speed[i],
+                tracks.helicopter_speed[i],
                 stripe_width,
                 density_function,
                 flow_rate_function,
             )
             density_array = density_function_lambda(array_for_density)
             x_rect, y_rect = generate_cell_from_coordinates(
-                x_coordinates, y_coordinates, i, stripe_width, spatial_resolution
+                tracks.x_coordinates, tracks.y_coordinates, i, stripe_width, spatial_resolution
             )
-            inside_mask = is_inside_tile(x_rect, y_rect, points)
+            inside_mask = is_inside_tile(x_rect, y_rect, np.array([x_grid_ravel, y_grid_ravel]).T)
             sub_grid_x = x_grid_ravel[inside_mask]
             sub_grid_y = y_grid_ravel[inside_mask]
             cell_density = density_in_tile(x_rect, y_rect, density_array, n)(sub_grid_x, sub_grid_y)
