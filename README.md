@@ -1,6 +1,15 @@
 # Numerical Estimation of Rodenticide Density
 
-The eradication of rodents is central to island conservation efforts and the aerial broadcast of rodenticide bait is the preferred dispersal method. To improve accuracy and expedite the evaluation of aerial operations, we developed an algorithm for the numerical estimation of rodenticide density (NERD). The NERD algorithm performs calculations with increased accuracy, displaying results almost in real-time. NERD describes the relationship between bait density, the mass flow rate of rodenticide through the bait bucket, and helicopter speed and produces maps of bait density on the ground. NERD also facilitates the planning of helicopter flight paths and allows for the instant identification of areas with low or high bait density.
+The eradication of rodents is central to island conservation efforts and the
+aerial broadcast of rodenticide bait is the preferred dispersal method. To
+improve accuracy and expedite the evaluation of aerial operations, we developed
+an algorithm for the numerical estimation of rodenticide density (NERD). The
+NERD algorithm performs calculations with increased accuracy, displaying
+results almost in real-time. NERD describes the relationship between bait
+density, the mass flow rate of rodenticide through the bait bucket, and
+helicopter speed and produces maps of bait density on the ground. NERD also
+facilitates the planning of helicopter flight paths and allows for the instant
+identification of areas with low or high bait density.
 
 ## Installation
 
@@ -27,7 +36,10 @@ run_demo:
 
 ## References
 
-- [Veitch, C.R., Clout, M.N., Martin, A.R., Russell, J.C. and West, C.J. (eds.) (2019). Island invasives: scaling up to meet the challenge. Occasional Paper SSC no. 62. Gland, Switzerland: IUCN. xiv + 734pp.](http://www.issg.org/pdf/publications/2019_Island_Invasives/PrintFiles/Rojas-Mayoral.pdf)
+- [Veitch, C.R., Clout, M.N., Martin, A.R., Russell, J.C. and West, C.J. (eds.)
+  (2019). Island invasives: scaling up to meet the challenge. Occasional Paper
+  SSC no. 62. Gland, Switzerland: IUCN. xiv +
+  734pp.](http://www.issg.org/pdf/publications/2019_Island_Invasives/PrintFiles/Rojas-Mayoral.pdf)
 
 ---
 
