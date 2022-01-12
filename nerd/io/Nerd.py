@@ -9,6 +9,7 @@ import geojsoncontour
 import json
 import pandas as pd
 
+
 class Nerd:
     def __init__(self, dict_parameters):
         self.spatial_resolution = dict_parameters["spatial_resolution"]
@@ -41,13 +42,16 @@ class Nerd:
             json.dump(geojson, outfile)
 
 
-
 class Nerd_multifile:
     def __init__(self, config_file_path):
         self.config_file = pd.read_json(config_file_path)
-        self.tracmap_data = import_multifile_tracmap(self.config_file, "input_concatenated_data.csv")
+        self.tracmap_data = import_multifile_tracmap(
+            self.config_file, "input_concatenated_data.csv"
+        )
         self.spatial_resolution = self.config_file["spatial_resolution"][0]
-        self.flow_rate_function = import_calibration_data(self.config_file["input_calibration_data"][0])
+        self.flow_rate_function = import_calibration_data(
+            self.config_file["input_calibration_data"][0]
+        )
 
     def calculate_total_density_multi_file(self):
         self.x_grid, self.y_grid, self.total_density = calculate_total_density_multi_file(
@@ -66,5 +70,3 @@ class Nerd_multifile:
         geojson = json.loads(geojson)
         with open("nerd_geojson.json", "w") as outfile:
             json.dump(geojson, outfile)
-
-

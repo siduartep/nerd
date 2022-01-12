@@ -238,6 +238,7 @@ def calculate_total_density(
     total_density_grid = np.reshape(total_density, x_grid.shape)
     return x_grid, y_grid, total_density_grid
 
+
 def calculate_total_density_multi_file(
     track_data,
     config_file,
@@ -251,9 +252,11 @@ def calculate_total_density_multi_file(
     df_list = create_df_list(config_file)
     datafiles_lenghts = np.cumsum([len(df) for df in df_list])
     n_file = 0
-    aperture_diameter, swap_width, density_function = select_parameters_by_index(config_file, n_file)
+    aperture_diameter, swap_width, density_function = select_parameters_by_index(
+        config_file, n_file
+    )
     x_grid_ravel = np.ravel(x_grid)
-    y_grid_ravel = np.ravel(y_grid)    
+    y_grid_ravel = np.ravel(y_grid)
     total_density = np.zeros_like(x_grid_ravel)
     n = int(np.floor(swap_width / spatial_resolution))
     array_for_density = np.linspace(-swap_width / 2, swap_width / 2, n)
@@ -263,7 +266,9 @@ def calculate_total_density_multi_file(
         else:
             if i >= datafiles_lenghts[n_file]:
                 n_file += 1
-            aperture_diameter, swap_width, density_function = select_parameters_by_index(config_file, n_file)
+            aperture_diameter, swap_width, density_function = select_parameters_by_index(
+                config_file, n_file
+            )
             density_function_lambda = solver(
                 aperture_diameter,
                 tracks.helicopter_speed[i],
@@ -282,6 +287,7 @@ def calculate_total_density_multi_file(
             total_density[inside_mask] = total_density[inside_mask] + cell_density
     total_density_grid = np.reshape(total_density, x_grid.shape)
     return x_grid, y_grid, total_density_grid
+
 
 def generate_uniform_density_array(density_value, stripe_width, spatial_resolution):
     r = int(stripe_width / 2)
