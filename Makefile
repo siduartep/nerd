@@ -27,6 +27,7 @@ check:
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 setup.py
 	black --check --line-length 100 tests
+	black --check --line-length 100 examples/*.ipynb
 	flake8 --max-line-length 100 ${module}
 	flake8 --max-line-length 100 setup.py
 	flake8 --max-line-length 100 tests
@@ -52,6 +53,7 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 setup.py
 	black --line-length 100 tests
+	black --line-length 100 examples/*.ipynb
 
 setup:
 	pip install --editable .
