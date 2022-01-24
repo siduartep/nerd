@@ -6,6 +6,7 @@ import numpy as np
 from numpy.testing import assert_array_almost_equal
 from nerd.density_functions import uniform
 
+
 def test_tracmap2csv():
     expected_csv = pd.read_csv("tests/data/expected_input_data.csv")
     tracmap2csv(
@@ -40,6 +41,7 @@ def test_import_calibration_data():
     assert_array_almost_equal(
         obtained_utm_data, np.array([6.86905404e-04, -6.19897620e-02, 1.72530268e00])
     )
+
 
 def test_select_density_function():
     expected_function = uniform
