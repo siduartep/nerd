@@ -375,24 +375,6 @@ class TestMapping(TestCase):
         np.testing.assert_array_equal(uniform_density_obtained, uniform_density_expected)
         assert n_obtained == n_expected
 
-    def test_hola(self):
-        expected_results_filename = "outputs/nerd_geojson.json"
-        imported_concatenated_csv = "outputs/input_concatenated_data.csv"
-        if os.path.exists(expected_results_filename):
-            os.remove(expected_results_filename)
-        if os.path.exists(imported_concatenated_csv):
-            os.remove(imported_concatenated_csv)
-        nerd_model = Nerd(self.expected_config_file)
-        nerd_model.calculate_total_density()
-        nerd_model.export_results_geojson(target_density=0.002)
-        assert os.path.isfile(expected_results_filename)
-        expected_hash = "6314a2e37b606027d688257f37b90f06"
-        assess_hash(expected_results_filename, expected_hash)
-        assert os.path.isfile(imported_concatenated_csv)
-        os.remove(expected_results_filename)
-        os.remove(imported_concatenated_csv)
-        os.rmdir("outputs")
-
 
 def assess_hash(test_csv_filename, expected_hash):
     md5_hash = hashlib.md5()
