@@ -21,7 +21,6 @@ from nerd.mapping import (
     generate_uniform_density_array,
 )
 from nerd.density_functions import uniform, normal
-from nerd.io import Nerd
 from unittest import TestCase
 from shapely import geometry
 
@@ -30,7 +29,6 @@ import matplotlib as mpl
 import numpy as np
 import pandas as pd
 import types
-import os
 
 random_state = np.random.RandomState(1)
 
