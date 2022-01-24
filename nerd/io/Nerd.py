@@ -1,6 +1,5 @@
 from nerd.io.import_data import (
     import_calibration_data,
-    import_tracmap,
     import_multifile_tracmap,
     check_output_directory,
 )
