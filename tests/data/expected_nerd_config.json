@@ -1,0 +1,26 @@
+{
+    "name": "nerd-input-data",
+    "output_path": "outputs",
+    "spatial_resolution": 2,
+    "input_calibration_data": "tests/data/expected_calibration_data.csv",
+    "resources": [
+        {
+            "input_data_path": "tests/data/multi_files/expected_tracmap_multifile_01.txt",
+            "swap_width": 30,
+            "aperture_diameter": 90,
+            "density_function": "normal"
+        },
+        {
+            "input_data_path": "tests/data/multi_files/expected_tracmap_multifile_02.txt",
+            "swap_width": 70,
+            "aperture_diameter": 95,
+            "density_function": "normal"
+        },
+        {
+            "input_data_path": "tests/data/multi_files/expected_tracmap_multifile_03.txt",
+            "swap_width": 175,
+            "aperture_diameter": 100,
+            "density_function": "uniform"
+        }
+    ]
+}

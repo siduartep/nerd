@@ -1,9 +1,10 @@
 import os
 import pandas as pd
-from nerd.io import import_tracmap, tracmap2csv, import_calibration_data
+from nerd.io import import_tracmap, tracmap2csv, import_calibration_data, select_density_function
 from pandas._testing import assert_frame_equal
 import numpy as np
 from numpy.testing import assert_array_almost_equal
+from nerd.density_functions import uniform
 
 
 def test_tracmap2csv():
@@ -40,3 +41,9 @@ def test_import_calibration_data():
     assert_array_almost_equal(
         obtained_utm_data, np.array([6.86905404e-04, -6.19897620e-02, 1.72530268e00])
     )
+
+
+def test_select_density_function():
+    expected_function = uniform
+    obtained_function = select_density_function("uniform")
+    assert expected_function == obtained_function

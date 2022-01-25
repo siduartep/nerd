@@ -2,6 +2,7 @@ from nerd.io.geo2utm import geo2utm
 from nerd.calibration.fit_flow_rate import fit_flow_rate
 import nerd.density_functions
 import pandas as pd
+import os
 
 column_names = ["date", "time", "Lat", "Lon", "Speed", "heading", "Logging_on", "altitude"]
 flux_calibation_colums = ["aperture_diameter", "flux"]
@@ -30,9 +31,15 @@ def import_calibration_data(flux_filename):
     return fit_flow_rate(flux_data["aperture_diameter"].to_numpy(), flux_data["flux"].to_numpy())
 
 
+def check_output_directory(output_path):
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
+
+
 def import_multifile_tracmap(config_file, csv_filename):
     df_list = create_df_list(config_file)
     df_concat = pd.concat(df_list, ignore_index=True)
+    check_output_directory(config_file["output_path"][0])
     concatenated_tracmap_path = "{}/{}".format(config_file["output_path"][0], csv_filename)
     df_concat.to_csv(concatenated_tracmap_path, index=False)
     return geo2utm(concatenated_tracmap_path)
