@@ -325,6 +325,7 @@ class TestMapping(TestCase):
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
         np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
+        assert total_density_grid_obtained != None
 
     def test_calculate_total_density_2(self):
         x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
