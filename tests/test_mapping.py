@@ -194,7 +194,12 @@ class TestMapping(TestCase):
         third_obtained_angle = sign_of_direction([5, 3], [4, 2])
         assert obtained_angle == 0
         assert second_obtained_angle == np.pi / 2
-        assert third_obtained_angle == 0.07677189126977907
+        self.assertAlmostEqual(
+            third_obtained_angle,
+            0.07677189126977908,
+            16,
+            "third_obtained_angle are not almost equal.",
+        )
 
     def test_generate_tile_direction_arrays(self):
         obtained_directions_arrays = generate_tile_direction_arrays(
