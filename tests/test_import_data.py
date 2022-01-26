@@ -5,6 +5,7 @@ from pandas._testing import assert_frame_equal
 import numpy as np
 from numpy.testing import assert_array_almost_equal
 from nerd.density_functions import uniform
+from nerd.io.import_data import check_output_directory
 
 
 def test_tracmap2csv():
@@ -47,3 +48,10 @@ def test_select_density_function():
     expected_function = uniform
     obtained_function = select_density_function("uniform")
     assert expected_function == obtained_function
+
+
+def test_check_output_directory():
+    output_path = "./example_dir"
+    check_output_directory(output_path)
+    directory_exists = os.path.exists(output_path)
+    assert directory_exists is True
