@@ -5,7 +5,7 @@ from pandas._testing import assert_frame_equal
 import numpy as np
 from numpy.testing import assert_array_almost_equal
 from nerd.density_functions import uniform
-from nerd.io.import_data import check_output_directory
+from nerd.io.import_data import check_output_directory, import_multifile_tracmap
 
 
 def test_tracmap2csv():
@@ -55,3 +55,10 @@ def test_check_output_directory():
     check_output_directory(output_path)
     directory_exists = os.path.exists(output_path)
     assert directory_exists is True
+
+
+def test_import_multifile_tracmap():
+    config_file_path = "tests/data/nerd_config.json"
+    config_file = pd.read_json(config_file_path)
+    tracmap_data = import_multifile_tracmap(config_file, "input_concatenated_data.csv")
+    assert tracmap_data is not None
