@@ -11,26 +11,33 @@ class TestNerd(TestCase):
         self.expected_config_file = "tests/data/expected_nerd_config.json"
         self.config_json = pd.read_json(self.expected_config_file)
         self.input_calibration_data = "tests/data/expected_calibration_data.csv"
+        self.expected_results_filename = "outputs/nerd_geojson.json"
+        self.imported_concatenated_csv = "outputs/input_concatenated_data.csv"
 
     def test_full_workflow(self):
-        expected_results_filename = "outputs/nerd_geojson.json"
-        imported_concatenated_csv = "outputs/input_concatenated_data.csv"
         expected_levels = np.array([0.01, 0.019, 0.021, 0.04, 1.576378, 7.295223])
-        if os.path.exists(expected_results_filename):
-            os.remove(expected_results_filename)
-        if os.path.exists(imported_concatenated_csv):
-            os.remove(imported_concatenated_csv)
+        self.teardown()
         nerd_model = Nerd(self.expected_config_file)
         nerd_model.calculate_total_density()
         nerd_model.export_results_geojson(target_density=0.02)
-        assert os.path.isfile(expected_results_filename)
+        self.assert_exist_the_file(self.expected_results_filename)
         np.testing.assert_array_almost_equal(
             nerd_model.calculated_levels, expected_levels, decimal=2
         )
-        assert os.path.isfile(imported_concatenated_csv)
-        os.remove(expected_results_filename)
-        os.remove(imported_concatenated_csv)
-        os.rmdir("outputs")
+        self.assert_exist_the_file(self.imported_concatenated_csv)
+        self.teardown()
+
+    def teardown(self):
+        self._remove_path(self.expected_results_filename)
+        self._remove_path(self.imported_concatenated_csv)
+        self._remove_path("outputs")
+    
+    def _remove_path(self, file):
+        if os.path.exists(file):
+            os.remove(file)
+    
+    def assert_exist_the_file(self, filename):
+        assert os.path.isfile(filename)        
 
 
 def assess_hash(test_csv_filename, expected_hash):
