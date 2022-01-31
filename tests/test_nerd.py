@@ -31,13 +31,13 @@ class TestNerd(TestCase):
         self._remove_path(self.expected_results_filename)
         self._remove_path(self.imported_concatenated_csv)
         self._remove_path("outputs")
-    
+
     def _remove_path(self, file):
         if os.path.exists(file):
             os.remove(file)
-    
+
     def assert_exist_the_file(self, filename):
-        assert os.path.isfile(filename)        
+        assert os.path.isfile(filename)
 
 
 def assess_hash(test_csv_filename, expected_hash):
