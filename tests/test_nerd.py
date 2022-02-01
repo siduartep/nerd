@@ -30,7 +30,11 @@ class TestNerd(TestCase):
     def teardown(self):
         self._remove_path(self.expected_results_filename)
         self._remove_path(self.imported_concatenated_csv)
-        self._remove_path("outputs")
+        self._remove_directory("outputs")
+
+    def _remove_directory(self, file):
+        if os.path.exists(file):
+            os.rmdir(file)
 
     def _remove_path(self, file):
         if os.path.exists(file):
