@@ -1,0 +1,98 @@
+{
+    "name": "nerd-input-data",
+    "schema": "tabular-data-package",
+    "profile": "tabular-data-package",
+    "resources": [
+        {
+            "path": "expected_input_data.csv",
+            "profile": "tabular-data-resource",
+            "name": "expected_input_data",
+            "format": "csv",
+            "mediatype": "text/csv",
+            "encoding": "utf-8",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "date",
+                        "type": "string",
+                        "format": "default",
+                        "comment": "Format: ddmmyyyy",
+                        "constraints": {
+                            "pattern": "(0[1-9]|[1-2][0-9]|3[01])(0[1-9]|1[0-2])(1[89][0-9]{2}|2[0-9]{3})"
+                        }
+                    },
+                    {
+                        "name": "time",
+                        "type": "time",
+                        "format": "default",
+                        "comment": "Format: HH:MM:SS"
+                    },
+                    {
+                        "name": "Lat",
+                        "long_name": "Latitude",
+                        "type": "number",
+                        "format": "default",
+                        "comment": "Decimal degrees",
+                        "units": "degrees_north",
+                        "axis": "Y",
+                        "constraints": {
+                            "minimum": -90,
+                            "maximum": 90
+                        }
+                    },
+                    {
+                        "name": "Lon",
+                        "long_name": "Longitude",
+                        "type": "number",
+                        "format": "default",
+                        "comment": "Decimal degrees",
+                        "units": "degrees_east",
+                        "axis": "X",
+                        "constraints": {
+                            "minimum": -180,
+                            "maximum": 180
+                        }
+                    },
+                    {
+                        "name": "Speed",
+                        "type": "number",
+                        "format": "default",
+                        "units": "knots",
+                        "constraints": {
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "heading",
+                        "type": "number",
+                        "format": "default",
+                        "units": "degrees",
+                        "constraints": {
+                            "minimum": -360,
+                            "maximum": 360
+                        }
+                    },
+                    {
+                        "name": "Logging_on",
+                        "description": "Boom State",
+                        "type": "boolean",
+                        "format": "default"
+                    },
+                    {
+                        "name": "altitude",
+                        "standard_name": "altitude",
+                        "type": "number",
+                        "format": "default",
+                        "units": "meters",
+                        "constraints": {
+                            "minimum": 0
+                        }
+                    }
+                ],
+                "missingValues": [
+                    ""
+                ]
+            }
+        }
+    ]
+}

@@ -4,13 +4,14 @@ COPY . .
 RUN pip install \
     autopep8 \
     black \
+    black[jupyter] \
     codecov \
     flake8 \
+    geojsoncontour \
+    ipykernel \
     mutmut \
-    pandas \
     pylint \
     pytest-cov \
-    pytest==5.0.1 \
+    pytest \
     rope
-RUN pip install --requirement requirements.txt
 CMD make

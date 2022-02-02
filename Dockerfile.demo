@@ -1,7 +1,11 @@
 FROM jupyter/minimal-notebook
 COPY examples/calibration-demo.ipynb /workdir/
 COPY examples/data /workdir/data
+RUN apt-get update
+RUN apt-get --yes install make
 RUN pip install \
+    black[jupyter] \
+    flake8 \
     git+https://github.com/IslasGECI/nerd \
     matplotlib \
     pandas
