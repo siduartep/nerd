@@ -38,9 +38,10 @@ def check_output_directory(output_path):
 
 def import_multifile_tracmap(config_file, csv_filename):
     df_list = create_df_list(config_file)
-    df_concat = pd.concat(df_list, ignore_index=True)
-    check_output_directory(config_file["output_path"][0])
-    concatenated_tracmap_path = "{}/{}".format(config_file["output_path"][0], csv_filename)
+    df_concat = pd.concat(df_list)
+    output_path = config_file["output_path"][0]
+    check_output_directory(output_path)
+    concatenated_tracmap_path = "{}/{}".format(output_path, csv_filename)
     df_concat.to_csv(concatenated_tracmap_path, index=False)
     return geo2utm(concatenated_tracmap_path)
 
