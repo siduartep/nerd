@@ -10,7 +10,9 @@ class TestNerd(TestCase):
     def setUp(self) -> None:
         self.expected_config_json_type_option = "series"
         self.expected_config_file = "tests/data/expected_nerd_config.json"
-        self.config_json = pd.read_json(self.expected_config_file, typ=self.expected_config_json_type_option)
+        self.config_json = pd.read_json(
+            self.expected_config_file, typ=self.expected_config_json_type_option
+        )
         self.input_calibration_data = "tests/data/expected_calibration_data.csv"
         self.expected_results_filename = "outputs/nerd_geojson.json"
         self.imported_concatenated_csv = "outputs/input_concatenated_data.csv"
