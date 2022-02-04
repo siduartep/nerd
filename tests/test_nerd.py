@@ -8,8 +8,9 @@ import pandas as pd
 
 class TestNerd(TestCase):
     def setUp(self) -> None:
+        self.expected_config_json_type_option = "series"
         self.expected_config_file = "tests/data/expected_nerd_config.json"
-        self.config_json = pd.read_json(self.expected_config_file, typ="series")
+        self.config_json = pd.read_json(self.expected_config_file, typ=self.expected_config_json_type_option)
         self.input_calibration_data = "tests/data/expected_calibration_data.csv"
         self.expected_results_filename = "outputs/nerd_geojson.json"
         self.imported_concatenated_csv = "outputs/input_concatenated_data.csv"
@@ -19,6 +20,8 @@ class TestNerd(TestCase):
         self.teardown()
         nerd_model = Nerd(self.expected_config_file)
         nerd_model.calculate_total_density()
+        obtained_json_type = nerd_model.config_json_type_option
+        assert obtained_json_type == self.expected_config_json_type_option
         nerd_model.export_results_geojson(target_density=0.02)
         self.assert_exist_the_file(self.expected_results_filename)
         np.testing.assert_array_almost_equal(

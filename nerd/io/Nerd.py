@@ -15,7 +15,8 @@ import pandas as pd
 
 class Nerd:
     def __init__(self, config_file_path):
-        self.config_file = pd.read_json(config_file_path, typ="series")
+        self.config_json_type_option = "series"
+        self.config_file = pd.read_json(config_file_path, typ=self.config_json_type_option)
         self.tracmap_data = import_multifile_tracmap(
             self.config_file, "input_concatenated_data.csv"
         )
