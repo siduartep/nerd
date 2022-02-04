@@ -15,13 +15,14 @@ import pandas as pd
 
 class Nerd:
     def __init__(self, config_file_path):
-        self.config_file = pd.read_json(config_file_path)
+        self.config_json_type_option = "series"
+        self.config_file = pd.read_json(config_file_path, typ=self.config_json_type_option)
         self.tracmap_data = import_multifile_tracmap(
             self.config_file, "input_concatenated_data.csv"
         )
-        self.spatial_resolution = self.config_file["spatial_resolution"][0]
+        self.spatial_resolution = self.config_file.get("spatial_resolution")
         self.flow_rate_function = import_calibration_data(
-            self.config_file["input_calibration_data"][0]
+            self.config_file.get("input_calibration_data")
         )
 
     def calculate_total_density(self):
@@ -39,8 +40,8 @@ class Nerd:
         )
         geojson = geojsoncontour.contourf_to_geojson(contourf=contours, unit="m")
         geojson = json.loads(geojson)
-        check_output_directory(self.config_file["output_path"][0])
+        check_output_directory(self.config_file.get("output_path"))
         with open(
-            "{}/nerd_geojson.json".format(self.config_file["output_path"][0]), "w"
+            "{}/nerd_geojson.json".format(self.config_file.get("output_path")), "w"
         ) as outfile:
             json.dump(geojson, outfile)

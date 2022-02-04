@@ -66,7 +66,7 @@ def test_check_output_directory():
 
 def test_import_multifile_tracmap():
     config_file_path = "tests/data/expected_nerd_config.json"
-    config_file = pd.read_json(config_file_path)
+    config_file = pd.read_json(config_file_path, typ="series")
     tracmap_data = import_multifile_tracmap(config_file, "input_concatenated_data.csv")
     assert os.path.isfile(config_file_path)
     assert isinstance(tracmap_data, pd.DataFrame)
@@ -75,7 +75,7 @@ def test_import_multifile_tracmap():
 
 def test_create_df_list():
     config_file_path = "tests/data/expected_nerd_config.json"
-    config_file = pd.read_json(config_file_path)
+    config_file = pd.read_json(config_file_path, typ="series")
     obtained_df_list = create_df_list(config_file)
     assert isinstance(obtained_df_list, list)
     for obtained_df in obtained_df_list:
@@ -84,7 +84,7 @@ def test_create_df_list():
 
 def test_select_parameters_by_index():
     config_file_path = "tests/data/expected_nerd_config.json"
-    config_file = pd.read_json(config_file_path)
+    config_file = pd.read_json(config_file_path, typ="series")
     expected_aperture_diameter = 95
     expected_swap_width = 70
     expected_density_function = normal
