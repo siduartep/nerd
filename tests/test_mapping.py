@@ -21,7 +21,6 @@ from nerd.mapping import (
     generate_uniform_density_array,
 )
 from nerd.density_functions import uniform, normal
-from nerd.io import Nerd
 from unittest import TestCase
 from shapely import geometry
 
@@ -30,7 +29,6 @@ import matplotlib as mpl
 import numpy as np
 import pandas as pd
 import types
-import os
 
 random_state = np.random.RandomState(1)
 
@@ -99,7 +97,8 @@ class TestMapping(TestCase):
                 "Speed": self.helicopter_speed[:10],
             }
         )
-        self.input_data_path = "examples/data/280320-06-95mm.txt"
+        self.expected_config_file = "tests/data/expected_nerd_config.json"
+        self.config_json = pd.read_json(self.expected_config_file)
         self.input_calibration_data = "tests/data/expected_calibration_data.csv"
 
     def test_safe_divition(self):
@@ -195,7 +194,12 @@ class TestMapping(TestCase):
         third_obtained_angle = sign_of_direction([5, 3], [4, 2])
         assert obtained_angle == 0
         assert second_obtained_angle == np.pi / 2
-        assert third_obtained_angle == 0.07677189126977907
+        self.assertAlmostEqual(
+            third_obtained_angle,
+            0.07677189126977908,
+            16,
+            "third_obtained_angle are not almost equal.",
+        )
 
     def test_generate_tile_direction_arrays(self):
         obtained_directions_arrays = generate_tile_direction_arrays(
@@ -286,22 +290,19 @@ class TestMapping(TestCase):
 
     def test_calculate_total_density(self):
         spatial_resolution = 2
-        swath_width = 5
         x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
             self.trackmap_data,
-            swath_width,
+            self.config_json,
             spatial_resolution,
-            self.aperture_diameter,
-            self.density_function,
             self.flow_rate_function,
         )
         total_density_expected = np.array(
             [
-                [0.0, 0.00407266, 0.0, 0.0, 0.0],
-                [0.00407266, 0.00387872, 0.00407266, 0.0, 0.0],
-                [0.0, 0.00407266, 0.00452517, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.00543021],
+                [0.0, 0.00488313, 0.00441656, 0.00427116, 0.00417423],
+                [0.00488313, 0.00477668, 0.00488313, 0.00515265, 0.0],
+                [0.00441656, 0.00488313, 0.00557279, 0.0, 0.0],
+                [0.00427116, 0.00515265, 0.0, 0.0, 0.0],
+                [0.00417423, 0.0, 0.0, 0.0, 0.00668735],
             ],
         )
         x_grid_expected = np.array(
@@ -325,18 +326,24 @@ class TestMapping(TestCase):
         np.testing.assert_array_equal(x_grid_obtained, x_grid_expected)
         np.testing.assert_array_equal(y_grid_obtained, y_grid_expected)
         np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
+        assert total_density_grid_obtained is not None
 
     def test_calculate_total_density_2(self):
+        spatial_resolution = 2
         x_grid_obtained, y_grid_obtained, total_density_grid_obtained = calculate_total_density(
             self.trackmap_data,
-            self.stripe_width,
-            self.spatial_resolution,
-            self.aperture_diameter,
-            self.density_function,
+            self.config_json,
+            spatial_resolution,
             self.flow_rate_function,
         )
         total_density_expected = np.array(
-            [[0.0, 0.00242137], [0.00242137, 0.0]],
+            [
+                [0.0, 0.00488313, 0.00441656, 0.00427116, 0.00417423],
+                [0.00488313, 0.00477668, 0.00488313, 0.00515265, 0.0],
+                [0.00441656, 0.00488313, 0.00557279, 0.0, 0.0],
+                [0.00427116, 0.00515265, 0.0, 0.0, 0.0],
+                [0.00417423, 0.0, 0.0, 0.0, 0.00668735],
+            ],
         )
         np.testing.assert_array_almost_equal(total_density_grid_obtained, total_density_expected)
 
@@ -371,31 +378,6 @@ class TestMapping(TestCase):
         n_expected = 12
         np.testing.assert_array_equal(uniform_density_obtained, uniform_density_expected)
         assert n_obtained == n_expected
-
-    def test_hola(self):
-        test_csv_filename = "nerd_geojson.json"
-        imported_csv = "examples/data/280320-06-95mm.csv"
-        if os.path.exists(test_csv_filename):
-            os.remove(test_csv_filename)
-        if os.path.exists(imported_csv):
-            os.remove(imported_csv)
-        dict_parameters = dict(
-            spatial_resolution=self.spatial_resolution,
-            width=self.stripe_width,
-            aperture_diameter=self.aperture_diameter,
-            density_function=self.density_function,
-            input_data_path=self.input_data_path,
-            input_calibration_data=self.input_calibration_data,
-        )
-        nerd_model = Nerd(dict_parameters)
-        nerd_model.calculate_total_density()
-        nerd_model.export_results_geojson(target_density=0.002)
-        assert os.path.isfile(test_csv_filename)
-        expected_hash = "ce1556e3907eaa3ef65be9c47395544b"
-        assess_hash(test_csv_filename, expected_hash)
-        assert os.path.isfile(imported_csv)
-        os.remove(test_csv_filename)
-        os.remove(imported_csv)
 
 
 def assess_hash(test_csv_filename, expected_hash):
