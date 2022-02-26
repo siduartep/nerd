@@ -1,4 +1,4 @@
-<img src="https://www.islas.org.mx/img/logo.svg" width="256" />
+<a href="https://www.islas.org.mx/"><img src="https://www.islas.org.mx/img/logo.svg" width="256" /></a>
 
 # Numerical Estimation of Rodenticide Density
 
@@ -49,4 +49,4 @@ Lastly, explore the Jupyter notebooks at http://localhost:8080/
 
 ---
 
-[Grupo de Ecología y Conservación de Islas](https://www.islas.org.mx/)
+[Grupo de Ecología y Conservación de Islas, A.C.](https://www.islas.org.mx/)
