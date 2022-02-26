@@ -1,14 +1,13 @@
 FROM jupyter/minimal-notebook
-COPY examples/calibration-demo.ipynb /workdir/
-COPY examples/data /workdir/data
-RUN apt-get update
-RUN apt-get --yes install make
+USER root
+WORKDIR /workdir
+COPY examples /workdir
+RUN apt update && apt install --yes \
+    make
 RUN pip install \
     black[jupyter] \
     flake8 \
-    git+https://github.com/IslasGECI/nerd \
+    geci-nerd \
     matplotlib \
     pandas
-USER root
-WORKDIR /workdir
 CMD ["bash", "-c", "umask 000 && jupyter lab --ip=0.0.0.0 --allow-root --NotebookApp.token=''"]
