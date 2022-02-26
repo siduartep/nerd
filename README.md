@@ -26,15 +26,19 @@ pip install geci-nerd
 
 ### Docker
 
-Build image:
+First, build the image:
+
 ```shell
 docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo .
 ```
 
-Run container:
+Then, run the container:
+
 ```shell
-docker run --publish 8080:8888 --rm islasgeci/nerd_demo
+docker run --detach --publish 8080:8888 --rm islasgeci/nerd_demo
 ```
+
+Lastly, explore the Jupyter notebook at http://localhost:8080/
 
 ## References
 
