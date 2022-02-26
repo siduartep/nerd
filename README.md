@@ -1,3 +1,5 @@
+<img src="https://www.islas.org.mx/img/logo.svg" width="256" />
+
 # Numerical Estimation of Rodenticide Density
 
 The eradication of rodents is central to island conservation efforts and the
@@ -14,24 +16,26 @@ identification of areas with low or high bait density.
 ## Installation
 
 ```
-pip install git+https://github.com/IslasGECI/nerd
+pip install geci-nerd
 ```
 
 ## Demonstration
 
 ### Jupyter Notebooks
 
-- [IslasGECI](http://islasgeci.org:8080)
-- [GitHub](https://github.com/IslasGECI/nerd/blob/develop/examples/calibration-demo.ipynb)
+- [IslasGECI.org](http://islasgeci.org:8080)
+- [GitHub](https://github.com/IslasGECI/nerd/blob/develop/examples/)
 
 ### Docker
 
-```Makefile
-build_demo:
-	docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo .
+Build image:
+```shell
+docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo .
+```
 
-run_demo:
-	docker run --publish 8080:8888 --rm islasgeci/nerd_demo
+Run container:
+```shell
+docker run --publish 8080:8888 --rm islasgeci/nerd_demo
 ```
 
 ## References
