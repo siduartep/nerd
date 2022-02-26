@@ -13,11 +13,11 @@ jobs:
     - name: Build Docker image
       run: docker build --tag islasgeci/nerd:stable --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
     - name: Check format
-      run: docker run islasgeci make check
+      run: docker run islasgeci/nerd:stable make check
     - name: Test
-      run: docker run islasgeci make coverage
+      run: docker run islasgeci/nerd:stable make coverage
     - name: Run mutation testing
-      run: docker run islasgeci make mutants
+      run: docker run islasgeci/nerd:stable make mutants
     - name: Build demo Docker image
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:stable --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Docker log-in
