@@ -40,9 +40,10 @@ docker run --publish 8080:8888 --rm islasgeci/nerd_demo
 
 ## References
 
-- [E. Rojas-Mayoral, F.A. Méndez-Sánchez, B. Rojas-Mayoral and A. Aguirre-Muñoz. (2019). Improving
-  the efficiency of aerial rodent eradications by means of the numerical estimation of rodenticide
-  density.](http://www.issg.org/pdf/publications/2019_Island_Invasives/PrintFiles/Rojas-Mayoral.pdf)
+- [_E. Rojas-Mayoral, F.A. Méndez-Sánchez, B. Rojas-Mayoral and A. Aguirre-Muñoz._ (2019).
+  **Improving the efficiency of aerial rodent eradications by means of the numerical estimation of
+  rodenticide
+  density.**](http://www.issg.org/pdf/publications/2019_Island_Invasives/PrintFiles/Rojas-Mayoral.pdf)
 
 ---
 
