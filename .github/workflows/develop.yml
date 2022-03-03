@@ -1,8 +1,8 @@
-name: Publish stable version
+name: Publish latest version
 on:
   push:
     branches:
-      - main
+      - develop
 jobs:
   test-n-publish:
     name: Test and publish Python 🐍 package 📦 to PyPI
@@ -11,26 +11,26 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@v2
     - name: Build Docker image
-      run: docker build --tag islasgeci/nerd:stable --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
+      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
     - name: Check format
-      run: docker run islasgeci/nerd:stable make check
+      run: docker run islasgeci/nerd:latest make check
     - name: Test
-      run: docker run islasgeci/nerd:stable make coverage
+      run: docker run islasgeci/nerd:latest make coverage
     - name: Run mutation testing
-      run: docker run islasgeci/nerd:stable make mutants
+      run: docker run islasgeci/nerd:latest make mutants
     - name: Build demo Docker image
-      run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:stable --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
+      run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Docker log-in
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-    - name: Push stable Docker image to Docker Hub
-      run: docker push islasgeci/nerd:stable
+    - name: Push latest Docker image to Docker Hub
+      run: docker push islasgeci/nerd:latest
     - name: Push SHA tag to Docker Hub
       run: docker push islasgeci/nerd:${GITHUB_SHA:0:4}
-    - name: Push stable demo image to Docker Hub
-      run: docker push islasgeci/nerd_demo:stable
+    - name: Push latest demo image to Docker Hub
+      run: docker push islasgeci/nerd_demo:latest
     - name: Push demo SHA to Docker Hub
       run: docker push islasgeci/nerd_demo:${GITHUB_SHA:0:4}
     - name: Set up Python 3.9
