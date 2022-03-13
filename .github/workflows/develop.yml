@@ -20,6 +20,8 @@ jobs:
       run: docker run islasgeci/nerd:latest make mutants
     - name: Build demo Docker image
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
+    - name: Verify the notebooks run
+      run: docker run islasgeci/nerd_demo:latest tests/test_notebooks.sh
     - name: Docker log-in
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
