@@ -37,14 +37,15 @@ clean:
 	rm --force --recursive ${module}/__pycache__
 	rm --force --recursive ${module}/calibration/__pycache__
 	rm --force --recursive ${module}/density_functions/__pycache__
-	rm --force --recursive ${module}/mapping/__pycache__
 	rm --force --recursive ${module}/io/__pycache__
-	rm --force --recursive tests/__pycache__
+	rm --force --recursive ${module}/mapping/__pycache__
 	rm --force --recursive outputs
+	rm --force --recursive tests/__pycache__
 	rm --force .mutmut-cache
+	rm --force XXinput_data.csvXX
+	rm --force examples/*.py
 	rm --force tests/data/imported_data.csv
 	rm --force tests/test_shapefile.*
-	rm --force XXinput_data.csvXX
 
 coverage: setup
 	pytest --cov=${module} --cov-report=xml --verbose && \
