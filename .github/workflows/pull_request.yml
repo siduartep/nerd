@@ -22,7 +22,7 @@ jobs:
     - name: Build demo Docker image
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:testing --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Verify the notebooks run
-      run: docker run islasgeci/nerd_demo:testing tests/test_notebooks.sh
+      run: docker run --volume ${PWD}:/workdir islasgeci/nerd_demo:testing tests/test_notebooks.sh
     - name: Set up Python 3.9
       uses: actions/setup-python@v1
       with:
