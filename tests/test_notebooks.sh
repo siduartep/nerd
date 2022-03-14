@@ -12,7 +12,7 @@ cd examples || exit
 error=0
 for script in *.py
 do
-    python "${script}"
+    ipython "${script}"
     error=$((error+$?))
 done
 exit ${error}
