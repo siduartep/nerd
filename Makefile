@@ -1,4 +1,4 @@
-all: mutants
+all: check coverage mutants
 
 module = nerd
 codecov_token = 84e068b0-5f49-4a9e-b08a-b90e880fbc6a
@@ -18,6 +18,7 @@ endef
 		clean \
 		coverage \
 		format \
+		init \
 		linter \
 		mutants \
 		setup \
@@ -25,9 +26,9 @@ endef
 
 check:
 	black --check --line-length 100 ${module}
+	black --check --line-length 100 examples/*.ipynb
 	black --check --line-length 100 setup.py
 	black --check --line-length 100 tests
-	black --check --line-length 100 examples/*.ipynb
 	flake8 --max-line-length 100 ${module}
 	flake8 --max-line-length 100 setup.py
 	flake8 --max-line-length 100 tests
@@ -58,8 +59,7 @@ format:
 	black --line-length 100 tests
 	black --line-length 100 examples/*.ipynb
 
-setup:
-	pip install --editable .
+init: setup tests
 
 linter:
 	$(call lint, ${module})
@@ -67,6 +67,9 @@ linter:
 
 mutants: setup
 	mutmut run --paths-to-mutate ${module}
+
+setup: clean
+	pip install --editable .
 
 tests:
 	pytest --verbose
