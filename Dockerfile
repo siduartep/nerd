@@ -1,4 +1,17 @@
-FROM python:3
-COPY . /workdir/
+FROM python:3.8
 WORKDIR /workdir
-RUN pip install --requirement requirements.txt
+COPY . .
+RUN pip install \
+    autopep8 \
+    black \
+    black[jupyter] \
+    codecov \
+    flake8 \
+    geojsoncontour \
+    ipykernel \
+    mutmut \
+    pylint \
+    pytest-cov \
+    pytest \
+    rope
+CMD make
