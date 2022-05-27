@@ -1,3 +1,4 @@
+name: JOSS PDF Generator
 on: [push]
 
 jobs:
