@@ -2,6 +2,9 @@
 #
 # Run Jupyter notebooks
 
+# Use Bash strict mode
+set -euo pipefail
+
 # Set up
 cd /workdir || exit
 rm --force examples/*.py
