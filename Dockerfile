@@ -14,4 +14,6 @@ RUN pip install \
     pytest-cov \
     pytest \
     rope
+RUN apt update && apt install --yes \
+    shellcheck
 CMD make
