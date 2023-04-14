@@ -5,7 +5,6 @@ RUN pip install \
     autopep8 \
     black \
     black[jupyter] \
-    codecov \
     flake8 \
     geojsoncontour \
     ipykernel \
