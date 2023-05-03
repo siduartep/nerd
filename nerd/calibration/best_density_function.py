@@ -6,9 +6,7 @@ from .. import density_functions as df
 
 
 def get_density_functions_array():
-    return [
-        getattr(df, elemento) for elemento in dir(df) if inspect.isfunction(getattr(df, elemento))
-    ]
+    return [getattr(df, element) for element in dir(df) if inspect.isfunction(getattr(df, element))]
 
 
 def select_best_density_function_from_array(
@@ -29,8 +27,8 @@ def select_best_density_function_from_array(
         density_functions,
         flow_rate_function,
     )
-    es_mejor_funcion = rmse == rmse.min()
-    return density_functions[np.where(es_mejor_funcion)[0][0]]
+    is_better_function = rmse == rmse.min()
+    return density_functions[np.where(is_better_function)[0][0]]
 
 
 def get_best_density_function(
