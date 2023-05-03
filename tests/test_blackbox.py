@@ -14,7 +14,7 @@ def density_profile():
 
 @pytest.fixture()
 def distance(density_profile):
-    return density_profile.distancia.values
+    return density_profile.distance.values
 
 
 @pytest.fixture()
