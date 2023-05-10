@@ -19,8 +19,8 @@ def distance(density_profile):
 
 @pytest.fixture()
 def density(density_profile):
-    density_kg_per_ha = density_profile.densidad.values
-    return density_kg_per_ha / 1e4  # To convert densities to kg per square meter
+    density_kg_per_ha = density_profile.density.values
+    return density_kg_per_ha / 1e4  # Convert densities to kg per square metter
 
 
 @pytest.fixture()
