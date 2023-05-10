@@ -82,8 +82,8 @@ def test_swath_width(distance, density):
 
 def test_select_best_density_function(distance, density, swath_width, flow_rate_function):
     length = 3
-    aperture_diameter_data = 55  # milimetres
-    helicopter_speed_data = 20.5778  # meters per second (40 knots)
+    aperture_diameter_data = 55  # Milimetres
+    helicopter_speed_data = 20.5778  # Meters per second (40 knots)
 
     density_function = nerd.calibration.get_best_density_function(
         distance,
