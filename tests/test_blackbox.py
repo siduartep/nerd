@@ -14,13 +14,13 @@ def density_profile():
 
 @pytest.fixture()
 def distance(density_profile):
-    return density_profile.distancia.values
+    return density_profile.distance.values
 
 
 @pytest.fixture()
 def density(density_profile):
-    density_kg_per_ha = density_profile.densidad.values
-    return density_kg_per_ha / 1e4  # To convert densities to kg per square meter
+    density_kg_per_ha = density_profile.density.values
+    return density_kg_per_ha / 1e4  # Convert densities to kg per square metter
 
 
 @pytest.fixture()
@@ -82,8 +82,8 @@ def test_swath_width(distance, density):
 
 def test_select_best_density_function(distance, density, swath_width, flow_rate_function):
     length = 3
-    aperture_diameter_data = 55  # milimetres
-    helicopter_speed_data = 20.5778  # meters per second (40 knots)
+    aperture_diameter_data = 55  # Milimetres
+    helicopter_speed_data = 20.5778  # Meters per second (40 knots)
 
     density_function = nerd.calibration.get_best_density_function(
         distance,

@@ -9,8 +9,8 @@ def uniform(distance: float, width: float, parameter: float) -> float:
     :param parameter: Free parameter to be fitted
     :return:
     """
-    es_dentro = np.abs(distance) < width / 2
-    return np.double(es_dentro) * parameter
+    is_inside = np.abs(distance) < width / 2
+    return np.double(is_inside) * parameter
 
 
 def triangular(distance: float, width: float, parameter: float) -> float:
@@ -22,8 +22,8 @@ def triangular(distance: float, width: float, parameter: float) -> float:
     :return:
     """
     slope = -2 * parameter / width
-    es_dentro = np.abs(distance) < width / 2  # pragma: no mutate
-    return (slope * np.abs(distance) + parameter) * np.double(es_dentro)
+    is_inside = np.abs(distance) < width / 2  # pragma: no mutate
+    return (slope * np.abs(distance) + parameter) * np.double(is_inside)
 
 
 def normal(distance: float, width: float, parameter: float) -> float:
