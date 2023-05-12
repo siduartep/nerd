@@ -9,6 +9,7 @@ RUN pip install \
     black[jupyter] \
     flake8 \
     geci-nerd \
+    git+https://github.com/IslasGECI/geci_plots.git@v0.4.2 \
     matplotlib \
-    pandas
+    pandas 
 CMD ["bash", "-c", "umask 000 && jupyter lab --ip=0.0.0.0 --allow-root --NotebookApp.token=''"]
