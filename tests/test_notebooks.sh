@@ -7,9 +7,8 @@ set -euo pipefail
 
 # Set up
 cd /workdir || exit
-rm --force examples/*.py
-jupyter nbconvert --to script examples/*.ipynb
-cd examples || exit
+rm --force /workdir/*.py
+jupyter nbconvert --to script /workdir/*.ipynb
 
 # Run scripts
 error=0
