@@ -1,6 +1,6 @@
 <a href="https://www.islas.org.mx/"><img src="https://www.islas.org.mx/img/logo.svg" align="right" width="256" /></a>
 
-# Numerical Estimation of Rodenticide Density
+# NERD: Numerical Estimation of Rodenticide Density
 
 The eradication of rodents is central to island restoration efforts and the aerial broadcast of
 rodenticide bait is the preferred dispersal method.
@@ -43,11 +43,9 @@ Lastly, explore the Jupyter notebooks at http://localhost:8080/
 
 ## References
 
-- [_E. Rojas-Mayoral, F.A. Méndez-Sánchez, B. Rojas-Mayoral and A. Aguirre-Muñoz._ (2019).
-  **Improving the efficiency of aerial rodent eradications by means of the numerical estimation of
-  rodenticide
-  density.**](https://www.google.com/search?q=Rojas-Mayoral+2019+%22Improving+the+efficiency+of+aerial+rodent+eradications+by+means+of+the+numerical+estimation+of+rodenticide+density%22+IUCN)
+- [Improving the efficiency of aerial rodent eradications by means of the numerical estimation of
+  rodenticide density](https://www.islas.org.mx/articulos_files/Rojas-Mayoral%202019.pdf)
 
 ---
 
-[Grupo de Ecología y Conservación de Islas, A.C.](https://www.islas.org.mx/)
+[Grupo de Ecología y Conservación de Islas](https://www.islas.org.mx/)
