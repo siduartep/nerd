@@ -18,14 +18,16 @@ identification of areas with low or high bait density.
 pip install geci-nerd
 ```
 
-## Demonstration
+## Jupyter Notebook Demonstrations
 
-### Jupyter Notebooks
+You can explore the functionality of NERD through interactive Jupyter notebooks.
+These are the options to access the demonstration notebooks:
 
-- [IslasGECI.org](http://islasgeci.org:8080)
-- [GitHub](https://github.com/IslasGECI/nerd/blob/develop/examples/)
-
-### Docker
+- Visit [IslasGECI.org](http://islasgeci.org:8080) for an online Jupyter Notebook environment.
+- View a static version on GitHub.
+  Simply navigate to the ["examples"](https://github.com/IslasGECI/nerd/blob/develop/examples/) folder.
+- Alternatively, you can run the Jupyter notebooks locally using Docker.
+  Follow the instructions below:
 
 First, pull the latest demo image:
 
