@@ -7,12 +7,12 @@ set -euo pipefail
 
 # Set up
 cd /workdir || exit
-rm --force /workdir/examples/*.py
-jupyter nbconvert /workdir/examples/*.ipynb --to script
+rm --force /workdir/*.py
+jupyter nbconvert /workdir/*.ipynb --to script
 
 # Run scripts
 error=0
-for script in /workdir/examples/*.py
+for script in /workdir/*.py
 do
     ipython "${script}"
     error=$((error+$?))
