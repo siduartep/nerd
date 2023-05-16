@@ -8,7 +8,7 @@ setup(
     name="geci-nerd",
     packages=find_packages(),
     url="https://github.com/IslasGECI/nerd",
-    version="0.3.1",
+    version="0.4.0",
     install_requires=[
         "descartes",
         "fiona",
