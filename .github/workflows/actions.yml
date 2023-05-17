@@ -2,10 +2,10 @@ name: Test and publish
 on: push
 jobs:
   test-module:
-    name: Test module Python 🐍
+    name: Test Python module 🐍
     runs-on: ubuntu-latest
     steps:
-    - name: Copia repositorio
+    - name: Checkout repo
       uses: actions/checkout@main
     - name: Build Docker image
       run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
@@ -16,25 +16,25 @@ jobs:
     - name: Run mutation testing
       run: docker run islasgeci/nerd:latest make mutants
   test-notebook:
-    name: Test notebook
+    name: Test Jupyter notebooks
     runs-on: ubuntu-latest
     steps:
-    - name: Copia repositorio
+    - name: Checkout repo
       uses: actions/checkout@main
     - name: Build Docker image
       run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
-    - name: Check format of notebook
+    - name: Check notebook format
       run: docker run islasgeci/nerd:latest make check_notebook
     - name: Build demo Docker image
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Verify the notebooks run
       run: docker run --volume ${PWD}/tests/test_notebooks.sh:/workdir/tests/test_notebooks.sh islasgeci/nerd_demo:latest tests/test_notebooks.sh
-  push-image-pypi:
-    name: Push image to docker hub and module to PyPi
+  push-module-images:
+    name: Push module to PyPI and images to Docker Hub
     needs: [test-notebook, test-module]
     runs-on: ubuntu-latest
     steps:
-    - name: Copia repositorio
+    - name: Checkout repo
       uses: actions/checkout@main
     - name: Build Docker image
       run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
