@@ -70,3 +70,16 @@ jobs:
       run: docker push islasgeci/nerd_demo:latest
     - name: Push demo SHA to Docker Hub
       run: docker push islasgeci/nerd_demo:${GITHUB_SHA:0:4}
+name: Docker push
+on: push
+jobs:
+  test-n-publish:
+    name: Test and publish Python 🐍 package 📦 to PyPI
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@main
+    - name: Build Docker image
+      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
+    - name: Check format
+      run: docker run islasgeci/nerd:latest make check
