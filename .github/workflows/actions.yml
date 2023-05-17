@@ -21,10 +21,8 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@main
-    - name: Build Docker image
-      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
     - name: Check notebook format
-      run: docker run islasgeci/nerd:latest make check_notebook
+      run: docker run islasgeci/nerd:${GITHUB_SHA:0:4} make check_notebook
     - name: Build demo Docker image
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Verify the notebooks run
