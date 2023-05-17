@@ -15,15 +15,6 @@ jobs:
       run: docker run islasgeci/nerd:latest make coverage
     - name: Run mutation testing
       run: docker run islasgeci/nerd:latest make mutants
-    - name: Docker log-in
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-    - name: Push latest Docker image to Docker Hub
-      run: docker push islasgeci/nerd:latest
-    - name: Push SHA tag to Docker Hub
-      run: docker push islasgeci/nerd:${GITHUB_SHA:0:4}
     - name: Set up Python 3.9
       uses: actions/setup-python@main
       with:
@@ -77,6 +68,10 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+    - name: Push latest Docker image to Docker Hub
+      run: docker push islasgeci/nerd:latest
+    - name: Push SHA tag to Docker Hub
+      run: docker push islasgeci/nerd:${GITHUB_SHA:0:4}
     - name: Push latest demo image to Docker Hub
       run: docker push islasgeci/nerd_demo:latest
     - name: Push demo SHA to Docker Hub
