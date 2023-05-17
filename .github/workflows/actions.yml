@@ -55,3 +55,17 @@ jobs:
       with:
         password: ${{ secrets.PYPI_TOKEN }}
         skip-existing: true
+  test-notebook:
+    name: Test notebook
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@main
+    - name: Build Docker image
+      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
+    - name: Check format
+      run: docker run islasgeci/nerd:latest make check
+    - name: Build demo Docker image
+      run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
+    - name: Verify the notebooks run
+      run: docker run --volume ${PWD}/tests/test_notebooks.sh:/workdir/tests/test_notebooks.sh islasgeci/nerd_demo:latest tests/test_notebooks.sh
