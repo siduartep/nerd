@@ -61,6 +61,17 @@ jobs:
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Verify the notebooks run
       run: docker run --volume ${PWD}/tests/test_notebooks.sh:/workdir/tests/test_notebooks.sh islasgeci/nerd_demo:latest tests/test_notebooks.sh
+  push-image:
+    name: Push image to docker hub
+    needs: [test-notebook, test-n-publish]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@main
+    - name: Build Docker image
+      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
+    - name: Build demo Docker image
+      run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Docker log-in
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -70,16 +81,3 @@ jobs:
       run: docker push islasgeci/nerd_demo:latest
     - name: Push demo SHA to Docker Hub
       run: docker push islasgeci/nerd_demo:${GITHUB_SHA:0:4}
-name: Docker push
-on: push
-jobs:
-  test-n-publish:
-    name: Test and publish Python 🐍 package 📦 to PyPI
-    runs-on: ubuntu-latest
-    steps:
-    - name: Copia repositorio
-      uses: actions/checkout@main
-    - name: Build Docker image
-      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
-    - name: Check format
-      run: docker run islasgeci/nerd:latest make check
