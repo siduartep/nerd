@@ -34,7 +34,7 @@ check:
 	shellcheck */*.sh
 
 check_notebook:
-	black --check --line-length 100 examples/*.ipynb
+	black --check --line-length 100 /workdir/*.ipynb
 
 clean:
 	rm --force --recursive ${module}.egg-info

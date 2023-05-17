@@ -10,34 +10,30 @@ jobs:
     - name: Build Docker image
       run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
     - name: Check format
-      run: docker run islasgeci/nerd:latest make check
+      run: docker run islasgeci/nerd:${GITHUB_SHA:0:4} make check
     - name: Test
-      run: docker run islasgeci/nerd:latest make coverage
+      run: docker run islasgeci/nerd:${GITHUB_SHA:0:4} make coverage
     - name: Run mutation testing
-      run: docker run islasgeci/nerd:latest make mutants
+      run: docker run islasgeci/nerd:${GITHUB_SHA:0:4} make mutants
   test-notebook:
     name: Test Jupyter notebooks
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
       uses: actions/checkout@main
-    - name: Check notebook format
-      run: docker run islasgeci/nerd:${GITHUB_SHA:0:4} make check_notebook
     - name: Build demo Docker image
       run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
+    - name: Check notebook format
+      run: docker run islasgeci/nerd_demo:${GITHUB_SHA:0:4} make check_notebook
     - name: Verify the notebooks run
-      run: docker run --volume ${PWD}/tests/test_notebooks.sh:/workdir/tests/test_notebooks.sh islasgeci/nerd_demo:latest tests/test_notebooks.sh
-  push-module-images:
+      run: docker run --volume ${PWD}/Makefile:/workdir/Makefile --volume ${PWD}/tests/test_notebooks.sh:/workdir/tests/test_notebooks.sh islasgeci/nerd_demo:${GITHUB_SHA:0:4} tests/test_notebooks.sh
+  push:
     name: Push module to PyPI and images to Docker Hub
     needs: [test-notebook, test-module]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
       uses: actions/checkout@main
-    - name: Build Docker image
-      run: docker build --tag islasgeci/nerd:latest --tag islasgeci/nerd:${GITHUB_SHA:0:4} .
-    - name: Build demo Docker image
-      run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest --tag islasgeci/nerd_demo:${GITHUB_SHA:0:4} .
     - name: Docker log-in
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
