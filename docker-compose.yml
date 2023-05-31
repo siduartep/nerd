@@ -1,6 +1,6 @@
 version: "3.1"
 services:
-  islasgeci:
+  develop:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,3 +8,14 @@ services:
     command: bash
     volumes:
       - $PWD:/workdir
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo
+    image: islasgeci/nerd_demo:latest
+    command: bash
+    volumes:
+      - $PWD/Makefile:/workdir/Makefile
+      - $PWD/tests/test_notebooks.sh:/workdir/tests/test_notebooks.sh
+    ports:
+      - 8080:8888
