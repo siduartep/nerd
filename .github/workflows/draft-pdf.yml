@@ -21,7 +21,7 @@ jobs:
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: proceedings.md
+          paper-path: examples/proceedings.md
       - name: Upload
         uses: actions/upload-artifact@main
         with:
