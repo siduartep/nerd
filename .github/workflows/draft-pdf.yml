@@ -8,17 +8,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-      - name: Build draft PDF
+      - name: Generate markdown drafts
+        run: docker run --volume $PWD/paper.md:/workdir/old_paper.md --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest jupyter nbconvert /workdir/proceedings.ipynb --to markdown
+      - name: Build old paper PDF
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          # This should be the path to the paper within your repo.
-          paper-path: paper.md
+          paper-path: old_paper.md
+      - name: Build proceedings PDF
+        uses: openjournals/openjournals-draft-action@master
+        with:
+          journal: joss
+          paper-path: proceedings.md
       - name: Upload
         uses: actions/upload-artifact@main
         with:
           name: paper
-          # This is the output path where Pandoc will write the compiled
-          # PDF. Note, this should be the same directory as the input
-          # paper.md
-          path: paper.pdf
+          path: |
+            old_paper.pdf
+            proceedings.pdf
