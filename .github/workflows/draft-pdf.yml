@@ -29,5 +29,5 @@ jobs:
         with:
           name: paper
           path: |
-            old_paper.pdf
-            proceedings.pdf
+            paper.pdf
+            examples/paper.pdf
