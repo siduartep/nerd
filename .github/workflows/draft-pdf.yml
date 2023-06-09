@@ -20,7 +20,7 @@ jobs:
       - name: Copy dependencies to examples
         run: |
           cp references.bib examples
-          cp figures examples
+          cp -R figures examples/
       - name: Build proceedings PDF
         uses: openjournals/openjournals-draft-action@master
         with:
