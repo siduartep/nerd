@@ -15,12 +15,12 @@ jobs:
         with:
           journal: joss
           paper-path: old_paper.md
-      - name: Generate markdown drafts
-        run: docker run --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest jupyter nbconvert /workdir/proceedings.ipynb --to markdown
       - name: Copy dependencies to examples
         run: |
           cp references.bib examples
           cp -R figures examples/
+      - name: Generate markdown drafts
+        run: docker run --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest jupyter nbconvert /workdir/proceedings.ipynb --to markdown
       - name: Build proceedings PDF
         uses: openjournals/openjournals-draft-action@master
         with:
