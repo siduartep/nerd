@@ -8,13 +8,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-      - name: Rename old paper
-        run: mv paper.md old_paper.md
-      - name: Build old paper PDF
-        uses: openjournals/openjournals-draft-action@master
-        with:
-          journal: joss
-          paper-path: old_paper.md
       - name: Generate markdown drafts
         run: docker run --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest jupyter nbconvert /workdir/proceedings.ipynb --to markdown
       - name: Build proceedings PDF
@@ -26,6 +19,4 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: paper
-          path: |
-            paper.pdf
-            examples/paper.pdf
+          path: examples/paper.pdf
