@@ -10,5 +10,6 @@ RUN pip install \
     flake8 \
     git+https://github.com/IslasGECI/nerd.git \
     matplotlib \
-    pandas 
+    nbmerge \
+    pandas
 CMD ["bash", "-c", "umask 000 && jupyter lab --ip=0.0.0.0 --allow-root --NotebookApp.token=''"]

@@ -8,8 +8,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+      - name: Merge notebooks
+        run: docker run --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest nbmerge /workdir/proceedings.ipynb /workdir/calibration-demo.ipynb /workdir/tiling_demo.ipynb > paper.ipynb
       - name: Generate markdown drafts
-        run: docker run --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest jupyter nbconvert /workdir/proceedings.ipynb --to markdown
+        run: docker run --volume $PWD/examples:/workdir --volume $PWD/figures:/workdir/figures islasgeci/nerd_demo:latest jupyter nbconvert /workdir/paper.ipynb --to markdown
       - name: Build proceedings PDF
         uses: openjournals/openjournals-draft-action@master
         with:
