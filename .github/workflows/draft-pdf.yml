@@ -11,14 +11,12 @@ jobs:
       - name: Build demo Docker image
         run: docker build --file Dockerfile.demo --tag=islasgeci/nerd_demo:latest .
       - name: Merge notebooks
-        run: docker run --volume $PWD/examples:/workdir islasgeci/nerd_demo:latest nbmerge /workdir/proceedings.ipynb /workdir/calibration-demo.ipynb /workdir/tiling_demo.ipynb > paper.ipynb
-      - name: Generate markdown drafts
-        run: docker run --volume $PWD/examples:/workdir islasgeci/nerd_demo:latest jupyter nbconvert /workdir/paper.ipynb --to markdown
+        run: docker run --volume $PWD/examples:/workdir islasgeci/nerd_demo:latest bash -c "nbmerge /workdir/proceedings.ipynb /workdir/calibration-demo.ipynb /workdir/tiling_demo.ipynb > paper.ipynb && jupyter nbconvert /workdir/paper.ipynb --to markdown"
       - name: Build proceedings PDF
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: examples/proceedings.md
+          paper-path: examples/paper.md
       - name: Upload
         uses: actions/upload-artifact@main
         with:
