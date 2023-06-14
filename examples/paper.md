@@ -9,6 +9,7 @@ tags:
 authors:
   - name: Evaristo Rojas-Mayoral
     orcid: 0000-0001-6812-9562
+    corresponding: true
     affiliation: 1
   - name: Braulio Rojas-Mayoral
     orcid: 0000-0003-2358-2843
@@ -19,7 +20,6 @@ authors:
 affiliations:
   - name: Grupo de Ecología y Conservación de Islas
     index: 1
-date: 14 June 2023
 bibliography: references.bib
 
 ...
