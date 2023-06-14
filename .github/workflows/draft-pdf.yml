@@ -5,6 +5,8 @@ jobs:
   paper:
     runs-on: ubuntu-latest
     name: Paper Draft
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -22,3 +24,7 @@ jobs:
         with:
           name: paper
           path: examples/paper.pdf
+      - name: Auto-commit paper.md
+        uses: stefanzweifel/git-auto-commit-action@master
+        with:
+          file_pattern: 'examples/paper.md'
