@@ -11,13 +11,15 @@ authors:
     orcid: 0000-0001-6812-9562
     affiliation: 1
   - name: Braulio Rojas-Mayoral
+    orcid: 0000-0003-2358-2843
     affiliation: 1
   - name: Federico A. Méndez-Sánchez
+    orcid: 0000-0002-3467-0008
     affiliation: 1
 affiliations:
-  - name: Grupo de Ecología y Conservación de Islas, A.C. 
+  - name: Grupo de Ecología y Conservación de Islas
     index: 1
-date: 16 July 2020
+date: 14 June 2023
 bibliography: references.bib
 
 ...
