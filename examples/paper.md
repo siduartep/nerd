@@ -470,4 +470,6 @@ product of NERD is a bait density map generated in a matter of seconds, which pe
 planning and the automatization of an otherwise difficult and slow processes, while allowing for the
 instant identification of bait gaps and the efficient use of resources.
 
+# References
+
 
