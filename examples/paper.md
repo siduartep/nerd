@@ -26,25 +26,8 @@ bibliography: references.bib
 
 # Summary
 
-Invasive rodents are present on approximately 90% of the world's islands and constitute one of the
-most serious threats to both endemic and native island species. The eradication of rodents is
-central to island conservation efforts and the aerial broadcast of rodenticide bait is the preferred
-dispersal method. To maximize the efficiency of rodent eradication campaigns utilizing aerial
-dispersal methods, the generation of accurate and real-time bait density maps are needed.
-Traditionally, creating maps to estimate the spatial dispersion of bait on the ground has been
-carried out using GIS, which is based on several untested assumptions and is time intensive. To
-improve accuracy and speed up the evaluation of aerial operations, we developed a new tool called
-NERD: Numerical Estimation of Rodenticide Density. NERD is the implementation of a mathematical
-model, in the computing language of MATLAB, which performs calculations with increased accuracy,
-displaying results almost in real-time. At its core, the model is a probability density function
-describing bait density as a function of the aperture diameter of the bait bucket, the helicopter
-speed, and the wind speed. NERD also facilitates the planning of helicopter flight paths and allows
-for the instant identification of bait gaps. NERD was effectively used in two recent and successful
-rodent eradication campaigns in Mexico: the mouse eradication on San Benito Oeste Island (400 ha) in
-the Mexican Pacific, and the rat eradication on Cayo Centro Island (539 ha) from Banco Chinchorro,
-in the Mexican Caribbean. The latter represents the largest rodent eradication on a wet tropical
-island to date. NERD has proven its efficacy and and can significantly reduce the overall cost of
-large-scale rodent eradication campaigns.
+Invasive rodents are present on approximately 90% of the world's islands and constitute one of the most serious threats to both endemic and native island species. The eradication of rodents is central to island conservation efforts and the aerial broadcast of rodenticide bait is the preferred dispersal method. To maximize the efficiency of rodent eradication campaigns utilizing aerial dispersal methods, the generation of accurate and real-time bait density maps are needed.
+Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed a mathematical model called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with heightened precision and provides immediate results. At its core, the model is a probability density function describing bait density as a function of the aperture diameter of the bait bucket and the helicopter speed. NERD also facilitates the planning of helicopter flight paths allowing the instant identification of bait gaps. Furthermore, the effectiveness of the model was effectively demonstrated through its successful utilization in two successful rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the rats eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
 
 # Introduction
 
