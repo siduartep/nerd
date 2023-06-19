@@ -104,44 +104,7 @@ Finally, setting equations \eqref{eq:densidadLineal} and
 Equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez}  relates a density that is needed in the
 field with the variables of the bait dispersal mechanism.
 
-# Calibration
-
-Assuming the density is independent of $x$, i.e. $\sigma$ does not change along the swath width,
-equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez} can be easily solved to obtain
-
-\begin{equation}
-  \sigma = \frac{\dot{m}}{s\cdot w}.
-  \label{eq:densidadEsFlujoSobreProductoRapidezPorAncho}
-\end{equation}
-
-In order to write equation \eqref{eq:densidadEsFlujoSobreProductoRapidezPorAncho} as a function of
-the aperture diameter of the bait bucket, we express the mass flow rate of bait as a function of the
-aperture diameter, $\dot{m}(d)$. To do this, the bait in the bucket was weighed and the time
-required to empty the bucket was measured and repeated using several aperture diameters. Figure
-\ref{fig:flujoDeApertura} shows the results from the calibration as well as the fitted model.
-
-![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
-calibration event and the black curve is the quadratic model fitted to the data.
-\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
-diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
-bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
-ground is shown in the second vertical color axis. $\dot{m}(d)$.
-\label{fig:flujoDeApertura}](figures/flujo-de-apertura.png)
-
-![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
-calibration event and the black curve is the quadratic model fitted to the data.
-\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
-diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
-bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
-ground is shown in the second vertical color axis. $\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w}$.
-\label{fig:densidadDeAperturaYRapidez}](figures/densidad-de-apertura-y-rapidez.png)
-
-The resulting three-dimensional model, $$\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w},$$ is shown in
-Figure \ref{fig:densidadDeAperturaYRapidez}. During the planning stage of an eradication campaign,
-this model can be used to determine the diameter of the bait bucket needed to achieve the desired
-bait density on the ground, ensuring efficient bait coverage, while maximizing resources, time and
-manpower.
-
+# Numerical Estimation of Rodenticide Density
 ## Calibration Demonstration
 
 
@@ -150,20 +113,6 @@ import nerd
 import nerd.calibration
 import nerd.density_functions
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    ModuleNotFoundError                       Traceback (most recent call last)
-
-    Cell In[2], line 1
-    ----> 1 import nerd
-          2 import nerd.calibration
-          3 import nerd.density_functions
-
-
-    ModuleNotFoundError: No module named 'nerd'
-
 
 
 ```python
@@ -392,13 +341,6 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
     
 
 
-
-
-
-```python
-
-```
-
 # Application
 
 For a given island, a particular bait density is required on the ground for a successful rodent
@@ -455,7 +397,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![svg](paper_files/paper_33_1.svg)
+![svg](paper_files/paper_31_1.svg)
     
 
 
