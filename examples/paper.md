@@ -104,39 +104,44 @@ Finally, setting equations \eqref{eq:densidadLineal} and
 Equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez}  relates a density that is needed in the
 field with the variables of the bait dispersal mechanism.
 
-# Application
+# Calibration
 
-For a given island, a particular bait density is required on the ground for a successful rodent
-eradication. This density is determined after studying the ecosystems of the island and the biology
-of the invasive target species. Given the required bait density and the total area of the island,
-the minimum amount of bait needed for the eradication operation can be calculated using NERD. While
-planning helicopter flights paths, it is assumed that the bait density within each swath is
-constant, but variable between swaths.
+Assuming the density is independent of $x$, i.e. $\sigma$ does not change along the swath width,
+equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez} can be easily solved to obtain
 
-Assuming a variable bait density along each swath but uniform density across the swath, we can
-estimate bait density with greater precision after the aerial dispersal given that the bait density
-for each cell is calculated between two consecutive points recorded by the GPS. This case considers
-the effects on density when the helicopter flies with variable speed (Figure
-\ref{fig:densidadSimetrica}).
+\begin{equation}
+  \sigma = \frac{\dot{m}}{s\cdot w}.
+  \label{eq:densidadEsFlujoSobreProductoRapidezPorAncho}
+\end{equation}
 
-To account for the well known fact that we have a higher density of rodenticide right bellow of the
-helicopter and lower densities along the edges of the swath, we can assume a variable bait density
-both along and across each swath.  This allows for the detection of areas where the bait density is
-below the lower limit of the target bait density or of gaps on the ground without any bait.
+In order to write equation \eqref{eq:densidadEsFlujoSobreProductoRapidezPorAncho} as a function of
+the aperture diameter of the bait bucket, we express the mass flow rate of bait as a function of the
+aperture diameter, $\dot{m}(d)$. To do this, the bait in the bucket was weighed and the time
+required to empty the bucket was measured and repeated using several aperture diameters. Figure
+\ref{fig:flujoDeApertura} shows the results from the calibration as well as the fitted model.
 
-# Discussion
+![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
+calibration event and the black curve is the quadratic model fitted to the data.
+\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
+diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
+bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
+ground is shown in the second vertical color axis. $\dot{m}(d)$.
+\label{fig:flujoDeApertura}](figures/flujo-de-apertura.png)
 
-NERD: Numerical Estimation of Rodenticide Dispersal provides provides a model, based on
-past calibration experiments in which the mass flow of bait through a bait bucket is measured, that
-describes bait density as a function of the aperture diameter, the helicopter speed, and the wind
-speed. NERD can assist in the planning of the aerial operations as well as during the eradication,
-giving near real-time feedback allowing for on-the-spot corrections during the operation. The final
-product of NERD is a bait density map generated in a matter of seconds, which permits better
-planning and the automatization of an otherwise difficult and slow processes, while allowing for the
-instant identification of bait gaps and the efficient use of resources.
+![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
+calibration event and the black curve is the quadratic model fitted to the data.
+\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
+diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
+bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
+ground is shown in the second vertical color axis. $\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w}$.
+\label{fig:densidadDeAperturaYRapidez}](figures/densidad-de-apertura-y-rapidez.png)
 
+The resulting three-dimensional model, $$\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w},$$ is shown in
+Figure \ref{fig:densidadDeAperturaYRapidez}. During the planning stage of an eradication campaign,
+this model can be used to determine the diameter of the bait bucket needed to achieve the desired
+bait density on the ground, ensuring efficient bait coverage, while maximizing resources, time and
+manpower.
 
-# Numerical Estimation of Rodenticide Density
 ## Calibration Demonstration
 
 
@@ -204,7 +209,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_12_0.png)
+![png](paper_files/paper_10_0.png)
     
 
 
@@ -248,7 +253,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_16_0.png)
+![png](paper_files/paper_14_0.png)
     
 
 
@@ -301,7 +306,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_20_0.png)
+![png](paper_files/paper_18_0.png)
     
 
 
@@ -383,54 +388,38 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_24_0.png)
+![png](paper_files/paper_22_0.png)
     
 
 
-# Calibration
 
-Assuming the density is independent of $x$, i.e. $\sigma$ does not change along the swath width,
-equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez} can be easily solved to obtain
-
-\begin{equation}
-  \sigma = \frac{\dot{m}}{s\cdot w}.
-  \label{eq:densidadEsFlujoSobreProductoRapidezPorAncho}
-\end{equation}
-
-In order to write equation \eqref{eq:densidadEsFlujoSobreProductoRapidezPorAncho} as a function of
-the aperture diameter of the bait bucket, we express the mass flow rate of bait as a function of the
-aperture diameter, $\dot{m}(d)$. To do this, the bait in the bucket was weighed and the time
-required to empty the bucket was measured and repeated using several aperture diameters. Figure
-\ref{fig:flujoDeApertura} shows the results from the calibration as well as the fitted model.
-
-![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
-calibration event and the black curve is the quadratic model fitted to the data.
-\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
-diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
-bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
-ground is shown in the second vertical color axis. $\dot{m}(d)$.
-\label{fig:flujoDeApertura}](figures/flujo-de-apertura.png)
-
-![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
-calibration event and the black curve is the quadratic model fitted to the data.
-\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
-diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
-bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
-ground is shown in the second vertical color axis. $\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w}$.
-\label{fig:densidadDeAperturaYRapidez}](figures/densidad-de-apertura-y-rapidez.png)
-
-The resulting three-dimensional model, $$\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w},$$ is shown in
-Figure \ref{fig:densidadDeAperturaYRapidez}. During the planning stage of an eradication campaign,
-this model can be used to determine the diameter of the bait bucket needed to achieve the desired
-bait density on the ground, ensuring efficient bait coverage, while maximizing resources, time and
-manpower.
 
 
 ```python
 
 ```
 
-Tiling demo
+# Application
+
+For a given island, a particular bait density is required on the ground for a successful rodent
+eradication. This density is determined after studying the ecosystems of the island and the biology
+of the invasive target species. Given the required bait density and the total area of the island,
+the minimum amount of bait needed for the eradication operation can be calculated using NERD. While
+planning helicopter flights paths, it is assumed that the bait density within each swath is
+constant, but variable between swaths.
+
+Assuming a variable bait density along each swath but uniform density across the swath, we can
+estimate bait density with greater precision after the aerial dispersal given that the bait density
+for each cell is calculated between two consecutive points recorded by the GPS. This case considers
+the effects on density when the helicopter flies with variable speed (Figure
+\ref{fig:densidadSimetrica}).
+
+To account for the well known fact that we have a higher density of rodenticide right bellow of the
+helicopter and lower densities along the edges of the swath, we can assume a variable bait density
+both along and across each swath.  This allows for the detection of areas where the bait density is
+below the lower limit of the target bait density or of gaps on the ground without any bait.
+
+## Tiling demo
 
 
 ```python
@@ -466,6 +455,19 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![svg](paper_files/paper_32_1.svg)
+![svg](paper_files/paper_33_1.svg)
     
+
+
+# Discussion
+
+NERD: Numerical Estimation of Rodenticide Dispersal provides provides a model, based on
+past calibration experiments in which the mass flow of bait through a bait bucket is measured, that
+describes bait density as a function of the aperture diameter, the helicopter speed, and the wind
+speed. NERD can assist in the planning of the aerial operations as well as during the eradication,
+giving near real-time feedback allowing for on-the-spot corrections during the operation. The final
+product of NERD is a bait density map generated in a matter of seconds, which permits better
+planning and the automatization of an otherwise difficult and slow processes, while allowing for the
+instant identification of bait gaps and the efficient use of resources.
+
 
