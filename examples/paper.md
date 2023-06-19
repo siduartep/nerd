@@ -96,21 +96,10 @@ $x=+\frac{w}{2}$.
 After the helicopter completes a pass, in each point $(x,y)$ of the rectangle a superficial bait
 density is obtained $\sigma(x,y)$. The definition of the superficial bait density of mass $m$
 indicates that $\sigma(x,y)=\frac{dm}{dA}$. Rewriting the superficial density substituting $dA$ by
-$dydx$ and integrating along the dispersion cell, it follows that % Ambiente para incluir ecuación y
-etiquetarla \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
+$dydx$ and integrating along the dispersion cell, it follows that \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
 \sigma(x,y)dydx. \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
 
-![Constant bait density along each swath.
-\label{fig:densidadConstante}](figures/constant-bait-density.png)
-
-![Variable bait density along each swath.
-\label{fig:densidadVariable}](figures/variable-bait-density.png)
-
-Hypothetical island with bait swaths. Each green band represents one bait swath. The intensity of
-the bait swath color corresponds to its density, with darker colors indicating greater densities.
-
-Assuming superficial density is uniform with respect to the helicopter’s flight path, represented in
-Figure \ref{fig:densidadConstante}, equation \eqref{eq:masaEsIntegralDobleDeDensidad} becomes
+Assuming superficial density is uniform with respect to the helicopter’s flight path, equation \eqref{eq:masaEsIntegralDobleDeDensidad} becomes
 \begin{equation} \frac{\delta m}{\delta y}=\int_{-\frac{w}{2}}^{+\frac{w}{2}}\sigma(x)dx.
 \label{eq:densidadLineal} \end{equation}
 
