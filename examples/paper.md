@@ -91,12 +91,14 @@ Assuming superficial density is uniform with respect to the helicopter’s fligh
 
 The left-hand side of the equation represents the linear bait density which is related with the mass
 flow of bait from the bucket and the speed of the helicopter.  A helicopter equipped with a
-dispersion bucket with a constant mass flow rate, \begin{equation} \frac{dot{m}}{1}=\frac{\delta m}{\delta t}\end{equation}
+dispersion bucket with a constant mass flow rate, \begin{equation} \frac{\dot{m}}{1}=\frac{\delta m}{\delta t}\end{equation}
 \begin{equation} {\delta t}=\frac{\delta m}{\dot{m}}
 \label{eq:flujoMasico} \end{equation}
 
 flies from the point $(0,0)$ to the point $(0,\delta y)$ with a speed of:
-\begin{equation} s=\frac{\delta y}{\delta t}. \label{eq:rapidez} \end{equation}
+\begin{equation} \frac{\dot{s}}{1}=\frac{\delta y}{\delta t} \end{equation}
+\begin{equation} {\delta s}=\frac{\delta y}{s}
+ \label{eq:rapidez} \end{equation}
 
 Combining equations \eqref{eq:flujoMasico} and \eqref{eq:rapidez}, the linear bait density
 \begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s},
