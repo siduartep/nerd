@@ -96,13 +96,18 @@ dispersion bucket with a constant mass flow rate, \begin{equation} \frac{\dot{m}
 \label{eq:flujoMasico} \end{equation}
 
 flies from the point $(0,0)$ to the point $(0,\delta y)$ with a speed of:
-\begin{equation} \frac{\dot{s}}{1}=\frac{\delta y}{\delta t} \end{equation}
+\begin{equation} \frac{s}{1}=\frac{\delta y}{\delta t} \end{equation}
 \begin{equation} {\delta s}=\frac{\delta y}{s}
- \label{eq:rapidez} \end{equation}
+\label{eq:rapidez} \end{equation}
 
 Combining equations \eqref{eq:flujoMasico} and \eqref{eq:rapidez}, the linear bait density
-\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s},
-\label{eq:densidadLinealEsflujoSobreRapidez} \end{equation} is obtained.
+\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s} \end{equation}
+
+\begin{equation} \frac{\delta m}{\dot{m}}=\frac{\delta y}{s} \end{equation}
+
+\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot {m}}{s} \end{equation}
+
+\label{eq:densidadLinealEsflujoSobreRapidez} is obtained.
 
 Finally, setting equations \eqref{eq:densidadLineal} and
 \eqref{eq:densidadLinealEsflujoSobreRapidez} equal to each other, we obtain \begin{equation}
