@@ -71,10 +71,13 @@ flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath widt
 width; $\delta y$ is the distance between two GPS points; and $A_{\mbox{cell}}$ is the area of a
 dispersal cell. \label{fig:esquemaHelicoptero}](figures/helicopter-flight-path.png)
 
+
+
 We set the origin of a Cartesian coordinate system on the middle point of the inferior side of a
 rectangle with base $w$ and height $\delta y$. This way, the inferior side is found at $y=0$, the
 superior side at $y=\delta y$,the left side at $x=-\frac{w}{2}$ and the right side at
 $x=+\frac{w}{2}$.
+
 
 After the helicopter completes a pass, in each point $(x,y)$ of the rectangle a superficial bait
 density is obtained $\sigma(x,y)$. The definition of the superficial bait density of mass $m$
@@ -196,7 +199,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_15_0.png)
+![png](paper_files/paper_26_0.png)
     
 
 
@@ -240,7 +243,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_19_0.png)
+![png](paper_files/paper_30_0.png)
     
 
 
@@ -293,7 +296,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_23_0.png)
+![png](paper_files/paper_34_0.png)
     
 
 
@@ -375,7 +378,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_27_0.png)
+![png](paper_files/paper_38_0.png)
     
 
 
@@ -435,7 +438,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![svg](paper_files/paper_36_1.svg)
+![svg](paper_files/paper_47_1.svg)
     
 
 
@@ -451,5 +454,3 @@ planning and the automatization of an otherwise difficult and slow processes, wh
 instant identification of bait gaps and the efficient use of resources.
 
 # References
-
-
