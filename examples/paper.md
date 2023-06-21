@@ -91,9 +91,12 @@ Assuming superficial density is uniform with respect to the helicopter’s fligh
 
 The left-hand side of the equation represents the linear bait density which is related with the mass
 flow of bait from the bucket and the speed of the helicopter.  A helicopter equipped with a
-dispersion bucket with a constant mass flow rate, \begin{equation} \dot{m}=\frac{\delta m}{\delta t}
-\label{eq:flujoMasico} \end{equation} flies from the point $(0,0)$ to the point $(0,\delta y)$ with
-a speed of \begin{equation} s=\frac{\delta y}{\delta t}. \label{eq:rapidez} \end{equation}
+dispersion bucket with a constant mass flow rate, \begin{equation} \dot{m}/1=\frac{\delta m}{\delta t}
+\frac{\delta t}={\delta m}/\dot{m}
+\label{eq:flujoMasico} \end{equation}
+
+flies from the point $(0,0)$ to the point $(0,\delta y)$ with a speed of:
+\begin{equation} s=\frac{\delta y}{\delta t}. \label{eq:rapidez} \end{equation}
 
 Combining equations \eqref{eq:flujoMasico} and \eqref{eq:rapidez}, the linear bait density
 \begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s},
@@ -199,7 +202,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_26_0.png)
+![png](paper_files/paper_27_0.png)
     
 
 
@@ -243,7 +246,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_30_0.png)
+![png](paper_files/paper_31_0.png)
     
 
 
@@ -296,7 +299,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_34_0.png)
+![png](paper_files/paper_35_0.png)
     
 
 
@@ -378,7 +381,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_38_0.png)
+![png](paper_files/paper_39_0.png)
     
 
 
@@ -438,7 +441,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![svg](paper_files/paper_47_1.svg)
+![svg](paper_files/paper_48_1.svg)
     
 
 
