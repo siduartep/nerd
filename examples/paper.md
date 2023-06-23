@@ -196,7 +196,7 @@ calibration event and the black curve is the quadratic model fitted to the data.
 diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
 bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
 ground is shown in the second vertical color axis. $\dot{m}(d)$.
-\label{fig:flujoDeApertura}]
+\label{fig:flujoDeApertura}]()
 
 The resulting three-dimensional model, $$\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w},$$ is shown in
 Figure \ref{fig:densidadDeAperturaYRapidez}. During the planning stage of an eradication campaign,
@@ -317,11 +317,6 @@ density_matrix = nerd.calibration.model(
 helicopter_speed_kmh = helicopter_speeds_domain * 3.6
 ```
 
-    /opt/conda/lib/python3.10/site-packages/scipy/optimize/_minpack_py.py:178: RuntimeWarning: The iteration is not making good progress, as measured by the 
-      improvement from the last ten iterations.
-      warnings.warn(msg, RuntimeWarning)
-
-
 
 ```python
 density_matrix[0]
@@ -389,7 +384,12 @@ calibration event and the black curve is the quadratic model fitted to the data.
 diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
 bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
 ground is shown in the second vertical color axis. $\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w}$.
-\label{fig:densidadDeAperturaYRapidez}]
+\label{fig:densidadDeAperturaYRapidez}]()
+
+
+```python
+
+```
 
 # Application
 
@@ -447,7 +447,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![svg](paper_files/paper_49_1.svg)
+![svg](paper_files/paper_50_1.svg)
     
 
 
