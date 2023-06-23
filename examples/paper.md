@@ -139,7 +139,7 @@ calibration event and the black curve is the quadratic model fitted to the data.
 diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
 bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
 ground is shown in the second vertical color axis. $\dot{m}(d)$.
-\label{fig:flujoDeApertura}](figures/flujo-de-apertura.png)
+\label{fig:flujoDeApertura}]
 
 ![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
 calibration event and the black curve is the quadratic model fitted to the data.
