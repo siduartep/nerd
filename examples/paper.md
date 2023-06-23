@@ -63,8 +63,8 @@ helicopter speed.
 # Formulation
 
 The objective of this section is to show that the function $\sigma(x,y)$ used to represent the
-superficial bait density (kg/m$^2$), must comply with the following property
-$$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s},$$ where $\dot{m}$ is the bait
+superficial bait density (kg/m$^2$), must comply with the following property:
+$$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}$$ where $\dot{m}$ is the bait
 flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
 
 ![Schematic of a helicopter’s flight path over a swath with three dispersal cells; $w$ is the swath
@@ -82,8 +82,8 @@ $x=+\frac{w}{2}$.
 After the helicopter completes a pass, in each point $(x,y)$ of the rectangle a superficial bait
 density is obtained $\sigma(x,y)$. The definition of the superficial bait density of mass $m$
 indicates that $\sigma(x,y)=\frac{dm}{dA}$. Rewriting the superficial density substituting $dA$ by
-$dydx$ and integrating along the dispersion cell, it follows that \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
-\sigma(x,y)dydx. \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
+$dydx$ and integrating along the dispersion cell, it follows that: \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
+\sigma(x,y)dydx \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
 
 Assuming superficial density is uniform with respect to the helicopter’s flight path, equation \eqref{eq:masaEsIntegralDobleDeDensidad} becomes
 \begin{equation} \frac{\delta m}{\delta y}=\int_{-\frac{w}{2}}^{+\frac{w}{2}}\sigma(x)dx.
@@ -97,7 +97,7 @@ dispersion bucket with a constant mass flow rate, \begin{equation} \frac{\dot{m}
 
 flies from the point $(0,0)$ to the point $(0,\delta y)$ with a speed of:
 \begin{equation} \frac{s}{1}=\frac{\delta y}{\delta t} \end{equation}
-\begin{equation} {\delta s}=\frac{\delta y}{s}
+\begin{equation} {\delta t}=\frac{\delta y}{s}
 \label{eq:rapidez} \end{equation}
 
 Combining equations \eqref{eq:flujoMasico} and \eqref{eq:rapidez}, the linear bait density
