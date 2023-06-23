@@ -63,24 +63,27 @@ helicopter speed.
 # Formulation
 
 The objective of this section is to show that the function $\sigma(x,y)$ used to represent the
-superficial bait density (kg/m$^2$), must comply with the following property
-$$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s},$$ where $\dot{m}$ is the bait
+superficial bait density (kg/m$^2$), must comply with the following property:
+$$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}$$ where $\dot{m}$ is the bait
 flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
 
 ![Schematic of a helicopter’s flight path over a swath with three dispersal cells; $w$ is the swath
 width; $\delta y$ is the distance between two GPS points; and $A_{\mbox{cell}}$ is the area of a
 dispersal cell. \label{fig:esquemaHelicoptero}](figures/helicopter-flight-path.png)
 
+
+
 We set the origin of a Cartesian coordinate system on the middle point of the inferior side of a
 rectangle with base $w$ and height $\delta y$. This way, the inferior side is found at $y=0$, the
 superior side at $y=\delta y$,the left side at $x=-\frac{w}{2}$ and the right side at
 $x=+\frac{w}{2}$.
 
+
 After the helicopter completes a pass, in each point $(x,y)$ of the rectangle a superficial bait
 density is obtained $\sigma(x,y)$. The definition of the superficial bait density of mass $m$
 indicates that $\sigma(x,y)=\frac{dm}{dA}$. Rewriting the superficial density substituting $dA$ by
-$dydx$ and integrating along the dispersion cell, it follows that \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
-\sigma(x,y)dydx. \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
+$dydx$ and integrating along the dispersion cell, it follows that: \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
+\sigma(x,y)dydx \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
 
 Assuming superficial density is uniform with respect to the helicopter’s flight path, equation \eqref{eq:masaEsIntegralDobleDeDensidad} becomes
 \begin{equation} \frac{\delta m}{\delta y}=\int_{-\frac{w}{2}}^{+\frac{w}{2}}\sigma(x)dx.
@@ -88,13 +91,23 @@ Assuming superficial density is uniform with respect to the helicopter’s fligh
 
 The left-hand side of the equation represents the linear bait density which is related with the mass
 flow of bait from the bucket and the speed of the helicopter.  A helicopter equipped with a
-dispersion bucket with a constant mass flow rate, \begin{equation} \dot{m}=\frac{\delta m}{\delta t}
-\label{eq:flujoMasico} \end{equation} flies from the point $(0,0)$ to the point $(0,\delta y)$ with
-a speed of \begin{equation} s=\frac{\delta y}{\delta t}. \label{eq:rapidez} \end{equation}
+dispersion bucket with a constant mass flow rate, \begin{equation} \frac{\dot{m}}{1}=\frac{\delta m}{\delta t}\end{equation}
+\begin{equation} {\delta t}=\frac{\delta m}{\dot{m}}
+\label{eq:flujoMasico} \end{equation}
+
+flies from the point $(0,0)$ to the point $(0,\delta y)$ with a speed of:
+\begin{equation} \frac{s}{1}=\frac{\delta y}{\delta t} \end{equation}
+\begin{equation} {\delta t}=\frac{\delta y}{s}
+\label{eq:rapidez} \end{equation}
 
 Combining equations \eqref{eq:flujoMasico} and \eqref{eq:rapidez}, the linear bait density
-\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s},
-\label{eq:densidadLinealEsflujoSobreRapidez} \end{equation} is obtained.
+\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s} \end{equation}
+
+\begin{equation} \frac{\delta m}{\dot{m}}=\frac{\delta y}{s} \end{equation}
+
+\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot {m}}{s} \end{equation}
+
+\label{eq:densidadLinealEsflujoSobreRapidez} is obtained.
 
 Finally, setting equations \eqref{eq:densidadLineal} and
 \eqref{eq:densidadLinealEsflujoSobreRapidez} equal to each other, we obtain \begin{equation}
@@ -104,8 +117,46 @@ Finally, setting equations \eqref{eq:densidadLineal} and
 Equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez}  relates a density that is needed in the
 field with the variables of the bait dispersal mechanism.
 
-# Numerical Estimation of Rodenticide Density
+# Calibration
+
+Assuming the density is independent of $x$, i.e. $\sigma$ does not change along the swath width,
+equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez} can be easily solved to obtain
+
+\begin{equation}
+  \sigma = \frac{\dot{m}}{s\cdot w}.
+  \label{eq:densidadEsFlujoSobreProductoRapidezPorAncho}
+\end{equation}
+
+In order to write equation \eqref{eq:densidadEsFlujoSobreProductoRapidezPorAncho} as a function of
+the aperture diameter of the bait bucket, we express the mass flow rate of bait as a function of the
+aperture diameter, $\dot{m}(d)$. To do this, the bait in the bucket was weighed and the time
+required to empty the bucket was measured and repeated using several aperture diameters. Figure
+\ref{fig:flujoDeApertura} shows the results from the calibration as well as the fitted model.
+
+![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
+calibration event and the black curve is the quadratic model fitted to the data.
+\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
+diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
+bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
+ground is shown in the second vertical color axis. $\dot{m}(d)$.
+\label{fig:flujoDeApertura}](figures/flujo-de-apertura.png)
+
+![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
+calibration event and the black curve is the quadratic model fitted to the data.
+\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
+diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
+bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
+ground is shown in the second vertical color axis. $\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w}$.
+\label{fig:densidadDeAperturaYRapidez}](figures/densidad-de-apertura-y-rapidez.png)
+
+The resulting three-dimensional model, $$\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w},$$ is shown in
+Figure \ref{fig:densidadDeAperturaYRapidez}. During the planning stage of an eradication campaign,
+this model can be used to determine the diameter of the bait bucket needed to achieve the desired
+bait density on the ground, ensuring efficient bait coverage, while maximizing resources, time and
+manpower.
+
 ## Calibration Demonstration
+
 
 
 ```python
@@ -158,7 +209,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_10_0.png)
+![png](paper_files/paper_27_0.png)
     
 
 
@@ -202,7 +253,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_14_0.png)
+![png](paper_files/paper_31_0.png)
     
 
 
@@ -255,7 +306,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_18_0.png)
+![png](paper_files/paper_35_0.png)
     
 
 
@@ -337,7 +388,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_22_0.png)
+![png](paper_files/paper_39_0.png)
     
 
 
@@ -397,7 +448,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![svg](paper_files/paper_31_1.svg)
+![svg](paper_files/paper_48_1.svg)
     
 
 
@@ -413,5 +464,3 @@ planning and the automatization of an otherwise difficult and slow processes, wh
 instant identification of bait gaps and the efficient use of resources.
 
 # References
-
-
