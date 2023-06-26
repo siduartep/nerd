@@ -27,7 +27,7 @@ bibliography: references.bib
 # Summary
 
 Invasive rodents are present on approximately 90% of the world's islands and constitute one of the most serious threats to both endemic and native island species. The eradication of rodents is central to island conservation efforts and the aerial broadcast of rodenticide bait is the preferred dispersal method. To maximize the efficiency of rodent eradication campaigns utilizing aerial dispersal methods, the generation of accurate and real-time bait density maps are needed.
-Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed a mathematical model called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with heightened precision and provides immediate results. At its core, the model is a probability density function describing bait density as a function of the aperture diameter of the bait bucket and the helicopter speed. NERD also facilitates the planning of helicopter flight paths allowing the instant identification of bait gaps. Furthermore, the effectiveness of the model was effectively demonstrated through its successful utilization in two successful rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the rats eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
+Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed an algorithm called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with heightened precision and provides immediate results. At its core, NERD is a probability density function describing bait density as a function of the aperture diameter of the bait bucket and the helicopter speed. NERD also facilitates the planning of helicopter flight paths allowing the instant identification of bait gaps. Furthermore, the effectiveness of the model was effectively demonstrated through its successful utilization in two successful rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the rats eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
 
 # Introduction
 
@@ -50,13 +50,13 @@ assess the effectiveness of an aerial operation, bait density maps are required 
 spatial variation of bait availability on the ground. However, creating bait density maps has been
 traditionally slow and impractical in the field, while taking in situ measurements to evaluate
 aerial work is difficult given the challenges associated with field conditions, topography, and
-available manpower.
+available labor force.
 
 To address these challenges, we have developed NERD: Numerical Estimation of Rodenticide Dispersal.
 NERD facilitates the planning of helicopter rodenticide dispersal campaigns by generating bait
 density maps automatically and allowing for the instant identification of bait gaps with fewer in
-situ measurements. The mathematical model is based on prior calibration experiments
-in which the mass flow of rodenticide through a bait bucket is measured. At its core, the model is a
+situ measurements. The algorithm is based on prior calibration experiments
+in which the mass flow of rodenticide through a bait bucket is measured. At its core, NERD is a
 probability density function that describes bait density as a function of bucket aperture diameter and
 helicopter speed.
 
