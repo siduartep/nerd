@@ -394,12 +394,12 @@ nerd_model.calculate_total_density()
 nerd_model.export_results_geojson(target_density=0.002)
 ```
 
-    100%|██████████| 6269/6269 [03:59<00:00, 26.23it/s]
+    100%|██████████| 6269/6269 [01:39<00:00, 62.79it/s] 
 
 
 
     
-![svg](paper_files/paper_42_1.svg)
+![png](paper_files/paper_42_1.png)
     
 
 
