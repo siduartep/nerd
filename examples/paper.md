@@ -27,19 +27,15 @@ bibliography: references.bib
 # Summary
 
 Invasive rodents are present on approximately 90% of the world's islands and constitute one of the most serious threats to both endemic and native island species. The eradication of rodents is central to island conservation efforts and the aerial broadcast of rodenticide bait is the preferred dispersal method. To maximize the efficiency of rodent eradication campaigns utilizing aerial dispersal methods, the generation of accurate and real-time bait density maps are needed.
-Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed a mathematical model called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with heightened precision and provides immediate results. At its core, the model is a probability density function describing bait density as a function of the aperture diameter of the bait bucket and the helicopter speed. NERD also facilitates the planning of helicopter flight paths allowing the instant identification of bait gaps. Furthermore, the effectiveness of the model was effectively demonstrated through its successful utilization in two successful rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the rats eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
+Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed an algorithm called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with heightened precision and provides immediate results. At its core, NERD is a probability density function describing bait density as a function of the aperture diameter of the bait bucket and the helicopter speed. NERD also facilitates the planning of helicopter flight paths allowing the instant identification of bait gaps. Furthermore, the effectiveness of the model was effectively demonstrated through its successful utilization in two successful rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the rats eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
 
 # Introduction
 
 The effects of invasive rodent species on island ecosystems are incredibly deleterious, especially
 on islands that present high levels of endemism and islands that have evolved in the absence of
 predators occupying similar niches to the invasive rodent species or higher order predators
-[@Meyers2000]. Under these circumstances, the presence of invasive rodents on islands can lead to
-the rapid decline and extinction of native plant and animal species [@Medina2011; @Towns2006]. The
-resultant losses are reflected in reduced biodiversity on the affected islands and in many cases,
-the emergence of the invasive rodent as the dominant species. In severe cases of rodent invasion,
-key island ecosystem services are lost [@Towns2006]. As such, the first step in island restoration
-and biodiversity recovery is the eradication of invasive rodent species.
+[@Meyers2000]. The population biology of invasive rodents on islands is still poorly understood [Grant2015], but the presence of rodents on islands can lead to the rapid decline, severe reduction and extinction of native plant and animal species [@Medina2011; @Towns2006]. The resultant losses are reflected in reduced biodiversity on the affected islands and in many cases, the emergence of the invasive rodent as the dominant species. In severe cases of rodent invasion,key island ecosystem services are lost [@Towns2006]. 
+As such, the first step in island restoration and biodiversity recovery is the eradication of invasive rodent species. Effective strategies have been developed to combat the detrimental effects of invasive rodent species on island ecosystems. These strategies are designed to minimize or eradicate rodent populations, thereby facilitating the restoration of native species and the reestablishment of crucial ecosystem processes. One widely utilized strategy is the aerial broadcast of rodenticide bait, which involves dispersing bait pellets from helicopters over the targeted areas. This method has proven to be highly effective in reducing rodent populations and has been successfully employed in numerous eradication campaigns [@Keitt2015].
 
 # Statement of need
 
@@ -50,19 +46,19 @@ assess the effectiveness of an aerial operation, bait density maps are required 
 spatial variation of bait availability on the ground. However, creating bait density maps has been
 traditionally slow and impractical in the field, while taking in situ measurements to evaluate
 aerial work is difficult given the challenges associated with field conditions, topography, and
-available manpower.
+available labor force.
 
 To address these challenges, we have developed NERD: Numerical Estimation of Rodenticide Dispersal.
 NERD facilitates the planning of helicopter rodenticide dispersal campaigns by generating bait
 density maps automatically and allowing for the instant identification of bait gaps with fewer in
-situ measurements. The mathematical model is based on prior calibration experiments
-in which the mass flow of rodenticide through a bait bucket is measured. At its core, the model is a
+situ measurements. The algorithm is based on prior calibration experiments
+in which the mass flow of rodenticide through a bait bucket is measured. At its core, NERD is a
 probability density function that describes bait density as a function of bucket aperture diameter and
 helicopter speed.
 
 # Formulation
 
-The objective of this section is to show that the function $\sigma(x,y)$ used to represent the
+[@Mayoral-Rojas2019] shared that the function $\sigma(x,y)$ used to represent the
 superficial bait density (kg/m$^2$), must comply with the following property:
 $$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}$$ where $\dot{m}$ is the bait
 flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
@@ -72,50 +68,6 @@ width; $\delta y$ is the distance between two GPS points; and $A_{\mbox{cell}}$ 
 dispersal cell. \label{fig:esquemaHelicoptero}](figures/helicopter-flight-path.png)
 
 
-
-We set the origin of a Cartesian coordinate system on the middle point of the inferior side of a
-rectangle with base $w$ and height $\delta y$. This way, the inferior side is found at $y=0$, the
-superior side at $y=\delta y$,the left side at $x=-\frac{w}{2}$ and the right side at
-$x=+\frac{w}{2}$.
-
-
-After the helicopter completes a pass, in each point $(x,y)$ of the rectangle a superficial bait
-density is obtained $\sigma(x,y)$. The definition of the superficial bait density of mass $m$
-indicates that $\sigma(x,y)=\frac{dm}{dA}$. Rewriting the superficial density substituting $dA$ by
-$dydx$ and integrating along the dispersion cell, it follows that: \begin{equation} \delta m=\int_{-\frac{w}{2}}^{+\frac{w}{2}} \int_{0}^{\delta y}
-\sigma(x,y)dydx \label{eq:masaEsIntegralDobleDeDensidad} \end{equation}
-
-Assuming superficial density is uniform with respect to the helicopter’s flight path, equation \eqref{eq:masaEsIntegralDobleDeDensidad} becomes
-\begin{equation} \frac{\delta m}{\delta y}=\int_{-\frac{w}{2}}^{+\frac{w}{2}}\sigma(x)dx.
-\label{eq:densidadLineal} \end{equation}
-
-The left-hand side of the equation represents the linear bait density which is related with the mass
-flow of bait from the bucket and the speed of the helicopter.  A helicopter equipped with a
-dispersion bucket with a constant mass flow rate, \begin{equation} \frac{\dot{m}}{1}=\frac{\delta m}{\delta t}\end{equation}
-\begin{equation} {\delta t}=\frac{\delta m}{\dot{m}}
-\label{eq:flujoMasico} \end{equation}
-
-flies from the point $(0,0)$ to the point $(0,\delta y)$ with a speed of:
-\begin{equation} \frac{s}{1}=\frac{\delta y}{\delta t} \end{equation}
-\begin{equation} {\delta t}=\frac{\delta y}{s}
-\label{eq:rapidez} \end{equation}
-
-Combining equations \eqref{eq:flujoMasico} and \eqref{eq:rapidez}, the linear bait density
-\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot{m}}{s} \end{equation}
-
-\begin{equation} \frac{\delta m}{\dot{m}}=\frac{\delta y}{s} \end{equation}
-
-\begin{equation} \frac{\delta m}{\delta y}=\frac{\dot {m}}{s} \end{equation}
-
-\label{eq:densidadLinealEsflujoSobreRapidez} is obtained.
-
-Finally, setting equations \eqref{eq:densidadLineal} and
-\eqref{eq:densidadLinealEsflujoSobreRapidez} equal to each other, we obtain \begin{equation}
-\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}.
-\label{eq:integralDeDensidadEsflujoSobreRapidez} \end{equation}
-
-Equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez}  relates a density that is needed in the
-field with the variables of the bait dispersal mechanism.
 
 # Calibration
 
@@ -186,7 +138,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_25_0.png)
+![png](paper_files/paper_17_0.png)
     
 
 
@@ -244,7 +196,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_31_0.png)
+![png](paper_files/paper_23_0.png)
     
 
 
@@ -297,7 +249,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_35_0.png)
+![png](paper_files/paper_27_0.png)
     
 
 
@@ -374,7 +326,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_39_0.png)
+![png](paper_files/paper_31_0.png)
     
 
 
@@ -442,12 +394,12 @@ nerd_model.calculate_total_density()
 nerd_model.export_results_geojson(target_density=0.002)
 ```
 
-    100%|██████████| 6269/6269 [03:59<00:00, 26.23it/s]
+    100%|██████████| 6269/6269 [01:39<00:00, 62.79it/s] 
 
 
 
     
-![svg](paper_files/paper_50_1.svg)
+![png](paper_files/paper_42_1.png)
     
 
 
