@@ -121,7 +121,7 @@ flow_rate_function = nerd.calibration.fit_flow_rate(aperture_diameters, flow_rat
 ```python
 x = np.linspace(min(aperture_diameters) - 10, max(aperture_diameters) + 10)
 y = flow_rate_function(x)
-fontsize = 25
+fontsize = 15
 
 
 plt.plot(x, y)
