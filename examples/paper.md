@@ -106,7 +106,7 @@ import pandas as pd
 
 
 ```python
-flow_data = pd.read_csv("/workdir/data/flujo.csv")
+flow_data = pd.read_csv("/workdir/data/flow.csv")
 flow_data = flow_data[flow_data.estado_cebo == "nuevo"][["apertura", "flujo"]]
 ```
 
@@ -270,27 +270,6 @@ helicopter_speed_kmh = helicopter_speeds_domain * 3.6
 
 
 ```python
-density_matrix[0]
-```
-
-
-
-
-    array([0.00060909, 0.00062693, 0.00064619, 0.00066687, 0.00068896,
-           0.00071247, 0.00073739, 0.00076374, 0.00079149, 0.00082066,
-           0.00085125, 0.00088326, 0.00091668, 0.00095152, 0.00098777,
-           0.00102544, 0.00106453, 0.00110503, 0.00114695, 0.00119028,
-           0.00123503, 0.0012812 , 0.00132878, 0.00137778, 0.00142819,
-           0.00148003, 0.00153327, 0.00158794, 0.00164402, 0.00170151,
-           0.00176042, 0.00182075, 0.0018825 , 0.00194566, 0.00201023,
-           0.00207623, 0.00214364, 0.00221246, 0.0022827 , 0.00235436,
-           0.00242743, 0.00250192, 0.00257783, 0.00265515, 0.00273389,
-           0.00281404, 0.00289562, 0.0029786 , 0.003063  , 0.00314882])
-
-
-
-
-```python
 fig, ax = plt.subplots(figsize=(20, 10))
 color_contour = ax.contourf(
     aperture_diameters_domain,
@@ -325,7 +304,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_30_0.png)
+![png](paper_files/paper_29_0.png)
     
 
 
@@ -398,7 +377,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![png](paper_files/paper_41_1.png)
+![png](paper_files/paper_40_1.png)
     
 
 
