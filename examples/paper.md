@@ -60,12 +60,8 @@ helicopter speed.
 
 @Mayoral-Rojas2019 shared that the function $\sigma(x,y)$ used to represent the
 superficial bait density (kg/m$^2$), must comply with the following property:
-$$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}$$ where $\dot{m}$ is the bait
+$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}$ where $\dot{m}$ is the bait
 flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
-
-![Schematic of a helicopter’s flight path over a swath with three dispersal cells; $w$ is the swath
-width; $\delta y$ is the distance between two GPS points; and $A_{\mbox{cell}}$ is the area of a
-dispersal cell. \label{fig:esquemaHelicoptero}](figures/helicopter-flight-path.png)
 
 
 
@@ -138,7 +134,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_17_0.png)
+![png](paper_files/paper_16_0.png)
     
 
 
@@ -196,7 +192,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_23_0.png)
+![png](paper_files/paper_22_0.png)
     
 
 
@@ -249,7 +245,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_27_0.png)
+![png](paper_files/paper_26_0.png)
     
 
 
@@ -326,7 +322,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_31_0.png)
+![png](paper_files/paper_30_0.png)
     
 
 
@@ -399,7 +395,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![png](paper_files/paper_42_1.png)
+![png](paper_files/paper_41_1.png)
     
 
 
