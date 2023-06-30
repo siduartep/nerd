@@ -60,8 +60,10 @@ helicopter speed.
 
 @Mayoral-Rojas2019 shared that the function $\sigma(x,y)$ used to represent the
 superficial bait density (kg/m$^2$), must comply with the following property:
-$\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}$ where $\dot{m}$ is the bait
-flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
+\begin{equation}
+\int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}
+\end{equation}
+where $\dot{m}$ is the bait flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
 
 
 
