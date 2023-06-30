@@ -49,11 +49,11 @@ aerial work is difficult given the challenges associated with field conditions, 
 available labor force.
 
 To address these challenges, we have developed NERD: Numerical Estimation of Rodenticide Dispersal.
-NERD facilitates the planning of helicopter rodenticide dispersal campaigns by generating bait
+NERD facilitates the evaluation of helicopter rodenticide dispersal campaigns by generating bait
 density maps automatically and allowing for the instant identification of bait gaps with fewer in
 situ measurements. The algorithm is based on prior calibration experiments
 in which the mass flow of rodenticide through a bait bucket is measured. At its core, NERD is a
-probability density function that describes bait density as a function of bucket aperture diameter and
+probability density function that describes the bait density on the ground as a function of bucket aperture diameter and
 helicopter speed.
 
 # Formulation
