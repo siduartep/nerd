@@ -62,8 +62,19 @@ helicopter speed.
 superficial bait density (kg/m$^2$), must comply with the following property:
 \begin{equation}
 \int_{-\frac{w}{2}}^{+\frac{w}{2}} \sigma(x)dx=\frac{\dot{m}}{s}
+  \label{eq:integralDeDensidadEsflujoSobreRapidez}
 \end{equation}
 where $\dot{m}$ is the bait flow (kg/s), $s$ is the speed of the helicopter (m/s), and $w$ is the swath width (m).
+
+# Calibration
+
+Assuming the density is independent of $x$, i.e. $\sigma$ does not change along the swath width,
+equation \eqref{eq:integralDeDensidadEsflujoSobreRapidez} can be easily solved to obtain:
+
+\begin{equation}
+  \sigma = \frac{\dot{m}}{s\cdot w}.
+  \label{eq:densidadEsFlujoSobreProductoRapidezPorAncho}
+\end{equation}
 
 
 
@@ -136,7 +147,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_16_0.png)
+![png](paper_files/paper_18_0.png)
     
 
 
@@ -194,7 +205,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_22_0.png)
+![png](paper_files/paper_24_0.png)
     
 
 
@@ -247,7 +258,7 @@ plt.ylabel("Density (kg/m$^2$)");
 
 
     
-![png](paper_files/paper_26_0.png)
+![png](paper_files/paper_28_0.png)
     
 
 
@@ -324,7 +335,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_30_0.png)
+![png](paper_files/paper_32_0.png)
     
 
 
@@ -397,7 +408,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![png](paper_files/paper_41_1.png)
+![png](paper_files/paper_43_1.png)
     
 
 
