@@ -376,13 +376,10 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 # Discussion
 
-NERD: Numerical Estimation of Rodenticide Dispersal provides provides a model, based on
-past calibration experiments in which the mass flow of bait through a bait bucket is measured, that
-describes bait density as a function of the aperture diameter, the helicopter speed, and the wind
+NERD is an algorithm, based on past calibration experiments in which the mass flow of bait through a bait bucket is measured, that describes bait density as a function of the aperture diameter and the helicopter
 speed. NERD can assist in the planning of the aerial operations as well as during the eradication,
 giving near real-time feedback allowing for on-the-spot corrections during the operation. The final
-product of NERD is a bait density map generated in a matter of seconds, which permits better
-planning and the automatization of an otherwise difficult and slow processes, while allowing for the
+product of NERD is a bait density map generated in a matter of seconds, that allows for the
 instant identification of bait gaps and the efficient use of resources.
 
 # References
