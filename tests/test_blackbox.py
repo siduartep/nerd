@@ -25,7 +25,7 @@ def density(density_profile):
 
 @pytest.fixture()
 def flow_data():
-    flow_data = pd.read_csv("tests/data/flujo.csv")
+    flow_data = pd.read_csv("tests/data/flow.csv")
     return flow_data[flow_data.estado_cebo == "nuevo"][["apertura", "flujo"]]
 
 
