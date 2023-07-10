@@ -106,7 +106,7 @@ import pandas as pd
 
 
 ```python
-flow_data = pd.read_csv("/workdir/data/flow.csv")
+flow_data = pd.read_csv("/workdir/data/flujo.csv")
 flow_data = flow_data[flow_data.estado_cebo == "nuevo"][["apertura", "flujo"]]
 ```
 
