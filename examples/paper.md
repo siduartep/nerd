@@ -159,7 +159,7 @@ labor force.
 
 
 ```python
-density_profile = pd.read_csv("/workdir/data/profile.csv")
+density_profile = pd.read_csv("/workdir/data/perfil.csv")
 ```
 
 
