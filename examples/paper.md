@@ -107,7 +107,7 @@ import pandas as pd
 
 ```python
 flow_data = pd.read_csv("/workdir/data/flow.csv")
-flow_data = flow_data[flow_data.bait_status == "nuevo"][["aperture", "flow"]]
+flow_data = flow_data[flow_data.bait_status == "new"][["aperture", "flow"]]
 ```
 
 
