@@ -107,13 +107,13 @@ import pandas as pd
 
 ```python
 flow_data = pd.read_csv("/workdir/data/flow.csv")
-flow_data = flow_data[flow_data.estado_cebo == "nuevo"][["apertura", "flujo"]]
+flow_data = flow_data[flow_data.bait_status == "nuevo"][["aperture", "flow"]]
 ```
 
 
 ```python
-aperture_diameters = flow_data.apertura.values
-flow_rates = flow_data.flujo.values
+aperture_diameters = flow_data.aperture.values
+flow_rates = flow_data.flow.values
 flow_rate_function = nerd.calibration.fit_flow_rate(aperture_diameters, flow_rates)
 ```
 
