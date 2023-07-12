@@ -26,7 +26,7 @@ def density(density_profile):
 @pytest.fixture()
 def flow_data():
     flow_data = pd.read_csv("tests/data/flow.csv")
-    return flow_data[flow_data.estado_cebo == "nuevo"][["apertura", "flujo"]]
+    return flow_data[flow_data.bait_status == "nuevo"][["aperture", "flow"]]
 
 
 @pytest.fixture()
@@ -36,7 +36,7 @@ def aperture_diameters(flow_data):
 
 @pytest.fixture()
 def flow_rates(flow_data):
-    return flow_data.flujo.values
+    return flow_data.flow.values
 
 
 @pytest.fixture()
