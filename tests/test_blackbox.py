@@ -26,7 +26,7 @@ def density(density_profile):
 @pytest.fixture()
 def flow_data():
     flow_data = pd.read_csv("tests/data/flow.csv")
-    return flow_data[flow_data.bait_status == "nuevo"][["aperture", "flow"]]
+    return flow_data[flow_data.bait_status == "new"][["aperture", "flow"]]
 
 
 @pytest.fixture()
