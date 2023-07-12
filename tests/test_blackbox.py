@@ -9,7 +9,7 @@ import nerd.density_functions
 
 @pytest.fixture()
 def density_profile():
-    return pd.read_csv("tests/data/perfil.csv")
+    return pd.read_csv("tests/data/profile.csv")
 
 
 @pytest.fixture()
