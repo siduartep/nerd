@@ -31,7 +31,7 @@ def flow_data():
 
 @pytest.fixture()
 def aperture_diameters(flow_data):
-    return flow_data.apertura.values
+    return flow_data.aperture.values
 
 
 @pytest.fixture()
