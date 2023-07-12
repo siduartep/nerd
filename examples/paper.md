@@ -148,7 +148,7 @@ calibration event and the black curve is the quadratic model fitted to the data.
 
 
 ```python
-density_profile = pd.read_csv("/workdir/data/perfil.csv")
+density_profile = pd.read_csv("/workdir/data/profile.csv")
 ```
 
 
