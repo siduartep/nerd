@@ -260,6 +260,7 @@ helicopter_speed_kmh = helicopter_speeds_domain * 3.6
 
 ```python
 fig, ax = plt.subplots(figsize=(20, 10))
+fontsize = 25
 color_contour = ax.contourf(
     aperture_diameters_domain,
     helicopter_speeds_domain,
@@ -297,7 +298,7 @@ plt.savefig("contour_plot.png", dpi=300, transparent=True)
     
 
 
-\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
+![\ref{fig:densidadDeAperturaYRapidez} Surface bait density $\sigma$ (kg/ha) as a function of aperture
 diameter $d$ (mm), and speed $s$ (km/hr). The horizontal axis shows the aperture diameter of the
 bait bucket and the vertical axis shows the helicopter's speed. The resulting bait density on the
 ground is shown in the second vertical color axis. $\sigma(d,s)= \frac{\dot{m}(d)}{s\cdot w}$.
