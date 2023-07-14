@@ -161,6 +161,7 @@ swath_width = nerd.calibration.get_swath_width(distance, density)
 
 ```python
 size = 10
+fontsize = 15
 plt.plot(distance, density_kg_per_ha, "o")
 plt.xlabel("Position from flightpath (m)", size=fontsize)
 plt.ylabel("Bait Density (kg/ha)", size=fontsize)
@@ -216,6 +217,7 @@ estimated_profile = nerd.solver(
 
 
 ```python
+fontsize = 15
 x = np.linspace(min(distance), max(distance))
 y = estimated_profile(x)
 estimated_density = estimated_profile(distance)
@@ -258,8 +260,10 @@ helicopter_speed_kmh = helicopter_speeds_domain * 3.6
 
 
 ```python
-fig, ax = plt.subplots(figsize=(20, 10))
+size = 10
+fontsize = 15
 font_size = 25
+fig, ax = plt.subplots(figsize=(20, 10))
 color_contour = ax.contourf(
     aperture_diameters_domain,
     helicopter_speeds_domain,
