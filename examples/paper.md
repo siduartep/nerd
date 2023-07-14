@@ -178,7 +178,6 @@ plt.text(
     bbox=dict(facecolor="w", edgecolor="none"),
 )
 plt.axvline(0, color="k")
-# plt.axvline(swath_width/2, color="k")
 plt.savefig("plots.png", dpi=300, transparent=True)
 ```
 
@@ -280,7 +279,6 @@ cbar = fig.colorbar(color_contour)
 ax.clabel(line_contour, line_contour.levels, inline=True, fontsize=20, fmt="%1.0f")
 plt.xlabel("Aperture diameter (mm)", size=fontsize)
 plt.ylabel("Helicopter speed (km/h)", size=fontsize)
-# plt.ylim(40/3.6, 150/3.6)
 ytickslocs = ax.get_yticks()
 y_ticks_kmh = ytickslocs * 3.6
 plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=size)
