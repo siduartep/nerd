@@ -260,7 +260,7 @@ helicopter_speed_kmh = helicopter_speeds_domain * 3.6
 
 ```python
 fig, ax = plt.subplots(figsize=(20, 10))
-fontsize = 25
+font_size = 25
 color_contour = ax.contourf(
     aperture_diameters_domain,
     helicopter_speeds_domain,
@@ -278,15 +278,15 @@ line_contour = ax.contour(
 )
 cbar = fig.colorbar(color_contour)
 ax.clabel(line_contour, line_contour.levels, inline=True, fontsize=20, fmt="%1.0f")
-plt.xlabel("Aperture diameter (mm)", size=fontsize)
-plt.ylabel("Helicopter speed (km/h)", size=fontsize)
+plt.xlabel("Aperture diameter (mm)", size=font_size)
+plt.ylabel("Helicopter speed (km/h)", size=font_size)
 # plt.ylim(40/3.6, 150/3.6)
 ytickslocs = ax.get_yticks()
 y_ticks_kmh = ytickslocs * 3.6
-plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=fontsize)
-plt.xticks(size=fontsize)
-cbar.ax.set_ylabel("Density (kg/ha)", size=fontsize)
-cbar.ax.tick_params(labelsize=fontsize)
+plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=font_size)
+plt.xticks(size=font_size)
+cbar.ax.set_ylabel("Density (kg/ha)", size=font_size)
+cbar.ax.tick_params(labelsize=font_size)
 plt.axhline(18.0056, color="r", linewidth=2)
 plt.text(65, 18.6, "35 knot", size=fontsize, color="k")
 plt.savefig("contour_plot.png", dpi=300, transparent=True)
