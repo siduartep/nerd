@@ -255,7 +255,8 @@ density_matrix = nerd.calibration.model(
     nerd.density_functions.uniform,
     flow_rate_function,
 )
-helicopter_speed_kmh = helicopter_speeds_domain * 3.6
+conversion_factor_ms_to_kmh = 3.6
+helicopter_speed_kmh = helicopter_speeds_domain * conversion_factor_ms_to_kmh
 ```
 
 
