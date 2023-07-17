@@ -123,7 +123,6 @@ x = np.linspace(min(aperture_diameters) - 10, max(aperture_diameters) + 10)
 y = flow_rate_function(x)
 fontsize = 15
 
-
 plt.plot(x, y)
 plt.plot(aperture_diameters, flow_rates, "o", markeredgecolor="k")
 plt.xlabel("Aperture diameter (mm)", size=fontsize)
@@ -142,7 +141,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
 ![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
-calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}](calibration.png)
+calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}]()
 
 ## Swath width
 
@@ -161,13 +160,15 @@ swath_width = nerd.calibration.get_swath_width(distance, density)
 
 
 ```python
+size = 10
+fontsize = 15
 plt.plot(distance, density_kg_per_ha, "o")
 plt.xlabel("Position from flightpath (m)", size=fontsize)
 plt.ylabel("Bait Density (kg/ha)", size=fontsize)
 plt.xlim(-40, 40)
 plt.ylim(0, 6)
-plt.xticks(size=fontsize)
-plt.yticks(size=fontsize)
+plt.xticks(size=size)
+plt.yticks(size=size)
 plt.text(
     -0.5,
     3,
@@ -178,7 +179,6 @@ plt.text(
     bbox=dict(facecolor="w", edgecolor="none"),
 )
 plt.axvline(0, color="k")
-# plt.axvline(swath_width/2, color="k")
 plt.savefig("plots.png", dpi=300, transparent=True)
 ```
 
@@ -217,6 +217,7 @@ estimated_profile = nerd.solver(
 
 
 ```python
+fontsize = 15
 x = np.linspace(min(distance), max(distance))
 y = estimated_profile(x)
 estimated_density = estimated_profile(distance)
@@ -231,8 +232,8 @@ plt.plot(
     markeredgecolor="black",
     label="real density",
 )
-plt.xlabel("Distance (m)")
-plt.ylabel("Density (kg/m$^2$)");
+plt.xlabel("Distance (m)", size=fontsize)
+plt.ylabel("Density (kg/m$^2$)", size=fontsize);
 ```
 
 
@@ -254,13 +255,16 @@ density_matrix = nerd.calibration.model(
     nerd.density_functions.uniform,
     flow_rate_function,
 )
-helicopter_speed_kmh = helicopter_speeds_domain * 3.6
+conversion_factor_ms_to_kmh = 3.6 #1 ms is 3.6 kmh
+helicopter_speed_kmh = helicopter_speeds_domain * conversion_factor_ms_to_kmh
 ```
 
 
 ```python
-fig, ax = plt.subplots(figsize=(20, 10))
+size = 10
+fontsize = 15
 font_size = 25
+fig, ax = plt.subplots(figsize=(20, 10))
 color_contour = ax.contourf(
     aperture_diameters_domain,
     helicopter_speeds_domain,
@@ -280,13 +284,12 @@ cbar = fig.colorbar(color_contour)
 ax.clabel(line_contour, line_contour.levels, inline=True, fontsize=20, fmt="%1.0f")
 plt.xlabel("Aperture diameter (mm)", size=font_size)
 plt.ylabel("Helicopter speed (km/h)", size=font_size)
-# plt.ylim(40/3.6, 150/3.6)
 ytickslocs = ax.get_yticks()
 y_ticks_kmh = ytickslocs * 3.6
-plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=font_size)
-plt.xticks(size=font_size)
-cbar.ax.set_ylabel("Density (kg/ha)", size=font_size)
-cbar.ax.tick_params(labelsize=font_size)
+plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=size)
+plt.xticks(size=size)
+cbar.ax.set_ylabel("Density (kg/ha)", size=fontsize)
+cbar.ax.tick_params(labelsize=size)
 plt.axhline(18.0056, color="r", linewidth=2)
 plt.text(65, 18.6, "35 knot", size=fontsize, color="k")
 plt.savefig("contour_plot.png", dpi=300, transparent=True)
