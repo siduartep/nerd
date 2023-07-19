@@ -27,14 +27,14 @@ bibliography: references.bib
 # Summary
 
 Invasive rodents are present on approximately 90% of the world's islands and constitute one of the most serious threats to both endemic and native island species. The eradication of rodents is central to island conservation efforts and the aerial broadcast of rodenticide bait is the preferred dispersal method. To maximize the efficiency of rodent eradication campaigns utilizing aerial dispersal methods, the generation of accurate and real-time bait density maps are needed.
-Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed an algorithm called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with high precision and provides immediate results. At its core, NERD is a probability density function describing the bait density on the ground as a function of the aperture diameter of the bait bucket and the helicopter speed. The effectiveness of the model was effectively demonstrated through its successful utilization in two successful rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the ship rat eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
+Traditionally, the creation of ground-level bait dispersion maps has relied on Geographic Information System (GIS), an approach that is time-consuming and based on untested assumptions. In order to improve accuracy and expedite the evaluation of aerial operations, we developed an algorithm called NERD: Numerical Estimation of Rodenticide Density, which performs calculations with high precision and provides immediate results. At its core, NERD is a probability density function describing the bait density on the ground as a function of the aperture diameter of the bait bucket and the helicopter speed. The effectiveness of the model was demonstrated through its successful utilization in two rodent eradication campaigns in Mexico: the mice eradication on San Benito Oeste Island (400 ha) in the Mexican Pacific, and the ship rat eradication on Cayo Centro Island (539 ha) from Banco Chinchorro, in the Mexican Caribbean. Notably, the latter campaign represents the largest rodent eradication on a wet tropical island to date. NERD's efficacy has been proven, and it has the potential to significantly reduce the overall cost of large-scale rodent eradication campaigns.
 
 # Introduction
 
 The effects of invasive rodent species on island ecosystems are incredibly deleterious, especially
 on islands that present high levels of endemism and islands that have evolved in the absence of
 predators occupying similar niches to the invasive rodent species or higher order predators
-[@Meyers2000]. The population biology of invasive rodents on islands is still poorly understood [Grant2015], but the presence of rodents on islands can lead to the rapid decline, severe reduction and extinction of native plant and animal species [@Medina2011; @Towns2006]. The resultant losses are reflected in reduced biodiversity on the affected islands and in many cases, the emergence of the invasive rodent as the dominant species. In severe cases of rodent invasion,key island ecosystem services are lost [@Towns2006]. 
+[@Meyers2000]. The population biology of invasive rodents on islands is still poorly understood [Grant2015], but the presence of rodents on islands can lead to the rapid decline, severe reduction and extinction of native plant and animal species [@Medina2011; @Towns2006]. The resultant losses are reflected in reduced biodiversity on the affected islands and in many cases, the emergence of the invasive rodent as the dominant species. In severe cases of rodent invasion, key island ecosystem services are lost [@Towns2006]. 
 As such, the first step in island restoration and biodiversity recovery is the eradication of invasive rodent species. Effective strategies have been developed to combat the detrimental effects of invasive rodent species on island ecosystems. These strategies are designed to minimize or eradicate rodent populations, thereby facilitating the restoration of native species and the reestablishment of crucial ecosystem processes. One widely utilized strategy is the aerial broadcast of rodenticide bait, which involves dispersing bait pellets from helicopters over the targeted areas. This method has proven to be highly effective in reducing rodent populations and has been successfully employed in numerous eradication campaigns [@Keitt2015].
 
 # Statement of need
@@ -53,8 +53,7 @@ NERD facilitates the evaluation of helicopter rodenticide dispersal campaigns by
 density maps automatically and allowing for the instant identification of bait gaps with fewer in
 situ measurements. The algorithm is based on prior calibration experiments
 in which the mass flow of rodenticide through a bait bucket is measured. At its core, NERD is a
-probability density function that describes the bait density on the ground as a function of bucket aperture diameter and
-helicopter speed.
+probability density function that describes the bait density on the ground as a function of the bucket aperture diameter and the helicopter speed.
 
 # Formulation
 
@@ -83,8 +82,6 @@ the aperture diameter of the bait bucket, we express the mass flow rate of bait 
 aperture diameter, $\dot{m}(d)$. To do this, the bait in the bucket was weighed and the time
 required to empty the bucket was measured and repeated using several aperture diameters. Figure
 \ref{fig:flujoDeApertura} shows the results from the calibration as well as the fitted model.
-
-## Calibration Demonstration
 
 
 ```python
@@ -136,7 +133,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_16_0.png)
+![png](paper_files/paper_15_0.png)
     
 
 
@@ -184,7 +181,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_21_0.png)
+![png](paper_files/paper_20_0.png)
     
 
 
@@ -238,7 +235,7 @@ plt.ylabel("Density (kg/m$^2$)", size=fontsize);
 
 
     
-![png](paper_files/paper_25_0.png)
+![png](paper_files/paper_24_0.png)
     
 
 
@@ -255,15 +252,15 @@ density_matrix = nerd.calibration.model(
     nerd.density_functions.uniform,
     flow_rate_function,
 )
-conversion_factor_ms_to_kmh = 3.6 #1 ms is 3.6 kmh
+conversion_factor_ms_to_kmh = 3.6
 helicopter_speed_kmh = helicopter_speeds_domain * conversion_factor_ms_to_kmh
 ```
 
 
 ```python
-size = 10
-fontsize = 15
-font_size = 25
+fontsize_ticks = 10
+fontsize_labels = 15
+fontsize_textlabels = 25
 fig, ax = plt.subplots(figsize=(20, 10))
 color_contour = ax.contourf(
     aperture_diameters_domain,
@@ -282,22 +279,22 @@ line_contour = ax.contour(
 )
 cbar = fig.colorbar(color_contour)
 ax.clabel(line_contour, line_contour.levels, inline=True, fontsize=20, fmt="%1.0f")
-plt.xlabel("Aperture diameter (mm)", size=font_size)
-plt.ylabel("Helicopter speed (km/h)", size=font_size)
+plt.xlabel("Aperture diameter (mm)", size=fontsize_textlabels)
+plt.ylabel("Helicopter speed (km/h)", size=fontsize_textlabels)
 ytickslocs = ax.get_yticks()
 y_ticks_kmh = ytickslocs * 3.6
-plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=size)
-plt.xticks(size=size)
-cbar.ax.set_ylabel("Density (kg/ha)", size=fontsize)
-cbar.ax.tick_params(labelsize=size)
+plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=fontsize_ticks)
+plt.xticks(size=fontsize_ticks)
+cbar.ax.set_ylabel("Density (kg/ha)", size=fontsize_labels)
+cbar.ax.tick_params(labelsize=fontsize_ticks)
 plt.axhline(18.0056, color="r", linewidth=2)
-plt.text(65, 18.6, "35 knot", size=fontsize, color="k")
+plt.text(65, 18.6, "35 knot", size=fontsize_labels, color="k")
 plt.savefig("contour_plot.png", dpi=300, transparent=True)
 ```
 
 
     
-![png](paper_files/paper_28_0.png)
+![png](paper_files/paper_27_0.png)
     
 
 
@@ -374,7 +371,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![png](paper_files/paper_40_1.png)
+![png](paper_files/paper_39_1.png)
     
 
 
