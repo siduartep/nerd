@@ -185,10 +185,7 @@ plt.savefig("figures/plots.png", dpi=300, transparent=True)
     
 
 
-
-```python
-#![Aca va el pie de figura.\label{fig:plots}]("figures/plots.png")
-```
+![Aca va el pie de figura.\label{fig:plots}]("figures/plots.png")
 
 ## Select best density function
 
@@ -245,10 +242,7 @@ plt.savefig("figures/density_profile.png")
     
 
 
-
-```python
-#![Aca va el pie de figura.\label{fig:density_profile}]("figures/density_profile.png")
-```
+![Aca va el pie de figura.\label{fig:density_profile}]("figures/density_profile.png")
 
 ## Calibration model
 
@@ -387,10 +381,7 @@ plt.savefig("figures/density_map.png")
     
 
 
-
-```python
-#![Aca va el pie de figura.\label{fig:density_map}]("figures/density_map.png")
-```
+![Aca va el pie de figura.\label{fig:density_map}]("figures/density_map.png")
 
 # Discussion
 
