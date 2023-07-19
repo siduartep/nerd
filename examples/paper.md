@@ -83,8 +83,6 @@ aperture diameter, $\dot{m}(d)$. To do this, the bait in the bucket was weighed 
 required to empty the bucket was measured and repeated using several aperture diameters. Figure
 \ref{fig:flujoDeApertura} shows the results from the calibration as well as the fitted model.
 
-## Calibration Demonstration
-
 
 ```python
 import nerd
@@ -135,7 +133,7 @@ plt.savefig("calibration.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_16_0.png)
+![png](paper_files/paper_15_0.png)
     
 
 
@@ -183,7 +181,7 @@ plt.savefig("plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_21_0.png)
+![png](paper_files/paper_20_0.png)
     
 
 
@@ -237,7 +235,7 @@ plt.ylabel("Density (kg/m$^2$)", size=fontsize);
 
 
     
-![png](paper_files/paper_25_0.png)
+![png](paper_files/paper_24_0.png)
     
 
 
@@ -260,9 +258,9 @@ helicopter_speed_kmh = helicopter_speeds_domain * conversion_factor_ms_to_kmh
 
 
 ```python
-size = 10
-fontsize = 15
-font_size = 25
+fontsize_ticks = 10
+fontsize_labels = 15
+fontsize_textlabels = 25
 fig, ax = plt.subplots(figsize=(20, 10))
 color_contour = ax.contourf(
     aperture_diameters_domain,
@@ -281,22 +279,22 @@ line_contour = ax.contour(
 )
 cbar = fig.colorbar(color_contour)
 ax.clabel(line_contour, line_contour.levels, inline=True, fontsize=20, fmt="%1.0f")
-plt.xlabel("Aperture diameter (mm)", size=font_size)
-plt.ylabel("Helicopter speed (km/h)", size=font_size)
+plt.xlabel("Aperture diameter (mm)", size=fontsize_textlabels)
+plt.ylabel("Helicopter speed (km/h)", size=fontsize_textlabels)
 ytickslocs = ax.get_yticks()
 y_ticks_kmh = ytickslocs * 3.6
-plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=size)
-plt.xticks(size=size)
-cbar.ax.set_ylabel("Density (kg/ha)", size=fontsize)
-cbar.ax.tick_params(labelsize=size)
+plt.yticks(ytickslocs, y_ticks_kmh.astype(int), size=fontsize_ticks)
+plt.xticks(size=fontsize_ticks)
+cbar.ax.set_ylabel("Density (kg/ha)", size=fontsize_labels)
+cbar.ax.tick_params(labelsize=fontsize_ticks)
 plt.axhline(18.0056, color="r", linewidth=2)
-plt.text(65, 18.6, "35 knot", size=fontsize, color="k")
+plt.text(65, 18.6, "35 knot", size=fontsize_labels, color="k")
 plt.savefig("contour_plot.png", dpi=300, transparent=True)
 ```
 
 
     
-![png](paper_files/paper_28_0.png)
+![png](paper_files/paper_27_0.png)
     
 
 
@@ -373,7 +371,7 @@ nerd_model.export_results_geojson(target_density=0.002)
 
 
     
-![png](paper_files/paper_40_1.png)
+![png](paper_files/paper_39_1.png)
     
 
 
