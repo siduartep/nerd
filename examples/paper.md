@@ -188,9 +188,9 @@ plt.savefig("figures/plots.png", dpi=300, transparent=True)
     
 
 
-![Aca va el pie de figura.\label{fig:plots}](paper_files/paper_21_0.png)
+![Aca va el pie de figura desde paper_files.\label{fig:plots}](paper_files/paper_21_0.png)
 
-![Aca va el pie de figura.\label{fig:plots}](figures/plots.png)
+![Aca va el pie de figura desde figures.\label{fig:plots}](examples/figures/plots.png)
 
 ## Select best density function
 
