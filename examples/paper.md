@@ -141,7 +141,7 @@ plt.savefig("figures/calibration.png", dpi=300, transparent=True)
 calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}]("figures/calibration.png")
 
 ![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
-calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}]("paper_files/paper_15_0.png")
+calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}](paper_files/paper_15_0.png)
 
 ## Swath width
 
