@@ -140,6 +140,9 @@ plt.savefig("figures/calibration.png", dpi=300, transparent=True)
 ![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
 calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}]("figures/calibration.png")
 
+![Flow rate $\dot{m}$ (kg/s) as a function of aperture diameter, $d$ (mm); each symbol represents a
+calibration event and the black curve is the quadratic model fitted to the data.\label{fig:calibration}]("paper_files/paper_15_0.png")
+
 ## Swath width
 
 
@@ -181,7 +184,7 @@ plt.savefig("figures/plots.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_20_0.png)
+![png](paper_files/paper_21_0.png)
     
 
 
@@ -238,7 +241,7 @@ plt.savefig("figures/density_profile.png")
 
 
     
-![png](paper_files/paper_25_0.png)
+![png](paper_files/paper_26_0.png)
     
 
 
@@ -299,7 +302,7 @@ plt.savefig("figures/contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_29_0.png)
+![png](paper_files/paper_30_0.png)
     
 
 
@@ -377,7 +380,7 @@ plt.savefig("figures/density_map.png")
 
 
     
-![png](paper_files/paper_41_1.png)
+![png](paper_files/paper_42_1.png)
     
 
 
