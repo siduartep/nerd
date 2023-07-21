@@ -28,6 +28,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@master
         with:
           commit_message: 🤖 Apply automatic changes
-          file_pattern: 'examples/paper.md examples/figures/*.png'
+          file_pattern: 'examples/paper.md figures/*.png'
           commit_user_name: Ciencia de Datos • GECI
           commit_user_email: ciencia.datos@islas.org.mx
