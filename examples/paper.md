@@ -128,7 +128,7 @@ plt.xlim(50, 100)
 plt.ylim(0, 3)
 plt.xticks(size=fontsize)
 plt.yticks(size=fontsize)
-plt.savefig("figures/calibration.png", dpi=300, transparent=True)
+plt.savefig("paper_files/calibration.png", dpi=300, transparent=True)
 ```
 
 
@@ -190,6 +190,8 @@ plt.savefig("figures/plots.png", dpi=300, transparent=True)
 
 ![Aca va el pie de figura.\label{fig:plots}](paper_files/paper_21_0.png)
 
+![Aca va el pie de figura.\label{fig:plots}](figures/plots.png)
+
 ## Select best density function
 
 
@@ -241,7 +243,7 @@ plt.savefig("figures/density_profile.png")
 
 
     
-![png](paper_files/paper_26_0.png)
+![png](paper_files/paper_27_0.png)
     
 
 
@@ -302,7 +304,7 @@ plt.savefig("figures/contour_plot.png", dpi=300, transparent=True)
 
 
     
-![png](paper_files/paper_30_0.png)
+![png](paper_files/paper_31_0.png)
     
 
 
@@ -380,11 +382,11 @@ plt.savefig("figures/density_map.png")
 
 
     
-![png](paper_files/paper_42_1.png)
+![png](paper_files/paper_43_1.png)
     
 
 
-![Aca va el pie de figura.\label{fig:density_map}](figures/density_map.png)
+![Aca va el pie de figura.\label{fig:density_map}](paper_files/paper_42_1.png)
 
 # Discussion
 
